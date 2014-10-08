@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B502791419E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791319E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m */; };
 		B502791619E5B26900BAD1F5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B502791519E5B26900BAD1F5 /* AssetsLibrary.framework */; };
+		B502791919E5D80000BAD1F5 /* TBPArtistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791819E5D80000BAD1F5 /* TBPArtistTableViewCell.m */; };
 		B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F0E19E59580000B780D /* TBPAppDelegate.m */; };
 		B5365F1219E59580000B780D /* TBPTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F1119E59580000B780D /* TBPTabViewController.m */; };
 		B5365F1719E59580000B780D /* TBPImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5365F1619E59580000B780D /* TBPImages.xcassets */; };
@@ -39,6 +40,8 @@
 		B502791219E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPAlbumCollectionViewCell.h; sourceTree = "<group>"; };
 		B502791319E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAlbumCollectionViewCell.m; sourceTree = "<group>"; };
 		B502791519E5B26900BAD1F5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		B502791719E5D80000BAD1F5 /* TBPArtistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPArtistTableViewCell.h; sourceTree = "<group>"; };
+		B502791819E5D80000BAD1F5 /* TBPArtistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPArtistTableViewCell.m; sourceTree = "<group>"; };
 		B5365F0619E59580000B780D /* terrible-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "terrible-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5365F0D19E59580000B780D /* TBPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPAppDelegate.h; sourceTree = "<group>"; };
 		B5365F0E19E59580000B780D /* TBPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPAppDelegate.m; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 				B5365F4C19E5AB9C000B780D /* TBPArtistsNavigationViewController.m */,
 				B5365F4D19E5AB9C000B780D /* TBPArtistsViewController.h */,
 				B5365F4E19E5AB9C000B780D /* TBPArtistsViewController.m */,
+				B502791719E5D80000BAD1F5 /* TBPArtistTableViewCell.h */,
+				B502791819E5D80000BAD1F5 /* TBPArtistTableViewCell.m */,
 			);
 			path = artists;
 			sourceTree = "<group>";
@@ -308,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B502791919E5D80000BAD1F5 /* TBPArtistTableViewCell.m in Sources */,
 				B5365F4219E5A493000B780D /* NSString+TBP.m in Sources */,
 				B502791419E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m in Sources */,
 				B5365F4519E5A8A1000B780D /* TBPNavigationViewController.m in Sources */,

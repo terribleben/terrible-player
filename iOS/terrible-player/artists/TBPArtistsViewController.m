@@ -8,8 +8,7 @@
 
 #import "TBPArtistsViewController.h"
 #import "TBPLibraryModel.h"
-
-NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellIdentifier";
+#import "TBPArtistTableViewCell.h"
 
 @interface TBPArtistsViewController ()
 
@@ -44,9 +43,13 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor blackColor];
+    
     // artists view
     self.vArtists = [[UITableView alloc] init];
-    [_vArtists registerClass:[UITableViewCell class] forCellReuseIdentifier:kTBPArtistsTableViewCellIdentifier];
+    _vArtists.backgroundColor = [UIColor blackColor];
+    _vArtists.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_vArtists registerClass:[TBPArtistTableViewCell class] forCellReuseIdentifier:kTBPArtistsTableViewCellIdentifier];
     _vArtists.delegate = self;
     _vArtists.dataSource = self;
     [self.view addSubview:_vArtists];
@@ -67,6 +70,11 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
 
 #pragma mark delegate methods
 
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return TBP_ARTIST_TABLE_CELL_HEIGHT;
+}
+
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -81,12 +89,12 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTBPArtistsTableViewCellIdentifier forIndexPath:indexPath];
+    TBPArtistTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTBPArtistsTableViewCellIdentifier forIndexPath:indexPath];
     if (!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTBPArtistsTableViewCellIdentifier];
+        cell = [[TBPArtistTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTBPArtistsTableViewCellIdentifier];
     
     if (_artists && indexPath.row < _artists.count)
-        cell.textLabel.text = ((TBPLibraryItem *)[_artists objectAtIndex:indexPath.row]).title;
+        cell.artist = (TBPLibraryItem *)[_artists objectAtIndex:indexPath.row];
     
     return cell;
 }
