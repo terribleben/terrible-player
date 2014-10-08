@@ -8,13 +8,12 @@
 
 #import "TBPAlbumsViewController.h"
 #import "TBPLibraryModel.h"
-
-NSString * const kTBPAlbumsTableViewCellIdentifier = @"TBPAlbumsTableViewCellIdentifier";
+#import "TBPAlbumCollectionViewCell.h"
 
 @interface TBPAlbumsViewController ()
 
 @property (nonatomic, strong) NSOrderedSet *albums;
-@property (nonatomic, strong) UITableView *vAlbums;
+@property (nonatomic, strong) UICollectionView *vAlbums;
 
 - (void) onModelChange: (NSNotification *)notification;
 
@@ -44,9 +43,14 @@ NSString * const kTBPAlbumsTableViewCellIdentifier = @"TBPAlbumsTableViewCellIde
     [super viewDidLoad];
     
     // albums view
-    // TODO: collection view of album art
-    self.vAlbums = [[UITableView alloc] init];
-    [_vAlbums registerClass:[UITableViewCell class] forCellReuseIdentifier:kTBPAlbumsTableViewCellIdentifier];
+    UICollectionViewFlowLayout *loAlbums = [[UICollectionViewFlowLayout alloc] init];
+    loAlbums.scrollDirection = UICollectionViewScrollDirectionVertical;
+    loAlbums.minimumInteritemSpacing = 0.0f;
+    loAlbums.minimumLineSpacing = 6.0f;
+    
+    self.vAlbums = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+                                      collectionViewLayout:loAlbums];
+    [_vAlbums registerClass:[TBPAlbumCollectionViewCell class] forCellWithReuseIdentifier:kTBPAlbumsCollectionViewCellIdentifier];
     _vAlbums.delegate = self;
     _vAlbums.dataSource = self;
     [self.view addSubview:_vAlbums];
@@ -67,39 +71,45 @@ NSString * const kTBPAlbumsTableViewCellIdentifier = @"TBPAlbumsTableViewCellIde
 
 #pragma mark delegate methods
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (_albums)
         return _albums.count;
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTBPAlbumsTableViewCellIdentifier forIndexPath:indexPath];
+    TBPAlbumCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kTBPAlbumsCollectionViewCellIdentifier forIndexPath:indexPath];
     if (!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTBPAlbumsTableViewCellIdentifier];
+        cell = [[TBPAlbumCollectionViewCell alloc] init];
     
-    if (_albums && indexPath.row < _albums.count)
-        cell.textLabel.text = ((TBPLibraryItem *)[_albums objectAtIndex:indexPath.row]).title;
+    if (_albums && indexPath.item < _albums.count)
+        cell.album = (TBPLibraryItem *)[_albums objectAtIndex:indexPath.row];
     
     return cell;
 }
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
     if (_albums && indexPath.row < _albums.count) {
-        TBPLibraryItem *selectedAlbum = [_albums objectAtIndex:indexPath.row];
+        TBPLibraryItem *selectedAlbum = [_albums objectAtIndex:indexPath.item];
         if (_delegate)
             [_delegate albumsViewController:self didSelectAlbum:selectedAlbum];
     }
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat sqrSide = MIN(self.view.frame.size.width * 0.48f, self.view.frame.size.height * 0.48f);
+    return CGSizeMake(sqrSide, sqrSide);
 }
 
 

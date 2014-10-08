@@ -92,6 +92,7 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
             TBPLibraryItem *result = [[TBPLibraryItem alloc] init];
             result.title = [[groupItem valueForProperty:titleProperty] stringByCanonizingForMusicLibrary];
             result.persistentId = [groupItem valueForProperty:idProperty];
+            result.artwork = [groupItem valueForKey:MPMediaItemPropertyArtwork];
             
             [orderedAlbumSet addObject:result];
         }

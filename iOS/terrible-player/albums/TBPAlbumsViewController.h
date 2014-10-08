@@ -17,7 +17,7 @@
 
 @end
 
-@interface TBPAlbumsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface TBPAlbumsViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, assign) id <TBPAlbumsControllerDelegate> delegate;
 

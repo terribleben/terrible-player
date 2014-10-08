@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface TBPLibraryItem : NSObject
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *subtitle;
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) MPMediaItemArtwork *artwork;
 @property (nonatomic, strong) NSNumber *persistentId;
 
 @end
