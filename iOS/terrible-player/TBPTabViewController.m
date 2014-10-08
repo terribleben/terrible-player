@@ -33,4 +33,9 @@
     self.selectedViewController = _vcArtists;
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 @end

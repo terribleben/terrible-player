@@ -7,6 +7,7 @@
 //
 
 #import "TBPNavigationViewController.h"
+#import "TBPConstants.h"
 
 @interface TBPNavigationViewController ()
 
@@ -17,7 +18,10 @@
 - (id)initWithRootViewController:(UIViewController *)rootViewController
 {
     if (self = [super initWithRootViewController:rootViewController]) {
-        
+        self.navigationBar.opaque = YES;
+        self.navigationBar.tintColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
+        self.navigationBar.barTintColor = UIColorFromRGB(TBP_COLOR_GREY_DEFAULT);
+        self.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName: UIColorFromRGB(TBP_COLOR_TEXT_LIGHT) };
     }
     return self;
 }
@@ -25,6 +29,11 @@
 - (void) didPopViewControllers:(NSArray *)controllers
 {
     // override me!
+}
+
+- (UIStatusBarStyle) preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 

@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) TBPTabViewController *vcRoot;
 
+- (void) setUIAppearance;
+
 @end
 
 @implementation AppDelegate
@@ -31,9 +33,27 @@
     // hook up main view controller
     self.vcRoot = [[TBPTabViewController alloc] init];
     self.window.rootViewController = _vcRoot;
+    
+    // configure global UI appearance
+    [self setUIAppearance];
+    
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+- (void) setUIAppearance
+{
+    // tab bar custom font
+    [[UITabBarItem appearance] setTitleTextAttributes:@{
+                                                        NSForegroundColorAttributeName: UIColorFromRGB(TBP_COLOR_TEXT_LIGHT),
+                                                        NSFontAttributeName: [UIFont fontWithName:TBP_FONT_BOLD size:14.0f],
+                                                        }
+                                             forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{
+                                                        NSForegroundColorAttributeName: UIColorFromRGB(TBP_COLOR_TEXT_LIGHT)
+                                                        }
+                                             forState:UIControlStateSelected];
 }
 
 @end
