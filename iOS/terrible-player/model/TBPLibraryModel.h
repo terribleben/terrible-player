@@ -8,7 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Passed with a TBPLibraryModelChangeReason
+ */
 FOUNDATION_EXPORT NSString * const kTBPLibraryModelDidChangeNotification;
+
+typedef enum TBPLibraryModelChangeReason : NSUInteger {
+    kTBPLibraryModelChangeUnknown           = 0,
+    kTBPLibraryModelChangeNowPlaying        = 1 << 0,
+    kTBPLibraryModelChangePlaybackState     = 1 << 1,
+    kTBPLibraryModelChangeLibraryContents   = 1 << 2
+} TBPLibraryModelChangeReason;
 
 @interface TBPLibraryModel : NSObject
 

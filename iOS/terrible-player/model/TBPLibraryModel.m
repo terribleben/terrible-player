@@ -17,6 +17,8 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 @interface TBPLibraryModel ()
 
 - (void) recompute;
+- (void) onNowPlayingItemChanged: (NSNotification *)notification;
+- (void) onPlaybackStateChanged: (NSNotification *)notification;
 
 @property (nonatomic, strong) NSMutableOrderedSet *artists;
 @property (nonatomic, strong) NSMutableOrderedSet *albums;
@@ -47,11 +49,22 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 {
     if (self = [super init]) {
         self.musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
-        // TODO update app state from player
+        
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self selector:@selector(onNowPlayingItemChanged:) name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification object:nil];
+        [notificationCenter addObserver:self selector:@selector(onPlaybackStateChanged:) name:MPMusicPlayerControllerPlaybackStateDidChangeNotification object:nil];
+        [_musicPlayer beginGeneratingPlaybackNotifications];
         
         [self recompute];
     }
     return self;
+}
+
+- (void) dealloc
+{
+    // [super dealloc];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_musicPlayer endGeneratingPlaybackNotifications];
 }
 
 - (NSOrderedSet *)albumsForArtistWithId:(NSNumber *)artistPersistentId
@@ -117,6 +130,20 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 
 #pragma mark internal methods
 
+- (void) onNowPlayingItemChanged:(NSNotification *)notification
+{
+    NSLog(@"TBPLibraryModel: now playing change");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
+                                                        object:@(kTBPLibraryModelChangeNowPlaying)];
+}
+
+- (void) onPlaybackStateChanged:(NSNotification *)notification
+{
+    NSLog(@"TBPLibraryModel: playback state change");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
+                                                        object:@(kTBPLibraryModelChangePlaybackState)];
+}
+
 - (void) recompute
 {
     // TODO caching
@@ -167,7 +194,9 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         self.artists = orderedArtistSet;
         self.albumsByArtist = artistAlbumMap;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification object:nil];
+        NSLog(@"TBPLibraryModel: library contents change");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
+                                                            object:@(kTBPLibraryModelChangeLibraryContents)];
     });
 }
 

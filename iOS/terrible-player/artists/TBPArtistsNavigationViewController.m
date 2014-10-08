@@ -7,6 +7,7 @@
 //
 
 #import "TBPArtistsNavigationViewController.h"
+#import "TBPLibraryModel.h"
 
 @interface TBPArtistsNavigationViewController ()
 
@@ -62,8 +63,8 @@
 
 - (void) albumViewController:(TBPAlbumViewController *)vcAlbum didSelectTrack:(TBPLibraryItem *)track
 {
-    // TODO do something
-    NSLog(@"selected track %@", track.title);
+    // play the current album at the selected track
+    [[TBPLibraryModel sharedInstance] playTrackWithId:track.persistentId inAlbum:vcAlbum.album.persistentId];
 }
 
 @end

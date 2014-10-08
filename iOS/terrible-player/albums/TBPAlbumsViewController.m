@@ -166,7 +166,11 @@
 
 - (void) onModelChange:(NSNotification *)notification
 {
-    [self reload];
+    NSNumber *changeReasonObj = (NSNumber *) notification.object;
+    NSUInteger changeReason = (changeReasonObj) ? [changeReasonObj unsignedIntegerValue] : kTBPLibraryModelChangeUnknown;
+    if ((changeReason & kTBPLibraryModelChangeLibraryContents) != 0) {
+        [self reload];
+    }
 }
 
 @end

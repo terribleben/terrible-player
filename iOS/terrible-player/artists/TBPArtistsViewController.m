@@ -116,10 +116,14 @@
 
 - (void) onModelChange:(NSNotification *)notification
 {
-    self.artists = [TBPLibraryModel sharedInstance].artists;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_vArtists reloadData];
-    });
+    NSNumber *changeReasonObj = (NSNumber *) notification.object;
+    NSUInteger changeReason = (changeReasonObj) ? [changeReasonObj unsignedIntegerValue] : kTBPLibraryModelChangeUnknown;
+    if ((changeReason & kTBPLibraryModelChangeLibraryContents) != 0) {
+        self.artists = [TBPLibraryModel sharedInstance].artists;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_vArtists reloadData];
+        });
+    }
 }
 
 @end
