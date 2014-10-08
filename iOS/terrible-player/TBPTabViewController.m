@@ -7,11 +7,11 @@
 //
 
 #import "TBPTabViewController.h"
-#import "TBPArtistsViewController.h"
+#import "TBPArtistsNavigationViewController.h"
 
 @interface TBPTabViewController ()
 
-@property (nonatomic, strong) TBPArtistsViewController *vcArtists;
+@property (nonatomic, strong) TBPArtistsNavigationViewController *vcArtists;
 
 @end
 
@@ -21,7 +21,7 @@
     [super viewDidLoad];
     
     // inict each tab root
-    self.vcArtists = [[TBPArtistsViewController alloc] init];
+    self.vcArtists = [[TBPArtistsNavigationViewController alloc] init];
     
     // build list of tabs
     self.viewControllers = @[ _vcArtists ];

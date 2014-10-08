@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class TBPArtistsViewController;
+
+@protocol TBPArtistsControllerDelegate <NSObject>
+
+- (void) artistsViewController: (TBPArtistsViewController *)vcArtists didSelectArtist: (NSString *)artist;
+
+@end
+
 @interface TBPArtistsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, assign) id <TBPArtistsControllerDelegate> delegate;
 
 @end

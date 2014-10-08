@@ -28,8 +28,6 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
 - (id) init
 {
     if (self = [super init]) {
-        self.title = @"Artists";
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelChange:) name:kTBPLibraryModelDidChangeNotification object:nil];
     }
     return self;
@@ -90,6 +88,18 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
         cell.textLabel.text = [_artists objectAtIndex:indexPath.row];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    // TODO what shall we send to the delegate?
+    if (_artists && indexPath.row < _artists.count) {
+        NSString *selectedArtist = [_artists objectAtIndex:indexPath.row];
+        if (_delegate)
+            [_delegate artistsViewController:self didSelectArtist:selectedArtist];
+    }
 }
 
 
