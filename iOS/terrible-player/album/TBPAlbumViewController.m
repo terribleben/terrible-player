@@ -9,11 +9,13 @@
 #import "TBPAlbumViewController.h"
 #import "TBPLibraryModel.h"
 #import "TBPTrackTableViewCell.h"
+#import "TBPLibraryItemHeadingView.h"
 
 @interface TBPAlbumViewController ()
 
 @property (nonatomic, strong) NSOrderedSet *tracks;
 @property (nonatomic, strong) UITableView *vTracks;
+@property (nonatomic, strong) TBPLibraryItemHeadingView *vAlbum;
 
 - (void) onModelChange: (NSNotification *)notification;
 - (void) reload;
@@ -45,6 +47,10 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
+    // album view
+    self.vAlbum = [[TBPLibraryItemHeadingView alloc] init];
+    [self.view addSubview:_vAlbum];
+    
     // tracks view
     self.vTracks = [[UITableView alloc] init];
     _vTracks.backgroundColor = [UIColor blackColor];
@@ -53,18 +59,22 @@
     _vTracks.delegate = self;
     _vTracks.dataSource = self;
     [self.view addSubview:_vTracks];
+    
+    [self reload];
 }
 
 - (UIRectEdge) edgesForExtendedLayout
 {
-    return [super edgesForExtendedLayout] ^ UIRectEdgeBottom;
+    return [super edgesForExtendedLayout] ^ UIRectEdgeBottom ^ UIRectEdgeTop;
 }
 
 - (void) viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
     
-    _vTracks.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    _vAlbum.frame = CGRectMake(0, 0, self.view.frame.size.width, 96.0f);
+    _vTracks.frame = CGRectMake(0, _vAlbum.frame.size.height,
+                                self.view.frame.size.width, self.view.frame.size.height - _vAlbum.frame.size.height);
 }
 
 
@@ -136,6 +146,7 @@
         self.tracks = nil;
     
     if (self.isViewLoaded) {
+        _vAlbum.item = _album;
         dispatch_async(dispatch_get_main_queue(), ^{
             [_vTracks reloadData];
         });

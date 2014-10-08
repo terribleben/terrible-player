@@ -12,6 +12,7 @@
 		B502791919E5D80000BAD1F5 /* TBPArtistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791819E5D80000BAD1F5 /* TBPArtistTableViewCell.m */; };
 		B502791D19E5DDA800BAD1F5 /* TBPAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791C19E5DDA800BAD1F5 /* TBPAlbumViewController.m */; };
 		B502792019E5DEC100BAD1F5 /* TBPTrackTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791F19E5DEC100BAD1F5 /* TBPTrackTableViewCell.m */; };
+		B502792319E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B502792219E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m */; };
 		B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F0E19E59580000B780D /* TBPAppDelegate.m */; };
 		B5365F1219E59580000B780D /* TBPTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F1119E59580000B780D /* TBPTabViewController.m */; };
 		B5365F1719E59580000B780D /* TBPImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5365F1619E59580000B780D /* TBPImages.xcassets */; };
@@ -48,6 +49,8 @@
 		B502791C19E5DDA800BAD1F5 /* TBPAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAlbumViewController.m; sourceTree = "<group>"; };
 		B502791E19E5DEC100BAD1F5 /* TBPTrackTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPTrackTableViewCell.h; sourceTree = "<group>"; };
 		B502791F19E5DEC100BAD1F5 /* TBPTrackTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPTrackTableViewCell.m; sourceTree = "<group>"; };
+		B502792119E5E34800BAD1F5 /* TBPLibraryItemHeadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLibraryItemHeadingView.h; sourceTree = "<group>"; };
+		B502792219E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLibraryItemHeadingView.m; sourceTree = "<group>"; };
 		B5365F0619E59580000B780D /* terrible-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "terrible-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5365F0D19E59580000B780D /* TBPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPAppDelegate.h; sourceTree = "<group>"; };
 		B5365F0E19E59580000B780D /* TBPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPAppDelegate.m; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 				B5365F4119E5A493000B780D /* NSString+TBP.m */,
 				B5365F4319E5A8A1000B780D /* TBPNavigationViewController.h */,
 				B5365F4419E5A8A1000B780D /* TBPNavigationViewController.m */,
+				B502792119E5E34800BAD1F5 /* TBPLibraryItemHeadingView.h */,
+				B502792219E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 				B5365F4F19E5AB9C000B780D /* TBPArtistsNavigationViewController.m in Sources */,
 				B5365F1219E59580000B780D /* TBPTabViewController.m in Sources */,
 				B5365F5019E5AB9C000B780D /* TBPArtistsViewController.m in Sources */,
+				B502792319E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m in Sources */,
 				B5365F3E19E5A351000B780D /* TBPLibraryModel.m in Sources */,
 				B5365F3319E5976A000B780D /* main.m in Sources */,
 				B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */,

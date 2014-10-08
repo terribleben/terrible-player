@@ -9,11 +9,13 @@
 #import "TBPAlbumsViewController.h"
 #import "TBPLibraryModel.h"
 #import "TBPAlbumCollectionViewCell.h"
+#import "TBPLibraryItemHeadingView.h"
 
 @interface TBPAlbumsViewController ()
 
 @property (nonatomic, strong) NSOrderedSet *albums;
 @property (nonatomic, strong) UICollectionView *vAlbums;
+@property (nonatomic, strong) TBPLibraryItemHeadingView *vArtist;
 
 - (void) onModelChange: (NSNotification *)notification;
 - (void) reload;
@@ -43,6 +45,10 @@
 {
     [super viewDidLoad];
     
+    // artist view
+    self.vArtist = [[TBPLibraryItemHeadingView alloc] init];
+    [self.view addSubview:_vArtist];
+    
     // albums view
     UICollectionViewFlowLayout *loAlbums = [[UICollectionViewFlowLayout alloc] init];
     loAlbums.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -55,18 +61,28 @@
     _vAlbums.delegate = self;
     _vAlbums.dataSource = self;
     [self.view addSubview:_vAlbums];
+    
+    [self reload];
 }
 
 - (UIRectEdge) edgesForExtendedLayout
 {
-    return [super edgesForExtendedLayout] ^ UIRectEdgeBottom;
+    return [super edgesForExtendedLayout] ^ UIRectEdgeBottom ^ UIRectEdgeTop;
 }
 
 - (void) viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
     
-    _vAlbums.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    if (_artist) {
+        _vArtist.hidden = NO;
+        _vArtist.frame = CGRectMake(0, 0, self.view.frame.size.width, 96.0f);
+        _vAlbums.frame = CGRectMake(0, _vArtist.frame.size.height,
+                                    self.view.frame.size.width, self.view.frame.size.height - _vArtist.frame.size.height);
+    } else {
+        _vArtist.hidden = YES;
+        _vAlbums.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    }
 }
 
 
@@ -139,6 +155,9 @@
         self.albums = [TBPLibraryModel sharedInstance].albums;
     
     if (self.isViewLoaded) {
+        _vArtist.item = _artist;
+        [self.view setNeedsLayout];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [_vAlbums reloadData];
         });
