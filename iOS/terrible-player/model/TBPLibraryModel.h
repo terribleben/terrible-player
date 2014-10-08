@@ -34,4 +34,9 @@ FOUNDATION_EXPORT NSString * const kTBPLibraryModelDidChangeNotification;
  */
 - (NSOrderedSet *)tracksForAlbumWithId: (NSNumber *)albumPersistentId;
 
+/**
+ *  Play a track in an album.
+ */
+- (void) playTrackWithId: (NSNumber *)trackPersistentId inAlbum: (NSNumber *)albumPersistentId;
+
 @end

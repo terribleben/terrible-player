@@ -131,6 +131,10 @@
     
     if (_tracks && indexPath.row < _tracks.count) {
         TBPLibraryItem *selectedTrack = [_tracks objectAtIndex:indexPath.row];
+        
+        // play the current album at the selected track
+        [[TBPLibraryModel sharedInstance] playTrackWithId:selectedTrack.persistentId inAlbum:_album.persistentId];
+        
         if (_delegate)
             [_delegate albumViewController:self didSelectTrack:selectedTrack];
     }

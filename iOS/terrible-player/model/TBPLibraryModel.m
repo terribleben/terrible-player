@@ -20,6 +20,7 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 
 @property (nonatomic, strong) NSMutableOrderedSet *artists;
 @property (nonatomic, strong) NSMutableOrderedSet *albums;
+@property (nonatomic, strong) MPMusicPlayerController *musicPlayer;
 
 /**
  *  Artist persistent id => albums
@@ -45,6 +46,9 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 - (id) init
 {
     if (self = [super init]) {
+        self.musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+        // TODO update app state from player
+        
         [self recompute];
     }
     return self;
@@ -71,6 +75,43 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         [tracks addObject:result];
     }
     return tracks;
+}
+
+- (void) playTrackWithId:(NSNumber *)trackPersistentId inAlbum:(NSNumber *)albumPersistentId
+{
+    MPMediaPropertyPredicate *albumPredicate = [MPMediaPropertyPredicate predicateWithValue:albumPersistentId
+                                                                                forProperty:MPMediaItemPropertyAlbumPersistentID];
+    MPMediaQuery *albumQuery = [[MPMediaQuery alloc] init];
+    [albumQuery addFilterPredicate:albumPredicate];
+    [albumQuery setGroupingType:MPMediaGroupingAlbum];
+    
+    NSArray *collections = albumQuery.collections;
+    if (collections && collections.count) {
+        MPMediaItemCollection *albumToEnqueue = [albumQuery.collections objectAtIndex:0];
+        MPMediaItem *trackToEnqueue;
+        for (MPMediaItem *track in albumToEnqueue.items) {
+            NSNumber *otherTrackId = [track valueForProperty:MPMediaItemPropertyPersistentID];
+            if ([otherTrackId isEqualToNumber:trackPersistentId])
+                trackToEnqueue = track;
+        }
+        
+        // if we're already playing this item, just seek to the beginning
+        BOOL didSeek = NO;
+        if (_musicPlayer.playbackState == MPMusicPlaybackStatePlaying) {
+            MPMediaItem *nowPlaying = _musicPlayer.nowPlayingItem;
+            if ([nowPlaying isEqual:trackToEnqueue]) {
+                _musicPlayer.currentPlaybackTime = 0;
+                didSeek = YES;
+            }
+        }
+        
+        // otherwise, queue up the album and the correct track
+        if (!didSeek) {
+            [_musicPlayer setQueueWithItemCollection:albumToEnqueue];
+            [_musicPlayer setNowPlayingItem:trackToEnqueue];
+            [_musicPlayer play];
+        }
+    }
 }
 
 
