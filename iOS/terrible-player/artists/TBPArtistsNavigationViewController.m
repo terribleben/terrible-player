@@ -41,7 +41,7 @@
     }
     
     if (self.visibleViewController == _vcArtists) {
-        _vcAlbums.artistId = artist.persistentId;
+        _vcAlbums.artist = artist;
         [self pushViewController:_vcAlbums animated:YES];
     }
 }

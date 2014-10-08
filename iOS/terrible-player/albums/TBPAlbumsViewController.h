@@ -22,7 +22,7 @@
 /**
  *  If set, filters the album list by a particular artist.
  */
-@property (nonatomic, strong) NSNumber *artistId;
+@property (nonatomic, strong) TBPLibraryItem *artist;
 
 @property (nonatomic, assign) id <TBPAlbumsControllerDelegate> delegate;
 

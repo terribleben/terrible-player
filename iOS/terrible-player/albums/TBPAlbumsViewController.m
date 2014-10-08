@@ -72,9 +72,15 @@
 
 #pragma mark external properties
 
-- (void) setArtistId:(NSNumber *)artistId
+- (void) setArtist:(TBPLibraryItem *)artist
 {
-    _artistId = artistId;
+    _artist = artist;
+    
+    if (_artist)
+        self.title = _artist.title;
+    else
+        self.title = @"Albums";
+    
     [self reload];
 }
 
@@ -127,8 +133,8 @@
 
 - (void) reload
 {
-    if (_artistId)
-        self.albums = [[TBPLibraryModel sharedInstance] albumsForArtistWithId:_artistId];
+    if (_artist)
+        self.albums = [[TBPLibraryModel sharedInstance] albumsForArtistWithId:_artist.persistentId];
     else
         self.albums = [TBPLibraryModel sharedInstance].albums;
     

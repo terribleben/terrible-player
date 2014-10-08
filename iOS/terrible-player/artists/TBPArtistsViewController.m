@@ -28,6 +28,7 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
 - (id) init
 {
     if (self = [super init]) {
+        self.title = @"Artists";
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelChange:) name:kTBPLibraryModelDidChangeNotification object:nil];
     }
     return self;
