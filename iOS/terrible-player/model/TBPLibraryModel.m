@@ -16,8 +16,10 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 @interface TBPLibraryModel ()
 
 - (void) recomputeArtists;
+- (void) recomputeAlbums;
 
 @property (nonatomic, strong) NSMutableOrderedSet *artists;
+@property (nonatomic, strong) NSMutableOrderedSet *albums;
 
 @end
 
@@ -39,6 +41,7 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 {
     if (self = [super init]) {
         [self recomputeArtists];
+        [self recomputeAlbums];
     }
     return self;
 }
@@ -59,6 +62,26 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         }
         
         self.artists = orderedArtistSet;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification object:nil];
+    });
+}
+
+- (void) recomputeAlbums
+{
+    // TODO caching
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        MPMediaQuery *qAlbums = [MPMediaQuery albumsQuery];
+        NSArray *albums = [qAlbums collections];
+        NSMutableOrderedSet *orderedAlbumSet = [NSMutableOrderedSet orderedSet];
+        
+        for (MPMediaItemCollection *albumGrouping in albums) {
+            NSString *albumName = [[albumGrouping representativeItem] valueForProperty:MPMediaItemPropertyAlbumTitle];
+            
+            [orderedAlbumSet addObject:[albumName stringByCanonizingForMusicLibrary]];
+        }
+        
+        self.albums = orderedAlbumSet;
         [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification object:nil];
     });
 }

@@ -16,7 +16,14 @@ FOUNDATION_EXPORT NSString * const kTBPLibraryModelDidChangeNotification;
 
 /**
  *  Set of NSString unique artist titles
+ *  TODO: what do we actually want here?
  */
 @property (nonatomic, readonly) NSOrderedSet *artists;
+
+/**
+ *  Set of NSString unique album titles
+ *  TODO: what do we actually want here?
+ */
+@property (nonatomic, readonly) NSOrderedSet *albums;
 
 @end
