@@ -28,6 +28,7 @@ NSString * const kTBPAlbumsCollectionViewCellIdentifier = @"TBPAlbumsCollectionV
         self.lblTitle = [[UILabel alloc] init];
         _lblTitle.font = [UIFont systemFontOfSize:10.0f];
         _lblTitle.textColor = [UIColor grayColor];
+        _lblTitle.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_lblTitle];
     }
     return self;

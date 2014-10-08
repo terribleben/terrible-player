@@ -24,4 +24,9 @@ FOUNDATION_EXPORT NSString * const kTBPLibraryModelDidChangeNotification;
  */
 @property (nonatomic, readonly) NSOrderedSet *albums;
 
+/**
+ *  Subset of albums belonging to a particular artist
+ */
+- (NSOrderedSet *)albumsForArtistWithId: (NSNumber *)artistPersistentId;
+
 @end

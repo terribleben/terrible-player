@@ -16,11 +16,15 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 
 @interface TBPLibraryModel ()
 
-- (void) recomputeArtists;
-- (void) recomputeAlbums;
+- (void) recompute;
 
 @property (nonatomic, strong) NSMutableOrderedSet *artists;
 @property (nonatomic, strong) NSMutableOrderedSet *albums;
+
+/**
+ *  Artist persistent id => albums
+ */
+@property (nonatomic, strong) NSMutableDictionary *albumsByArtist;
 
 @end
 
@@ -41,63 +45,71 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 - (id) init
 {
     if (self = [super init]) {
-        [self recomputeArtists];
-        [self recomputeAlbums];
+        [self recompute];
     }
     return self;
 }
 
-- (void) recomputeArtists
+- (NSOrderedSet *)albumsForArtistWithId:(NSNumber *)artistPersistentId
+{
+    if (_albumsByArtist)
+        return [_albumsByArtist objectForKey:artistPersistentId];
+    return nil;
+}
+
+
+#pragma mark internal methods
+
+- (void) recompute
 {
     // TODO caching
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSMutableOrderedSet *orderedArtistSet = [NSMutableOrderedSet orderedSet];
+        NSMutableOrderedSet *orderedAlbumSet = [NSMutableOrderedSet orderedSet];
+        NSMutableDictionary *artistAlbumMap = [NSMutableDictionary dictionary];
+        
+        // recompute index of artists
         MPMediaQuery *qArtists = [MPMediaQuery artistsQuery];
         NSArray *artists = [qArtists collections];
-        NSMutableOrderedSet *orderedArtistSet = [NSMutableOrderedSet orderedSet];
-        
-        NSString *titleProperty = [MPMediaItem titlePropertyForGroupingType:MPMediaGroupingArtist];
-        NSString *idProperty = [MPMediaItem persistentIDPropertyForGroupingType:MPMediaGroupingArtist];
         
         for (MPMediaItemCollection *artistGrouping in artists) {
             MPMediaItem *groupItem = [artistGrouping representativeItem];
             
-            TBPLibraryItem *result = [[TBPLibraryItem alloc] init];
-            result.title = [[groupItem valueForProperty:titleProperty] stringByCanonizingForMusicLibrary];
-            result.persistentId = [groupItem valueForProperty:idProperty];
+            TBPLibraryItem *result = [TBPLibraryItem itemWithMediaItem:groupItem grouping:MPMediaGroupingArtist];
             
+            // start with an empty list of albums for this artist
+            [artistAlbumMap setObject:[NSMutableOrderedSet orderedSet] forKey:result.persistentId];
+            
+            // add artist to index
             [orderedArtistSet addObject:result];
         }
         
-        self.artists = orderedArtistSet;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification object:nil];
-    });
-}
-
-- (void) recomputeAlbums
-{
-    // TODO caching
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // recompute index of albums
         MPMediaQuery *qAlbums = [MPMediaQuery albumsQuery];
         NSArray *albums = [qAlbums collections];
-        NSMutableOrderedSet *orderedAlbumSet = [NSMutableOrderedSet orderedSet];
-        
-        NSString *titleProperty = [MPMediaItem titlePropertyForGroupingType:MPMediaGroupingAlbum];
-        NSString *idProperty = [MPMediaItem persistentIDPropertyForGroupingType:MPMediaGroupingAlbum];
         
         for (MPMediaItemCollection *albumGrouping in albums) {
             MPMediaItem *groupItem = [albumGrouping representativeItem];
             
-            TBPLibraryItem *result = [[TBPLibraryItem alloc] init];
-            result.title = [[groupItem valueForProperty:titleProperty] stringByCanonizingForMusicLibrary];
-            result.persistentId = [groupItem valueForProperty:idProperty];
-            result.artwork = [groupItem valueForKey:MPMediaItemPropertyArtwork];
+            TBPLibraryItem *result = [TBPLibraryItem itemWithMediaItem:groupItem grouping:MPMediaGroupingAlbum];
             
+            // add album to list of albums by artist
+            NSNumber *artistId = [groupItem valueForProperty:MPMediaItemPropertyArtistPersistentID];
+            if ([artistAlbumMap objectForKey:artistId]) {
+                NSMutableOrderedSet *byArtist = [artistAlbumMap objectForKey:artistId];
+                [byArtist addObject:result];
+            }
+            
+            // add to overall album index
             [orderedAlbumSet addObject:result];
         }
         
         self.albums = orderedAlbumSet;
+        self.artists = orderedArtistSet;
+        self.albumsByArtist = artistAlbumMap;
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification object:nil];
     });
 }

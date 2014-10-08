@@ -11,6 +11,7 @@
 @interface TBPArtistsNavigationViewController ()
 
 @property (nonatomic, strong) TBPArtistsViewController *vcArtists;
+@property (nonatomic, strong) TBPAlbumsViewController *vcAlbums;
 
 @end
 
@@ -34,8 +35,21 @@
 
 - (void) artistsViewController:(TBPArtistsViewController *)vcArtists didSelectArtist:(TBPLibraryItem *)artist
 {
+    if (!_vcAlbums) {
+        _vcAlbums = [[TBPAlbumsViewController alloc] init];
+        _vcAlbums.delegate = self;
+    }
+    
+    if (self.visibleViewController == _vcArtists) {
+        _vcAlbums.artistId = artist.persistentId;
+        [self pushViewController:_vcAlbums animated:YES];
+    }
+}
+
+- (void) albumsViewController:(TBPAlbumsViewController *)vcAlbums didSelectAlbum:(TBPLibraryItem *)album
+{
     // TODO do something
-    NSLog(@"selected %@", artist.title);
+    NSLog(@"selected %@", album.title);
 }
 
 @end

@@ -16,4 +16,6 @@
 @property (nonatomic, strong) MPMediaItemArtwork *artwork;
 @property (nonatomic, strong) NSNumber *persistentId;
 
++ (TBPLibraryItem *)itemWithMediaItem: (MPMediaItem *)item grouping: (MPMediaGrouping)grouping;
+
 @end

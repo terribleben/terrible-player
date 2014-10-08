@@ -8,7 +8,8 @@
 
 #import "TBPNavigationViewController.h"
 #import "TBPArtistsViewController.h"
+#import "TBPAlbumsViewController.h"
 
-@interface TBPArtistsNavigationViewController : TBPNavigationViewController <TBPArtistsControllerDelegate>
+@interface TBPArtistsNavigationViewController : TBPNavigationViewController <TBPArtistsControllerDelegate, TBPAlbumsControllerDelegate>
 
 @end

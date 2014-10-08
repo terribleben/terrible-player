@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UICollectionView *vAlbums;
 
 - (void) onModelChange: (NSNotification *)notification;
+- (void) reload;
 
 @end
 
@@ -69,6 +70,15 @@
 }
 
 
+#pragma mark external properties
+
+- (void) setArtistId:(NSNumber *)artistId
+{
+    _artistId = artistId;
+    [self reload];
+}
+
+
 #pragma mark delegate methods
 
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -115,12 +125,21 @@
 
 #pragma mark internal methods
 
-- (void) onModelChange:(NSNotification *)notification
+- (void) reload
 {
-    self.albums = [TBPLibraryModel sharedInstance].albums;
+    if (_artistId)
+        self.albums = [[TBPLibraryModel sharedInstance] albumsForArtistWithId:_artistId];
+    else
+        self.albums = [TBPLibraryModel sharedInstance].albums;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [_vAlbums reloadData];
     });
+}
+
+- (void) onModelChange:(NSNotification *)notification
+{
+    [self reload];
 }
 
 @end
