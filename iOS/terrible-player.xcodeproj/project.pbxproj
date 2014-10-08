@@ -1,0 +1,445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F0E19E59580000B780D /* TBPAppDelegate.m */; };
+		B5365F1219E59580000B780D /* TBPTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F1119E59580000B780D /* TBPTabViewController.m */; };
+		B5365F1719E59580000B780D /* TBPImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5365F1619E59580000B780D /* TBPImages.xcassets */; };
+		B5365F2619E59580000B780D /* terrible_playerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F2519E59580000B780D /* terrible_playerTests.m */; };
+		B5365F3319E5976A000B780D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F3119E5976A000B780D /* main.m */; };
+		B5365F3519E598F2000B780D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5365F3419E598F2000B780D /* MediaPlayer.framework */; };
+		B5365F3A19E59AE4000B780D /* TBPArtistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F3919E59AE4000B780D /* TBPArtistsViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B5365F2019E59580000B780D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5365EFE19E5957F000B780D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B5365F0519E59580000B780D;
+			remoteInfo = "terrible-player";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B5365F0619E59580000B780D /* terrible-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "terrible-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5365F0D19E59580000B780D /* TBPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPAppDelegate.h; sourceTree = "<group>"; };
+		B5365F0E19E59580000B780D /* TBPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPAppDelegate.m; sourceTree = "<group>"; };
+		B5365F1019E59580000B780D /* TBPTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPTabViewController.h; sourceTree = "<group>"; };
+		B5365F1119E59580000B780D /* TBPTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPTabViewController.m; sourceTree = "<group>"; };
+		B5365F1619E59580000B780D /* TBPImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBPImages.xcassets; sourceTree = "<group>"; };
+		B5365F1919E59580000B780D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBPLaunchScreen.xib; sourceTree = "<group>"; };
+		B5365F1F19E59580000B780D /* terrible-playerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "terrible-playerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5365F2419E59580000B780D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5365F2519E59580000B780D /* terrible_playerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = terrible_playerTests.m; sourceTree = "<group>"; };
+		B5365F3019E5976A000B780D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5365F3119E5976A000B780D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B5365F3419E598F2000B780D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		B5365F3819E59AE4000B780D /* TBPArtistsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPArtistsViewController.h; sourceTree = "<group>"; };
+		B5365F3919E59AE4000B780D /* TBPArtistsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPArtistsViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B5365F0319E59580000B780D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5365F3519E598F2000B780D /* MediaPlayer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B5365F1C19E59580000B780D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B5365EFD19E5957F000B780D = {
+			isa = PBXGroup;
+			children = (
+				B5365F0819E59580000B780D /* terrible-player */,
+				B5365F2219E59580000B780D /* terrible-playerTests */,
+				B5365F0719E59580000B780D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B5365F0719E59580000B780D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B5365F0619E59580000B780D /* terrible-player.app */,
+				B5365F1F19E59580000B780D /* terrible-playerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B5365F0819E59580000B780D /* terrible-player */ = {
+			isa = PBXGroup;
+			children = (
+				B5365F0D19E59580000B780D /* TBPAppDelegate.h */,
+				B5365F0E19E59580000B780D /* TBPAppDelegate.m */,
+				B5365F1019E59580000B780D /* TBPTabViewController.h */,
+				B5365F1119E59580000B780D /* TBPTabViewController.m */,
+				B5365F1619E59580000B780D /* TBPImages.xcassets */,
+				B5365F1819E59580000B780D /* TBPLaunchScreen.xib */,
+				B5365F3719E59ACC000B780D /* library */,
+				B5365F3619E59901000B780D /* frameworks */,
+				B5365F2F19E5976A000B780D /* supporting */,
+			);
+			path = "terrible-player";
+			sourceTree = "<group>";
+		};
+		B5365F2219E59580000B780D /* terrible-playerTests */ = {
+			isa = PBXGroup;
+			children = (
+				B5365F2519E59580000B780D /* terrible_playerTests.m */,
+				B5365F2319E59580000B780D /* Supporting Files */,
+			);
+			path = "terrible-playerTests";
+			sourceTree = "<group>";
+		};
+		B5365F2319E59580000B780D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B5365F2419E59580000B780D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B5365F2F19E5976A000B780D /* supporting */ = {
+			isa = PBXGroup;
+			children = (
+				B5365F3019E5976A000B780D /* Info.plist */,
+				B5365F3119E5976A000B780D /* main.m */,
+			);
+			path = supporting;
+			sourceTree = "<group>";
+		};
+		B5365F3619E59901000B780D /* frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B5365F3419E598F2000B780D /* MediaPlayer.framework */,
+			);
+			name = frameworks;
+			sourceTree = "<group>";
+		};
+		B5365F3719E59ACC000B780D /* library */ = {
+			isa = PBXGroup;
+			children = (
+				B5365F3819E59AE4000B780D /* TBPArtistsViewController.h */,
+				B5365F3919E59AE4000B780D /* TBPArtistsViewController.m */,
+			);
+			path = library;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B5365F0519E59580000B780D /* terrible-player */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5365F2919E59580000B780D /* Build configuration list for PBXNativeTarget "terrible-player" */;
+			buildPhases = (
+				B5365F0219E59580000B780D /* Sources */,
+				B5365F0319E59580000B780D /* Frameworks */,
+				B5365F0419E59580000B780D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "terrible-player";
+			productName = "terrible-player";
+			productReference = B5365F0619E59580000B780D /* terrible-player.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B5365F1E19E59580000B780D /* terrible-playerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5365F2C19E59580000B780D /* Build configuration list for PBXNativeTarget "terrible-playerTests" */;
+			buildPhases = (
+				B5365F1B19E59580000B780D /* Sources */,
+				B5365F1C19E59580000B780D /* Frameworks */,
+				B5365F1D19E59580000B780D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B5365F2119E59580000B780D /* PBXTargetDependency */,
+			);
+			name = "terrible-playerTests";
+			productName = "terrible-playerTests";
+			productReference = B5365F1F19E59580000B780D /* terrible-playerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B5365EFE19E5957F000B780D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TBP;
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Ben Roth";
+				TargetAttributes = {
+					B5365F0519E59580000B780D = {
+						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 79EBH94J28;
+					};
+					B5365F1E19E59580000B780D = {
+						CreatedOnToolsVersion = 6.0.1;
+						TestTargetID = B5365F0519E59580000B780D;
+					};
+				};
+			};
+			buildConfigurationList = B5365F0119E5957F000B780D /* Build configuration list for PBXProject "terrible-player" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B5365EFD19E5957F000B780D;
+			productRefGroup = B5365F0719E59580000B780D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B5365F0519E59580000B780D /* terrible-player */,
+				B5365F1E19E59580000B780D /* terrible-playerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B5365F0419E59580000B780D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5365F1719E59580000B780D /* TBPImages.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B5365F1D19E59580000B780D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B5365F0219E59580000B780D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5365F3A19E59AE4000B780D /* TBPArtistsViewController.m in Sources */,
+				B5365F1219E59580000B780D /* TBPTabViewController.m in Sources */,
+				B5365F3319E5976A000B780D /* main.m in Sources */,
+				B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B5365F1B19E59580000B780D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5365F2619E59580000B780D /* terrible_playerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B5365F2119E59580000B780D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B5365F0519E59580000B780D /* terrible-player */;
+			targetProxy = B5365F2019E59580000B780D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B5365F1819E59580000B780D /* TBPLaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B5365F1919E59580000B780D /* Base */,
+			);
+			name = TBPLaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B5365F2719E59580000B780D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B5365F2819E59580000B780D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B5365F2A19E59580000B780D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/terrible-player/supporting/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B5365F2B19E59580000B780D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/terrible-player/supporting/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B5365F2D19E59580000B780D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "terrible-playerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/terrible-player.app/terrible-player";
+			};
+			name = Debug;
+		};
+		B5365F2E19E59580000B780D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "terrible-playerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/terrible-player.app/terrible-player";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B5365F0119E5957F000B780D /* Build configuration list for PBXProject "terrible-player" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5365F2719E59580000B780D /* Debug */,
+				B5365F2819E59580000B780D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B5365F2919E59580000B780D /* Build configuration list for PBXNativeTarget "terrible-player" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5365F2A19E59580000B780D /* Debug */,
+				B5365F2B19E59580000B780D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B5365F2C19E59580000B780D /* Build configuration list for PBXNativeTarget "terrible-playerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5365F2D19E59580000B780D /* Debug */,
+				B5365F2E19E59580000B780D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B5365EFE19E5957F000B780D /* Project object */;
+}
