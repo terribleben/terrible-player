@@ -14,6 +14,8 @@
 		B5365F3319E5976A000B780D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F3119E5976A000B780D /* main.m */; };
 		B5365F3519E598F2000B780D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5365F3419E598F2000B780D /* MediaPlayer.framework */; };
 		B5365F3A19E59AE4000B780D /* TBPArtistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F3919E59AE4000B780D /* TBPArtistsViewController.m */; };
+		B5365F3E19E5A351000B780D /* TBPLibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F3D19E5A351000B780D /* TBPLibraryModel.m */; };
+		B5365F4219E5A493000B780D /* NSString+TBP.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F4119E5A493000B780D /* NSString+TBP.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,10 @@
 		B5365F3419E598F2000B780D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		B5365F3819E59AE4000B780D /* TBPArtistsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPArtistsViewController.h; sourceTree = "<group>"; };
 		B5365F3919E59AE4000B780D /* TBPArtistsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPArtistsViewController.m; sourceTree = "<group>"; };
+		B5365F3C19E5A351000B780D /* TBPLibraryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLibraryModel.h; sourceTree = "<group>"; };
+		B5365F3D19E5A351000B780D /* TBPLibraryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLibraryModel.m; sourceTree = "<group>"; };
+		B5365F4019E5A493000B780D /* NSString+TBP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TBP.h"; sourceTree = "<group>"; };
+		B5365F4119E5A493000B780D /* NSString+TBP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TBP.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,8 @@
 				B5365F1119E59580000B780D /* TBPTabViewController.m */,
 				B5365F1619E59580000B780D /* TBPImages.xcassets */,
 				B5365F1819E59580000B780D /* TBPLaunchScreen.xib */,
+				B5365F3F19E5A46C000B780D /* common */,
+				B5365F3B19E5A33F000B780D /* model */,
 				B5365F3719E59ACC000B780D /* library */,
 				B5365F3619E59901000B780D /* frameworks */,
 				B5365F2F19E5976A000B780D /* supporting */,
@@ -138,6 +146,24 @@
 				B5365F3919E59AE4000B780D /* TBPArtistsViewController.m */,
 			);
 			path = library;
+			sourceTree = "<group>";
+		};
+		B5365F3B19E5A33F000B780D /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B5365F3C19E5A351000B780D /* TBPLibraryModel.h */,
+				B5365F3D19E5A351000B780D /* TBPLibraryModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B5365F3F19E5A46C000B780D /* common */ = {
+			isa = PBXGroup;
+			children = (
+				B5365F4019E5A493000B780D /* NSString+TBP.h */,
+				B5365F4119E5A493000B780D /* NSString+TBP.m */,
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,8 +266,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5365F4219E5A493000B780D /* NSString+TBP.m in Sources */,
 				B5365F3A19E59AE4000B780D /* TBPArtistsViewController.m in Sources */,
 				B5365F1219E59580000B780D /* TBPTabViewController.m in Sources */,
+				B5365F3E19E5A351000B780D /* TBPLibraryModel.m in Sources */,
 				B5365F3319E5976A000B780D /* main.m in Sources */,
 				B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */,
 			);

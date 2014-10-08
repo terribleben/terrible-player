@@ -8,6 +8,7 @@
 
 #import "TBPAppDelegate.h"
 #import "TBPTabViewController.h"
+#import "TBPLibraryModel.h"
 
 @interface AppDelegate ()
 
@@ -22,6 +23,11 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor blackColor];
+    
+    // init music library
+    [TBPLibraryModel sharedInstance];
+    
+    // hook up main view controller
     self.vcRoot = [[TBPTabViewController alloc] init];
     self.window.rootViewController = _vcRoot;
     [self.window makeKeyAndVisible];

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TBPArtistsViewController : UIViewController
+@interface TBPArtistsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
