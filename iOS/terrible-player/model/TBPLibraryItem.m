@@ -24,4 +24,14 @@
     return result;
 }
 
+- (BOOL) isEqual:(id)object
+{
+    if ([object isKindOfClass:[self class]]) {
+        TBPLibraryItem *other = (TBPLibraryItem *)object;
+        return ((other.persistentId == nil && _persistentId == nil)
+                || [other.persistentId isEqualToNumber:_persistentId]);
+    }
+    return NO;
+}
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TBPLibraryItem.h"
 
 /**
  *  Passed with a TBPLibraryModelChangeReason
@@ -23,6 +24,8 @@ typedef enum TBPLibraryModelChangeReason : NSUInteger {
 @interface TBPLibraryModel : NSObject
 
 + (TBPLibraryModel *) sharedInstance;
+
+@property (nonatomic, readonly) TBPLibraryItem *nowPlayingItem;
 
 /**
  *  Set of TPLibraryItem artists

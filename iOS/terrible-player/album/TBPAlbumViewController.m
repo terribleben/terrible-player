@@ -15,6 +15,8 @@
 @interface TBPAlbumViewController ()
 
 @property (nonatomic, strong) NSOrderedSet *tracks;
+@property (nonatomic, strong) TBPLibraryItem *nowPlayingItem;
+
 @property (nonatomic, strong) UITableView *vTracks;
 @property (nonatomic, strong) TBPLibraryItemHeadingView *vAlbum;
 
@@ -119,8 +121,13 @@
     if (!cell)
         cell = [[TBPTrackTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTBPTrackTableViewCellIdentifier];
     
-    if (_tracks && indexPath.row < _tracks.count)
-        cell.track = (TBPLibraryItem *)[_tracks objectAtIndex:indexPath.row];
+    if (_tracks && indexPath.row < _tracks.count) {
+        TBPLibraryItem *trackForCell = [_tracks objectAtIndex:indexPath.row];
+        BOOL isNowPlaying = (_nowPlayingItem && [trackForCell isEqual:_nowPlayingItem]);
+        
+        cell.track = trackForCell;
+        cell.state = (isNowPlaying) ? kTBPTrackTableViewCellStateNowPlaying : kTBPTrackTableViewCellStateDefault;
+    }
     
     return cell;
 }
@@ -134,6 +141,8 @@
         if (_delegate)
             [_delegate albumViewController:self didSelectTrack:selectedTrack];
     }
+    
+    [tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 
@@ -145,6 +154,8 @@
         self.tracks = [[TBPLibraryModel sharedInstance] tracksForAlbumWithId:_album.persistentId];
     else
         self.tracks = nil;
+    
+    self.nowPlayingItem = [TBPLibraryModel sharedInstance].nowPlayingItem;
     
     if (self.isViewLoaded) {
         _vAlbum.item = _album;

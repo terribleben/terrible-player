@@ -67,6 +67,17 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
     [_musicPlayer endGeneratingPlaybackNotifications];
 }
 
+
+#pragma mark external methods
+
+- (TBPLibraryItem *)nowPlayingItem
+{
+    MPMediaItem *nowPlaying = [_musicPlayer nowPlayingItem];
+    if (nowPlaying)
+        return [TBPLibraryItem itemWithMediaItem:nowPlaying grouping:MPMediaGroupingTitle];
+    return nil;
+}
+
 - (NSOrderedSet *)albumsForArtistWithId:(NSNumber *)artistPersistentId
 {
     if (_albumsByArtist)

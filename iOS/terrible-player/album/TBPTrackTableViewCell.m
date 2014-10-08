@@ -22,13 +22,13 @@ NSString * const kTBPTrackTableViewCellIdentifier = @"TBPTrackTableViewCellIdent
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
-        
         // title label
         self.lblTitle = [[UILabel alloc] init];
         _lblTitle.font = [UIFont fontWithName:TBP_FONT size:14.0f];
         _lblTitle.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
         [self addSubview:_lblTitle];
+        
+        self.state = kTBPTrackTableViewCellStateDefault;
     }
     return self;
 }
@@ -59,6 +59,23 @@ NSString * const kTBPTrackTableViewCellIdentifier = @"TBPTrackTableViewCellIdent
         } else {
             _lblTitle.text = nil;
         }
+    });
+}
+
+- (void) setState:(TBPTrackTableViewCellState)state
+{
+    _state = state;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        switch (state) {
+            case kTBPTrackTableViewCellStateNowPlaying:
+                self.backgroundColor = UIColorFromRGB(TBP_COLOR_GREY_DEFAULT);
+                break;
+            case kTBPTrackTableViewCellStateDefault:
+                self.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
+                break;
+        }
+        [self setNeedsDisplay];
     });
 }
 

@@ -13,8 +13,14 @@
 
 FOUNDATION_EXPORT NSString * const kTBPTrackTableViewCellIdentifier;
 
+typedef enum TBPTrackTableViewCellState : NSUInteger {
+    kTBPTrackTableViewCellStateDefault,
+    kTBPTrackTableViewCellStateNowPlaying
+} TBPTrackTableViewCellState;
+
 @interface TBPTrackTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) TBPLibraryItem *track;
+@property (nonatomic, assign) TBPTrackTableViewCellState state;
 
 @end
