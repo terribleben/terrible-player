@@ -29,4 +29,9 @@ FOUNDATION_EXPORT NSString * const kTBPLibraryModelDidChangeNotification;
  */
 - (NSOrderedSet *)albumsForArtistWithId: (NSNumber *)artistPersistentId;
 
+/**
+ *  Tracks for a particular album (never cached)
+ */
+- (NSOrderedSet *)tracksForAlbumWithId: (NSNumber *)albumPersistentId;
+
 @end

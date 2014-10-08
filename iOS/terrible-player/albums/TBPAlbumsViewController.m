@@ -138,9 +138,11 @@
     else
         self.albums = [TBPLibraryModel sharedInstance].albums;
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_vAlbums reloadData];
-    });
+    if (self.isViewLoaded) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_vAlbums reloadData];
+        });
+    }
 }
 
 - (void) onModelChange:(NSNotification *)notification

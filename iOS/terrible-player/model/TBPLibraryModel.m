@@ -57,6 +57,22 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
     return nil;
 }
 
+- (NSOrderedSet *)tracksForAlbumWithId:(NSNumber *)albumPersistentId
+{
+    MPMediaPropertyPredicate *albumPredicate = [MPMediaPropertyPredicate predicateWithValue:albumPersistentId
+                                                                                forProperty:MPMediaItemPropertyAlbumPersistentID];
+    MPMediaQuery *albumQuery = [[MPMediaQuery alloc] init];
+    [albumQuery addFilterPredicate:albumPredicate];
+    // [albumQuery setGroupingType:MPMediaGroupingTitle];
+    
+    NSMutableOrderedSet *tracks = [NSMutableOrderedSet orderedSet];
+    for (MPMediaItem *item in albumQuery.items) {
+        TBPLibraryItem *result = [TBPLibraryItem itemWithMediaItem:item grouping:MPMediaGroupingTitle];
+        [tracks addObject:result];
+    }
+    return tracks;
+}
+
 
 #pragma mark internal methods
 

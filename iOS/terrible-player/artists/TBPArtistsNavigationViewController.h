@@ -9,7 +9,9 @@
 #import "TBPNavigationViewController.h"
 #import "TBPArtistsViewController.h"
 #import "TBPAlbumsViewController.h"
+#import "TBPAlbumViewController.h"
 
-@interface TBPArtistsNavigationViewController : TBPNavigationViewController <TBPArtistsControllerDelegate, TBPAlbumsControllerDelegate>
+@interface TBPArtistsNavigationViewController : TBPNavigationViewController
+    <TBPArtistsControllerDelegate, TBPAlbumsControllerDelegate, TBPAlbumControllerDelegate>
 
 @end

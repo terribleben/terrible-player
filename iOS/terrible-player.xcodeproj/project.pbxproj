@@ -10,6 +10,8 @@
 		B502791419E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791319E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m */; };
 		B502791619E5B26900BAD1F5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B502791519E5B26900BAD1F5 /* AssetsLibrary.framework */; };
 		B502791919E5D80000BAD1F5 /* TBPArtistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791819E5D80000BAD1F5 /* TBPArtistTableViewCell.m */; };
+		B502791D19E5DDA800BAD1F5 /* TBPAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791C19E5DDA800BAD1F5 /* TBPAlbumViewController.m */; };
+		B502792019E5DEC100BAD1F5 /* TBPTrackTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791F19E5DEC100BAD1F5 /* TBPTrackTableViewCell.m */; };
 		B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F0E19E59580000B780D /* TBPAppDelegate.m */; };
 		B5365F1219E59580000B780D /* TBPTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F1119E59580000B780D /* TBPTabViewController.m */; };
 		B5365F1719E59580000B780D /* TBPImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5365F1619E59580000B780D /* TBPImages.xcassets */; };
@@ -42,6 +44,10 @@
 		B502791519E5B26900BAD1F5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		B502791719E5D80000BAD1F5 /* TBPArtistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPArtistTableViewCell.h; sourceTree = "<group>"; };
 		B502791819E5D80000BAD1F5 /* TBPArtistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPArtistTableViewCell.m; sourceTree = "<group>"; };
+		B502791B19E5DDA800BAD1F5 /* TBPAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPAlbumViewController.h; sourceTree = "<group>"; };
+		B502791C19E5DDA800BAD1F5 /* TBPAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAlbumViewController.m; sourceTree = "<group>"; };
+		B502791E19E5DEC100BAD1F5 /* TBPTrackTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPTrackTableViewCell.h; sourceTree = "<group>"; };
+		B502791F19E5DEC100BAD1F5 /* TBPTrackTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPTrackTableViewCell.m; sourceTree = "<group>"; };
 		B5365F0619E59580000B780D /* terrible-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "terrible-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5365F0D19E59580000B780D /* TBPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPAppDelegate.h; sourceTree = "<group>"; };
 		B5365F0E19E59580000B780D /* TBPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPAppDelegate.m; sourceTree = "<group>"; };
@@ -93,6 +99,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B502791A19E5DD7D00BAD1F5 /* album */ = {
+			isa = PBXGroup;
+			children = (
+				B502791B19E5DDA800BAD1F5 /* TBPAlbumViewController.h */,
+				B502791C19E5DDA800BAD1F5 /* TBPAlbumViewController.m */,
+				B502791E19E5DEC100BAD1F5 /* TBPTrackTableViewCell.h */,
+				B502791F19E5DEC100BAD1F5 /* TBPTrackTableViewCell.m */,
+			);
+			path = album;
+			sourceTree = "<group>";
+		};
 		B5365EFD19E5957F000B780D = {
 			isa = PBXGroup;
 			children = (
@@ -122,8 +139,9 @@
 				B5365F1819E59580000B780D /* TBPLaunchScreen.xib */,
 				B5365F3F19E5A46C000B780D /* common */,
 				B5365F3B19E5A33F000B780D /* model */,
-				B5365F4919E5AB9C000B780D /* albums */,
 				B5365F4A19E5AB9C000B780D /* artists */,
+				B5365F4919E5AB9C000B780D /* albums */,
+				B502791A19E5DD7D00BAD1F5 /* album */,
 				B5365F3619E59901000B780D /* frameworks */,
 				B5365F2F19E5976A000B780D /* supporting */,
 			);
@@ -318,6 +336,7 @@
 				B502791419E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m in Sources */,
 				B5365F4519E5A8A1000B780D /* TBPNavigationViewController.m in Sources */,
 				B5365F5919E5AE1B000B780D /* TBPLibraryItem.m in Sources */,
+				B502792019E5DEC100BAD1F5 /* TBPTrackTableViewCell.m in Sources */,
 				B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */,
 				B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */,
 				B5365F4F19E5AB9C000B780D /* TBPArtistsNavigationViewController.m in Sources */,
@@ -326,6 +345,7 @@
 				B5365F3E19E5A351000B780D /* TBPLibraryModel.m in Sources */,
 				B5365F3319E5976A000B780D /* main.m in Sources */,
 				B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */,
+				B502791D19E5DDA800BAD1F5 /* TBPAlbumViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

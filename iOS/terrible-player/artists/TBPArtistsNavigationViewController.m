@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) TBPArtistsViewController *vcArtists;
 @property (nonatomic, strong) TBPAlbumsViewController *vcAlbums;
+@property (nonatomic, strong) TBPAlbumViewController *vcAlbum;
 
 @end
 
@@ -48,8 +49,21 @@
 
 - (void) albumsViewController:(TBPAlbumsViewController *)vcAlbums didSelectAlbum:(TBPLibraryItem *)album
 {
+    if (!_vcAlbum) {
+        _vcAlbum = [[TBPAlbumViewController alloc] init];
+        _vcAlbum.delegate = self;
+    }
+    
+    if (self.visibleViewController == _vcAlbums) {
+        _vcAlbum.album = album;
+        [self pushViewController:_vcAlbum animated:YES];
+    }
+}
+
+- (void) albumViewController:(TBPAlbumViewController *)vcAlbum didSelectTrack:(TBPLibraryItem *)track
+{
     // TODO do something
-    NSLog(@"selected %@", album.title);
+    NSLog(@"selected track %@", track.title);
 }
 
 @end
