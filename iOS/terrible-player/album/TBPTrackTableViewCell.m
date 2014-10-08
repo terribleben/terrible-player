@@ -7,6 +7,7 @@
 //
 
 #import "TBPTrackTableViewCell.h"
+#import "TBPConstants.h"
 
 NSString * const kTBPTrackTableViewCellIdentifier = @"TBPTrackTableViewCellIdentifier";
 
@@ -21,12 +22,12 @@ NSString * const kTBPTrackTableViewCellIdentifier = @"TBPTrackTableViewCellIdent
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
         
         // title label
         self.lblTitle = [[UILabel alloc] init];
-        _lblTitle.font = [UIFont systemFontOfSize:14.0f];
-        _lblTitle.textColor = [UIColor whiteColor];
+        _lblTitle.font = [UIFont fontWithName:TBP_FONT size:14.0f];
+        _lblTitle.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
         [self addSubview:_lblTitle];
     }
     return self;

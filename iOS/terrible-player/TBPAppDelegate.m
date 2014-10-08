@@ -9,6 +9,7 @@
 #import "TBPAppDelegate.h"
 #import "TBPTabViewController.h"
 #import "TBPLibraryModel.h"
+#import "TBPConstants.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor blackColor];
+    self.window.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
     
     // init music library
     [TBPLibraryModel sharedInstance];

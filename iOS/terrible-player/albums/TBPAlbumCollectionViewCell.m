@@ -7,6 +7,7 @@
 //
 
 #import "TBPAlbumCollectionViewCell.h"
+#import "TBPConstants.h"
 
 NSString * const kTBPAlbumsCollectionViewCellIdentifier = @"TBPAlbumsCollectionViewCellIdentifier";
 
@@ -26,8 +27,8 @@ NSString * const kTBPAlbumsCollectionViewCellIdentifier = @"TBPAlbumsCollectionV
         [self addSubview:_vAlbumArt];
         
         self.lblTitle = [[UILabel alloc] init];
-        _lblTitle.font = [UIFont systemFontOfSize:10.0f];
-        _lblTitle.textColor = [UIColor grayColor];
+        _lblTitle.font = [UIFont fontWithName:TBP_FONT size:10.0f];
+        _lblTitle.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
         _lblTitle.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_lblTitle];
     }

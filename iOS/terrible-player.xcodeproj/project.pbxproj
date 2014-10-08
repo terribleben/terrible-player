@@ -51,6 +51,8 @@
 		B502791F19E5DEC100BAD1F5 /* TBPTrackTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPTrackTableViewCell.m; sourceTree = "<group>"; };
 		B502792119E5E34800BAD1F5 /* TBPLibraryItemHeadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLibraryItemHeadingView.h; sourceTree = "<group>"; };
 		B502792219E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLibraryItemHeadingView.m; sourceTree = "<group>"; };
+		B502792419E5E71600BAD1F5 /* TBPConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPConstants.h; sourceTree = "<group>"; };
+		B502792519E5E7BC00BAD1F5 /* TBP-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TBP-prefix.pch"; sourceTree = "<group>"; };
 		B5365F0619E59580000B780D /* terrible-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "terrible-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5365F0D19E59580000B780D /* TBPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPAppDelegate.h; sourceTree = "<group>"; };
 		B5365F0E19E59580000B780D /* TBPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPAppDelegate.m; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				B5365F3019E5976A000B780D /* Info.plist */,
 				B5365F3119E5976A000B780D /* main.m */,
+				B502792519E5E7BC00BAD1F5 /* TBP-prefix.pch */,
 			);
 			path = supporting;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 		B5365F3F19E5A46C000B780D /* common */ = {
 			isa = PBXGroup;
 			children = (
+				B502792419E5E71600BAD1F5 /* TBPConstants.h */,
 				B5365F4019E5A493000B780D /* NSString+TBP.h */,
 				B5365F4119E5A493000B780D /* NSString+TBP.m */,
 				B5365F4319E5A8A1000B780D /* TBPNavigationViewController.h */,
@@ -466,6 +470,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "terrible-player/supporting/TBP-prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/terrible-player/supporting/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -477,6 +483,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "terrible-player/supporting/TBP-prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/terrible-player/supporting/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

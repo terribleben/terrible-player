@@ -10,6 +10,7 @@
 #import "TBPLibraryModel.h"
 #import "TBPTrackTableViewCell.h"
 #import "TBPLibraryItemHeadingView.h"
+#import "TBPConstants.h"
 
 @interface TBPAlbumViewController ()
 
@@ -45,7 +46,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
     
     // album view
     self.vAlbum = [[TBPLibraryItemHeadingView alloc] init];
@@ -53,7 +54,7 @@
     
     // tracks view
     self.vTracks = [[UITableView alloc] init];
-    _vTracks.backgroundColor = [UIColor blackColor];
+    _vTracks.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
     _vTracks.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_vTracks registerClass:[TBPTrackTableViewCell class] forCellReuseIdentifier:kTBPTrackTableViewCellIdentifier];
     _vTracks.delegate = self;

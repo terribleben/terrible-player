@@ -9,6 +9,7 @@
 #import "TBPArtistsViewController.h"
 #import "TBPLibraryModel.h"
 #import "TBPArtistTableViewCell.h"
+#import "TBPConstants.h"
 
 @interface TBPArtistsViewController ()
 
@@ -43,11 +44,11 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
     
     // artists view
     self.vArtists = [[UITableView alloc] init];
-    _vArtists.backgroundColor = [UIColor blackColor];
+    _vArtists.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
     _vArtists.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_vArtists registerClass:[TBPArtistTableViewCell class] forCellReuseIdentifier:kTBPArtistsTableViewCellIdentifier];
     _vArtists.delegate = self;

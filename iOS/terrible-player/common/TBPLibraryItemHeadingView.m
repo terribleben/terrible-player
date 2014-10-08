@@ -7,6 +7,7 @@
 //
 
 #import "TBPLibraryItemHeadingView.h"
+#import "TBPConstants.h"
 
 @interface TBPLibraryItemHeadingView ()
 
@@ -20,12 +21,12 @@
 - (id) initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
         
         // title label
         self.lblTitle = [[UILabel alloc] init];
-        _lblTitle.font = [UIFont boldSystemFontOfSize:22.0f];
-        _lblTitle.textColor = [UIColor whiteColor];
+        _lblTitle.font = [UIFont fontWithName:TBP_FONT_LIGHT size:24.0f];
+        _lblTitle.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
         [self addSubview:_lblTitle];
         
         // artwork view
