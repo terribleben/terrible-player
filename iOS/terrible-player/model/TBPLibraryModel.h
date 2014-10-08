@@ -15,14 +15,12 @@ FOUNDATION_EXPORT NSString * const kTBPLibraryModelDidChangeNotification;
 + (TBPLibraryModel *) sharedInstance;
 
 /**
- *  Set of NSString unique artist titles
- *  TODO: what do we actually want here?
+ *  Set of TPLibraryItem artists
  */
 @property (nonatomic, readonly) NSOrderedSet *artists;
 
 /**
- *  Set of NSString unique album titles
- *  TODO: what do we actually want here?
+ *  Set of TPLibraryItem albums
  */
 @property (nonatomic, readonly) NSOrderedSet *albums;
 

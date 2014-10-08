@@ -85,7 +85,7 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTBPArtistsTableViewCellIdentifier];
     
     if (_artists && indexPath.row < _artists.count)
-        cell.textLabel.text = [_artists objectAtIndex:indexPath.row];
+        cell.textLabel.text = ((TBPLibraryItem *)[_artists objectAtIndex:indexPath.row]).title;
     
     return cell;
 }
@@ -94,9 +94,8 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    // TODO what shall we send to the delegate?
     if (_artists && indexPath.row < _artists.count) {
-        NSString *selectedArtist = [_artists objectAtIndex:indexPath.row];
+        TBPLibraryItem *selectedArtist = [_artists objectAtIndex:indexPath.row];
         if (_delegate)
             [_delegate artistsViewController:self didSelectArtist:selectedArtist];
     }

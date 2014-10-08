@@ -8,6 +8,7 @@
 
 #import "TBPLibraryModel.h"
 #import "NSString+TBP.h"
+#import "TBPLibraryItem.h"
 
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -55,10 +56,17 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         NSArray *artists = [qArtists collections];
         NSMutableOrderedSet *orderedArtistSet = [NSMutableOrderedSet orderedSet];
         
+        NSString *titleProperty = [MPMediaItem titlePropertyForGroupingType:MPMediaGroupingArtist];
+        NSString *idProperty = [MPMediaItem persistentIDPropertyForGroupingType:MPMediaGroupingArtist];
+        
         for (MPMediaItemCollection *artistGrouping in artists) {
-            NSString *artistName = [[artistGrouping representativeItem] valueForProperty:MPMediaItemPropertyArtist];
+            MPMediaItem *groupItem = [artistGrouping representativeItem];
             
-            [orderedArtistSet addObject:[artistName stringByCanonizingForMusicLibrary]];
+            TBPLibraryItem *result = [[TBPLibraryItem alloc] init];
+            result.title = [[groupItem valueForProperty:titleProperty] stringByCanonizingForMusicLibrary];
+            result.persistentId = [groupItem valueForProperty:idProperty];
+            
+            [orderedArtistSet addObject:result];
         }
         
         self.artists = orderedArtistSet;
@@ -75,10 +83,17 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         NSArray *albums = [qAlbums collections];
         NSMutableOrderedSet *orderedAlbumSet = [NSMutableOrderedSet orderedSet];
         
+        NSString *titleProperty = [MPMediaItem titlePropertyForGroupingType:MPMediaGroupingAlbum];
+        NSString *idProperty = [MPMediaItem persistentIDPropertyForGroupingType:MPMediaGroupingAlbum];
+        
         for (MPMediaItemCollection *albumGrouping in albums) {
-            NSString *albumName = [[albumGrouping representativeItem] valueForProperty:MPMediaItemPropertyAlbumTitle];
+            MPMediaItem *groupItem = [albumGrouping representativeItem];
             
-            [orderedAlbumSet addObject:[albumName stringByCanonizingForMusicLibrary]];
+            TBPLibraryItem *result = [[TBPLibraryItem alloc] init];
+            result.title = [[groupItem valueForProperty:titleProperty] stringByCanonizingForMusicLibrary];
+            result.persistentId = [groupItem valueForProperty:idProperty];
+            
+            [orderedAlbumSet addObject:result];
         }
         
         self.albums = orderedAlbumSet;

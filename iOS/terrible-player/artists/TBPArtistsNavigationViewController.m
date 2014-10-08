@@ -32,10 +32,10 @@
 
 #pragma mark delegate methods
 
-- (void) artistsViewController:(TBPArtistsViewController *)vcArtists didSelectArtist:(NSString *)artist
+- (void) artistsViewController:(TBPArtistsViewController *)vcArtists didSelectArtist:(TBPLibraryItem *)artist
 {
     // TODO do something
-    NSLog(@"selected %@", artist);
+    NSLog(@"selected %@", artist.title);
 }
 
 @end

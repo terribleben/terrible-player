@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // inict each tab root
+    // init each tab root
     self.vcArtists = [[TBPArtistsNavigationViewController alloc] init];
     self.vcAlbums = [[TBPAlbumsNavigationViewController alloc] init];
     

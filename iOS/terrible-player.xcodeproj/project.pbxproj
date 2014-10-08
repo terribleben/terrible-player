@@ -20,6 +20,7 @@
 		B5365F5019E5AB9C000B780D /* TBPArtistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F4E19E5AB9C000B780D /* TBPArtistsViewController.m */; };
 		B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F5219E5ABD4000B780D /* TBPAlbumsNavigationViewController.m */; };
 		B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F5519E5ABF0000B780D /* TBPAlbumsViewController.m */; };
+		B5365F5919E5AE1B000B780D /* TBPLibraryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F5819E5AE1B000B780D /* TBPLibraryItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		B5365F5219E5ABD4000B780D /* TBPAlbumsNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAlbumsNavigationViewController.m; sourceTree = "<group>"; };
 		B5365F5419E5ABF0000B780D /* TBPAlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPAlbumsViewController.h; sourceTree = "<group>"; };
 		B5365F5519E5ABF0000B780D /* TBPAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAlbumsViewController.m; sourceTree = "<group>"; };
+		B5365F5719E5AE1B000B780D /* TBPLibraryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLibraryItem.h; sourceTree = "<group>"; };
+		B5365F5819E5AE1B000B780D /* TBPLibraryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLibraryItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +160,8 @@
 			children = (
 				B5365F3C19E5A351000B780D /* TBPLibraryModel.h */,
 				B5365F3D19E5A351000B780D /* TBPLibraryModel.m */,
+				B5365F5719E5AE1B000B780D /* TBPLibraryItem.h */,
+				B5365F5819E5AE1B000B780D /* TBPLibraryItem.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 			files = (
 				B5365F4219E5A493000B780D /* NSString+TBP.m in Sources */,
 				B5365F4519E5A8A1000B780D /* TBPNavigationViewController.m in Sources */,
+				B5365F5919E5AE1B000B780D /* TBPLibraryItem.m in Sources */,
 				B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */,
 				B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */,
 				B5365F4F19E5AB9C000B780D /* TBPArtistsNavigationViewController.m in Sources */,

@@ -86,7 +86,7 @@ NSString * const kTBPAlbumsTableViewCellIdentifier = @"TBPAlbumsTableViewCellIde
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTBPAlbumsTableViewCellIdentifier];
     
     if (_albums && indexPath.row < _albums.count)
-        cell.textLabel.text = [_albums objectAtIndex:indexPath.row];
+        cell.textLabel.text = ((TBPLibraryItem *)[_albums objectAtIndex:indexPath.row]).title;
     
     return cell;
 }
@@ -95,9 +95,8 @@ NSString * const kTBPAlbumsTableViewCellIdentifier = @"TBPAlbumsTableViewCellIde
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    // TODO what shall we send to the delegate?
     if (_albums && indexPath.row < _albums.count) {
-        NSString *selectedAlbum = [_albums objectAtIndex:indexPath.row];
+        TBPLibraryItem *selectedAlbum = [_albums objectAtIndex:indexPath.row];
         if (_delegate)
             [_delegate albumsViewController:self didSelectAlbum:selectedAlbum];
     }

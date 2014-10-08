@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TBPLibraryItem.h"
 
 @class TBPArtistsViewController;
 
 @protocol TBPArtistsControllerDelegate <NSObject>
 
-- (void) artistsViewController: (TBPArtistsViewController *)vcArtists didSelectArtist: (NSString *)artist;
+- (void) artistsViewController: (TBPArtistsViewController *)vcArtists didSelectArtist: (TBPLibraryItem *)artist;
 
 @end
 

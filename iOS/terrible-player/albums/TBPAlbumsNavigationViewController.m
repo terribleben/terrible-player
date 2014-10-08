@@ -32,10 +32,10 @@
 
 #pragma mark delegate methods
 
-- (void) albumsViewController:(TBPAlbumsViewController *)vcAlbums didSelectAlbum:(NSString *)album
+- (void) albumsViewController:(TBPAlbumsViewController *)vcAlbums didSelectAlbum:(TBPLibraryItem *)album
 {
     // TODO do something
-    NSLog(@"selected %@", album);
+    NSLog(@"selected %@", album.title);
 }
 
 @end

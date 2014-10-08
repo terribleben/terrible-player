@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TBPLibraryItem.h"
 
 @class TBPAlbumsViewController;
 
 @protocol TBPAlbumsControllerDelegate <NSObject>
 
-- (void) albumsViewController: (TBPAlbumsViewController *)vcAlbums didSelectAlbum: (NSString *)album;
+- (void) albumsViewController: (TBPAlbumsViewController *)vcAlbums didSelectAlbum: (TBPLibraryItem *)album;
 
 @end
 
