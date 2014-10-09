@@ -33,3 +33,5 @@ Podfile.lock
 *.orig
 
 *~
+
+*config.plist

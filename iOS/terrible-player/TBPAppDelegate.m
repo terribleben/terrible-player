@@ -11,6 +11,8 @@
 #import "TBPLibraryModel.h"
 #import "TBPConstants.h"
 
+#import <RKLog.h>
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) TBPRootViewController *vcRoot;
@@ -24,6 +26,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // configure restkit logging
+    RKLogConfigureByName("RestKit", RKLogLevelOff);
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelOff);
+    RKLogConfigureByName("RestKit/Network", RKLogLevelOff);
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
     

@@ -11,6 +11,9 @@
 @interface NSString (TBP)
 
 - (NSString *)stringByCanonizingForMusicLibrary;
+
+- (NSString *)md5String;
+
 + (NSString *)stringFromTimeInterval: (NSTimeInterval)interval;
 
 @end
