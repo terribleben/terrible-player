@@ -121,6 +121,11 @@
     if (!cell)
         cell = [[TBPTrackTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTBPTrackTableViewCellIdentifier];
     
+    UIView *vBackground = [[UIView alloc] init];
+    vBackground.backgroundColor = UIColorFromRGB(TBP_COLOR_GREY_DEFAULT);
+    vBackground.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
+    cell.selectedBackgroundView = vBackground;
+    
     if (_tracks && indexPath.row < _tracks.count) {
         TBPLibraryItem *trackForCell = [_tracks objectAtIndex:indexPath.row];
         BOOL isNowPlaying = (_nowPlayingItem && [trackForCell isEqual:_nowPlayingItem]);
@@ -134,7 +139,7 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (_tracks && indexPath.row < _tracks.count) {
         TBPLibraryItem *selectedTrack = [_tracks objectAtIndex:indexPath.row];

@@ -11,5 +11,6 @@
 @interface NSString (TBP)
 
 - (NSString *)stringByCanonizingForMusicLibrary;
++ (NSString *)stringFromTimeInterval: (NSTimeInterval)interval;
 
 @end

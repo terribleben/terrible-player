@@ -195,9 +195,7 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         NSArray *artists = [qArtists collections];
         
         for (MPMediaItemCollection *artistGrouping in artists) {
-            MPMediaItem *groupItem = [artistGrouping representativeItem];
-            
-            TBPLibraryItem *result = [TBPLibraryItem itemWithMediaItem:groupItem grouping:MPMediaGroupingArtist];
+            TBPLibraryItem *result = [TBPLibraryItem itemWithMediaCollection:artistGrouping grouping:MPMediaGroupingArtist];
             
             // start with an empty list of albums for this artist
             [artistAlbumMap setObject:[NSMutableOrderedSet orderedSet] forKey:result.persistentId];
@@ -211,11 +209,10 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         NSArray *albums = [qAlbums collections];
         
         for (MPMediaItemCollection *albumGrouping in albums) {
-            MPMediaItem *groupItem = [albumGrouping representativeItem];
-            
-            TBPLibraryItem *result = [TBPLibraryItem itemWithMediaItem:groupItem grouping:MPMediaGroupingAlbum];
+            TBPLibraryItem *result = [TBPLibraryItem itemWithMediaCollection:albumGrouping grouping:MPMediaGroupingAlbum];
             
             // add album to list of albums by artist
+            MPMediaItem *groupItem = [albumGrouping representativeItem];
             NSNumber *artistId = [groupItem valueForProperty:MPMediaItemPropertyArtistPersistentID];
             if ([artistAlbumMap objectForKey:artistId]) {
                 NSMutableOrderedSet *byArtist = [artistAlbumMap objectForKey:artistId];

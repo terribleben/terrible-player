@@ -19,9 +19,31 @@
     TBPLibraryItem *result = [[TBPLibraryItem alloc] init];
     result.title = [[item valueForProperty:titleProperty] stringByCanonizingForMusicLibrary];
     result.persistentId = [item valueForProperty:idProperty];
-    result.artwork = [item valueForKey:MPMediaItemPropertyArtwork];
+    result.artwork = [item valueForProperty:MPMediaItemPropertyArtwork];
+    result.duration = [item valueForProperty:MPMediaItemPropertyPlaybackDuration];
+    result.releaseDate = [item valueForProperty:@"year"];
+    result.count = @(1);
 
     return result;
+}
+
++ (TBPLibraryItem *)itemWithMediaCollection:(MPMediaItemCollection *)collection grouping:(MPMediaGrouping)grouping
+{
+    // get basic stuff from the collection's representative item
+    TBPLibraryItem *fromItem = [TBPLibraryItem itemWithMediaItem:[collection representativeItem] grouping:grouping];
+    
+    // compute duration from the sum of the collection contents
+    NSTimeInterval totalDuration = 0;
+    
+    for (MPMediaItem *item in collection.items) {
+        NSNumber *itemDurationObj = [item valueForProperty:MPMediaItemPropertyPlaybackDuration];
+        NSTimeInterval itemDuration = (itemDurationObj) ? itemDurationObj.floatValue : 0;
+        totalDuration += itemDuration;
+    }
+    
+    fromItem.duration = [NSNumber numberWithFloat:totalDuration];
+    fromItem.count = @(collection.items.count);
+    return fromItem;
 }
 
 - (BOOL) isEqual:(id)object
