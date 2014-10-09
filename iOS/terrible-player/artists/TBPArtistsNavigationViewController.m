@@ -57,6 +57,24 @@
 }
 
 
+#pragma mark internal methods
+
+- (void) didPopViewControllers:(NSArray *)controllers
+{
+    [super didPopViewControllers:controllers];
+    
+    // free up whatever we can
+    for (UIViewController *controller in controllers) {
+        if (controller == _vcNowPlaying)
+            _vcNowPlaying.album = nil;
+        else if (controller == _vcAlbum)
+            _vcAlbum.album = nil;
+        else if (controller == _vcAlbums)
+            _vcAlbums.artist = nil;
+    }
+}
+
+
 #pragma mark delegate methods
 
 - (void) artistsViewController:(TBPArtistsViewController *)vcArtists didSelectArtist:(TBPLibraryItem *)artist
