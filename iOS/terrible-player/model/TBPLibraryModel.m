@@ -63,7 +63,7 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         dtmLastUpdatedNowPlaying = 0;
         idLastUpdatedNowPlaying = 0;
         
-        self.musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+        self.musicPlayer = [MPMusicPlayerController systemMusicPlayer];
         [_musicPlayer setShuffleMode: MPMusicShuffleModeOff];
         [_musicPlayer setRepeatMode: MPMusicRepeatModeNone];
         
