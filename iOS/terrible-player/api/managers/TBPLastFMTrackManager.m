@@ -7,6 +7,7 @@
 //
 
 #import "TBPLastFMTrackManager.h"
+#import "TBPLastFMSession.h"
 
 #import <RKRequestDescriptor.h>
 #import <RKResponseDescriptor.h>
@@ -49,59 +50,65 @@
 
 - (void)updateNowPlayingWithArtist:(NSString *)artistName track:(NSString *)trackTitle album:(NSString *)albumTitle duration:(NSNumber *)duration success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
 {
-    if (artistName && artistName.length && trackTitle && trackTitle.length) {
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                      @"method": @"track.updateNowPlaying",
-                                                                                      @"artist": artistName,
-                                                                                      @"track": trackTitle
-                                                                                      }];
-        if (albumTitle)
-            [params setObject:albumTitle forKey:@"album"];
-        if (duration)
-            [params setObject:[NSString stringWithFormat:@"%.0f", duration.floatValue] forKey:@"duration"];
-    
-        [self postObject:nil path:@"" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-            if (mappingResult && mappingResult.dictionary) {
-                NSDictionary *nowPlayingInfo = [mappingResult.dictionary objectForKey:@"nowplaying"];
-                NSDictionary *ignoredMessage = [nowPlayingInfo objectForKey:@"ignoredMessage"];
-                if (ignoredMessage) {
-                    NSString *ignoredMessageContents = [ignoredMessage objectForKey:@"#text"];
-                    if (ignoredMessageContents && ignoredMessageContents.length)
-                        NSLog(@"Warning: TBPLastFmTrackManager: track.updateNowPlaying ignored: %@", ignoredMessage);
+    if ([TBPLastFMSession sharedInstance].isScrobblingEnabled) {
+        if (artistName && artistName.length && trackTitle && trackTitle.length) {
+            NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                          @"method": @"track.updateNowPlaying",
+                                                                                          @"artist": artistName,
+                                                                                          @"track": trackTitle
+                                                                                          }];
+            if (albumTitle)
+                [params setObject:albumTitle forKey:@"album"];
+            if (duration)
+                [params setObject:[NSString stringWithFormat:@"%.0f", duration.floatValue] forKey:@"duration"];
+        
+            [self postObject:nil path:@"" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                if (mappingResult && mappingResult.dictionary) {
+                    NSDictionary *nowPlayingInfo = [mappingResult.dictionary objectForKey:@"nowplaying"];
+                    NSDictionary *ignoredMessage = [nowPlayingInfo objectForKey:@"ignoredMessage"];
+                    if (ignoredMessage) {
+                        NSString *ignoredMessageContents = [ignoredMessage objectForKey:@"#text"];
+                        if (ignoredMessageContents && ignoredMessageContents.length)
+                            NSLog(@"Warning: TBPLastFmTrackManager: track.updateNowPlaying ignored: %@", ignoredMessage);
+                    }
+                    
+                    if (success)
+                        success();
                 }
-                
-                if (success)
-                    success();
-            }
-        } failure:failure];
-    } else
-        failure(nil, [NSError errorWithDomain:kTBPAPIErrorDomain code:kTBPAPIErrorCodeInvalidRequest userInfo:nil]);
+            } failure:failure];
+        } else
+            failure(nil, [NSError errorWithDomain:kTBPAPIErrorDomain code:kTBPAPIErrorCodeInvalidRequest userInfo:nil]);
+    }
+    // if scrobbling not enabled, fail silently
 }
 
 - (void)scrobbleWithArtist:(NSString *)artistName track:(NSString *)trackTitle album:(NSString *)albumTitle duration:(NSNumber *)duration timestamp:(NSTimeInterval)unixTimestampSinceTrackStarted success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
 {
-    if (artistName && artistName.length && trackTitle && trackTitle.length && unixTimestampSinceTrackStarted && unixTimestampSinceTrackStarted > 0) {
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                      @"method": @"track.scrobble",
-                                                                                      @"artist": artistName,
-                                                                                      @"track": trackTitle,
-                                                                                      @"timestamp": [NSString stringWithFormat:@"%.0f", unixTimestampSinceTrackStarted]
-                                                                                      }];
-        if (albumTitle)
-            [params setObject:albumTitle forKey:@"album"];
-        if (duration)
-            [params setObject:[NSString stringWithFormat:@"%.0f", duration.floatValue] forKey:@"duration"];
-        
-        [self postObject:nil path:@"" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-            if (mappingResult && mappingResult.dictionary) {
-                NSDictionary *scrobbles = [mappingResult.dictionary objectForKey:@"scrobbles"];
-                
-                if (success)
-                    success();
-            }
-        } failure:failure];
-    } else
-        failure(nil, [NSError errorWithDomain:kTBPAPIErrorDomain code:kTBPAPIErrorCodeInvalidRequest userInfo:nil]);
+    if ([TBPLastFMSession sharedInstance].isScrobblingEnabled) {
+        if (artistName && artistName.length && trackTitle && trackTitle.length && unixTimestampSinceTrackStarted && unixTimestampSinceTrackStarted > 0) {
+            NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                          @"method": @"track.scrobble",
+                                                                                          @"artist": artistName,
+                                                                                          @"track": trackTitle,
+                                                                                          @"timestamp": [NSString stringWithFormat:@"%.0f", unixTimestampSinceTrackStarted]
+                                                                                          }];
+            if (albumTitle)
+                [params setObject:albumTitle forKey:@"album"];
+            if (duration)
+                [params setObject:[NSString stringWithFormat:@"%.0f", duration.floatValue] forKey:@"duration"];
+            
+            [self postObject:nil path:@"" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                if (mappingResult && mappingResult.dictionary) {
+                    NSDictionary *scrobbles = [mappingResult.dictionary objectForKey:@"scrobbles"];
+                    
+                    if (success)
+                        success();
+                }
+            } failure:failure];
+        } else
+            failure(nil, [NSError errorWithDomain:kTBPAPIErrorDomain code:kTBPAPIErrorCodeInvalidRequest userInfo:nil]);
+    }
+    // scrobbling not enabled, fail silently
 }
 
 @end
