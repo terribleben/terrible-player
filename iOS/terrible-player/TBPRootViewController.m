@@ -8,12 +8,13 @@
 
 #import "TBPRootViewController.h"
 #import "TBPArtistsNavigationViewController.h"
+#import "TBPNowPlayingBarViewController.h"
 #import "TBPConstants.h"
 
 @interface TBPRootViewController ()
 
 @property (nonatomic, strong) TBPArtistsNavigationViewController *vcArtists;
-@property (nonatomic, strong) UIView *vKillMe;
+@property (nonatomic, strong) TBPNowPlayingBarViewController *vcNowPlaying;
 
 @property (nonatomic, assign) UIViewController *selectedViewController;
 
@@ -31,9 +32,8 @@
     self.vcArtists = [[TBPArtistsNavigationViewController alloc] init];
     
     // placeholder now playing bar
-    self.vKillMe = [[UIView alloc] init];
-    _vKillMe.backgroundColor = UIColorFromRGB(TBP_COLOR_GREY_DEFAULT);
-    [self.view addSubview:_vKillMe];
+    self.vcNowPlaying = [[TBPNowPlayingBarViewController alloc] init];
+    [self.view addSubview:_vcNowPlaying.view];
     
     self.selectedViewController = _vcArtists;
 }
@@ -42,11 +42,11 @@
 {
     [super viewWillLayoutSubviews];
     
-    CGFloat nowPlayingBarHeight = 64.0f;
-    _vKillMe.frame = CGRectMake(0, self.view.frame.size.height - nowPlayingBarHeight,
-                                self.view.frame.size.width, nowPlayingBarHeight);
+    _vcNowPlaying.view.frame = CGRectMake(0, self.view.frame.size.height - TBP_NOW_PLAYING_BAR_HEIGHT,
+                                          self.view.frame.size.width, TBP_NOW_PLAYING_BAR_HEIGHT);
+
     self.selectedViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width,
-                                                        self.view.frame.size.height - nowPlayingBarHeight);
+                                                        self.view.frame.size.height - TBP_NOW_PLAYING_BAR_HEIGHT);
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle
