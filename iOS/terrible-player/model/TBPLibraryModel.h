@@ -26,6 +26,7 @@ typedef enum TBPLibraryModelChangeReason : NSUInteger {
 + (TBPLibraryModel *) sharedInstance;
 
 @property (nonatomic, readonly) TBPLibraryItem *nowPlayingItem;
+@property (nonatomic, readonly) BOOL isPlaying;
 
 /**
  *  Set of TPLibraryItem artists
@@ -51,5 +52,10 @@ typedef enum TBPLibraryModelChangeReason : NSUInteger {
  *  Play a track in an album.
  */
 - (void) playTrackWithId: (NSNumber *)trackPersistentId inAlbum: (NSNumber *)albumPersistentId;
+
+/**
+ *  Change playback state.
+ */
+- (void) playPause;
 
 @end

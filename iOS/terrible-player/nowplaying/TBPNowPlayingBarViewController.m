@@ -12,10 +12,14 @@
 
 @interface TBPNowPlayingBarViewController ()
 
-@property (nonatomic, strong) UILabel *lblTitle;
 @property (nonatomic, strong) TBPLibraryItem *nowPlayingItem;
 
+@property (nonatomic, strong) UILabel *lblTitle;
+@property (nonatomic, strong) UIButton *btnPlay;
+@property (nonatomic, strong) UIButton *btnPause;
+
 - (void) onModelChange: (NSNotification *)notification;
+- (void) onTapPlayPause;
 
 @end
 
@@ -45,13 +49,29 @@
     _lblTitle.font = [UIFont fontWithName:TBP_FONT size:16.0f];
     _lblTitle.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
     [self.view addSubview:_lblTitle];
+    
+    // play button
+    self.btnPlay = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_btnPlay setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    [_btnPlay addTarget:self action:@selector(onTapPlayPause) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_btnPlay];
+    
+    // pause button
+    self.btnPause = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_btnPause setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+    [_btnPause addTarget:self action:@selector(onTapPlayPause) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_btnPause];
 }
 
 - (void) viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
     
-    _lblTitle.frame = CGRectMake(8.0f, 0, self.view.frame.size.width - 16.0f, self.view.frame.size.height);
+    CGFloat sqrSide = MIN(32.0f, MAX(4.0f, self.view.frame.size.height * 0.9f));
+    _btnPlay.frame = CGRectMake(0, 0, sqrSide, sqrSide);
+    _btnPlay.center = CGPointMake(self.view.frame.size.width - 8.0f - (sqrSide * 0.5f), self.view.frame.size.height * 0.5f);
+    _btnPause.frame = _btnPlay.frame;
+    _lblTitle.frame = CGRectMake(8.0f, 0, _btnPlay.frame.origin.x - 16.0f, self.view.frame.size.height);
 }
 
 
@@ -60,16 +80,26 @@
 - (void) reload
 {
     self.nowPlayingItem = [TBPLibraryModel sharedInstance].nowPlayingItem;
+    BOOL isPlaying = [TBPLibraryModel sharedInstance].isPlaying;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_nowPlayingItem) {
             _lblTitle.text = _nowPlayingItem.title;
+            _btnPlay.hidden = isPlaying;
+            _btnPause.hidden = !isPlaying;
         } else {
             _lblTitle.text = nil;
+            _btnPlay.hidden = YES;
+            _btnPause.hidden = YES;
         }
         
         [self.view setNeedsDisplay];
     });
+}
+
+- (void) onTapPlayPause
+{
+    [[TBPLibraryModel sharedInstance] playPause];
 }
 
 - (void) onModelChange:(NSNotification *)notification

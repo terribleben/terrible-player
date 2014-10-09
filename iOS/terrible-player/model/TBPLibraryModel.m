@@ -80,6 +80,11 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
     return nil;
 }
 
+- (BOOL) isPlaying
+{
+    return (_musicPlayer.playbackState == MPMusicPlaybackStatePlaying);
+}
+
 - (NSOrderedSet *)albumsForArtistWithId:(NSNumber *)artistPersistentId
 {
     if (_albumsByArtist)
@@ -135,6 +140,17 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         if (!didSeek) {
             [_musicPlayer setQueueWithItemCollection:albumToEnqueue];
             [_musicPlayer setNowPlayingItem:trackToEnqueue];
+            [_musicPlayer play];
+        }
+    }
+}
+
+- (void) playPause
+{
+    if (_musicPlayer.playbackState == MPMusicPlaybackStatePlaying) {
+        [_musicPlayer pause];
+    } else {
+        if (_musicPlayer.nowPlayingItem != nil) {
             [_musicPlayer play];
         }
     }
