@@ -21,6 +21,8 @@
 #define TBP_COLOR_GREY_DEFAULT 0x222222
 #define TBP_COLOR_GREY_SELECTED 0x444444
 
+#define TBP_COLOR_ACTION 0xbb0000
+
 #define kTBPAPIEndpointLastFM @"TBPAPIEndpointLastFM"
 #define kTBPConfigLastFMKey @"TBPConfigLastFMKey"
 #define kTBPConfigLastFMSecret @"TBPConfigLastFMSecret"

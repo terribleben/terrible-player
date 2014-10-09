@@ -38,6 +38,7 @@
 		B5BDB2AC19E64CD7004184F8 /* TBPLastFMTrackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2AB19E64CD7004184F8 /* TBPLastFMTrackManager.m */; };
 		B5BDB2AF19E6F157004184F8 /* TBPSettingsNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2AE19E6F157004184F8 /* TBPSettingsNavigationViewController.m */; };
 		B5BDB2B219E6F7C8004184F8 /* TBPAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2B119E6F7C8004184F8 /* TBPAuthViewController.m */; };
+		B5F176D919E70C8A00593D12 /* TBPActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F176D819E70C8A00593D12 /* TBPActivityIndicatorView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,8 @@
 		B5BDB2AE19E6F157004184F8 /* TBPSettingsNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPSettingsNavigationViewController.m; sourceTree = "<group>"; };
 		B5BDB2B019E6F7C8004184F8 /* TBPAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPAuthViewController.h; sourceTree = "<group>"; };
 		B5BDB2B119E6F7C8004184F8 /* TBPAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAuthViewController.m; sourceTree = "<group>"; };
+		B5F176D719E70C8A00593D12 /* TBPActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPActivityIndicatorView.h; sourceTree = "<group>"; };
+		B5F176D819E70C8A00593D12 /* TBPActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPActivityIndicatorView.m; sourceTree = "<group>"; };
 		E842D728F319499BB9741BE3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -258,6 +261,8 @@
 				B5365F4419E5A8A1000B780D /* TBPNavigationViewController.m */,
 				B502792119E5E34800BAD1F5 /* TBPLibraryItemHeadingView.h */,
 				B502792219E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m */,
+				B5F176D719E70C8A00593D12 /* TBPActivityIndicatorView.h */,
+				B5F176D819E70C8A00593D12 /* TBPActivityIndicatorView.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 				B502792019E5DEC100BAD1F5 /* TBPTrackTableViewCell.m in Sources */,
 				B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */,
 				B5BDB2A019E64024004184F8 /* TBPLastFMAuthManager.m in Sources */,
+				B5F176D919E70C8A00593D12 /* TBPActivityIndicatorView.m in Sources */,
 				B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */,
 				B5BDB2AF19E6F157004184F8 /* TBPSettingsNavigationViewController.m in Sources */,
 				B5365F4F19E5AB9C000B780D /* TBPArtistsNavigationViewController.m in Sources */,

@@ -21,9 +21,25 @@ typedef enum TBPLibraryModelChangeReason : NSUInteger {
     kTBPLibraryModelChangeLibraryContents   = 1 << 2
 } TBPLibraryModelChangeReason;
 
+@class TBPLibraryModel;
+
+@protocol TBPLibraryDelegate <NSObject>
+
+- (void) libraryDidBeginReload: (TBPLibraryModel *)library;
+- (void) libraryDidEndReload: (TBPLibraryModel *)library;
+
+@end
+
 @interface TBPLibraryModel : NSObject
 
 + (TBPLibraryModel *) sharedInstance;
+
+@property (nonatomic, assign) id <TBPLibraryDelegate> delegate;
+
+/**
+ *  Re-scan the library on the device.
+ */
+- (void) recompute;
 
 /**
  *  Represents the currently-queued album. Not computed from MPMusicPlayer.

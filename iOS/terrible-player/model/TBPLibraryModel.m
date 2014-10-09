@@ -30,7 +30,6 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 @property (nonatomic, strong) NSTimer *tmrUpdateNowPlaying;
 @property (nonatomic, strong) NSTimer *tmrScrobble;
 
-- (void) recompute;
 - (void) onNowPlayingItemChanged: (NSNotification *)notification;
 - (void) onPlaybackStateChanged: (NSNotification *)notification;
 - (void) updateLastFMNowPlaying;
@@ -71,8 +70,6 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         [notificationCenter addObserver:self selector:@selector(onNowPlayingItemChanged:) name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification object:nil];
         [notificationCenter addObserver:self selector:@selector(onPlaybackStateChanged:) name:MPMusicPlayerControllerPlaybackStateDidChangeNotification object:nil];
         [_musicPlayer beginGeneratingPlaybackNotifications];
-        
-        [self recompute];
     }
     return self;
 }
@@ -97,6 +94,7 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 
 - (BOOL) isPlaying
 {
+    NSLog(@"playback state: %u", _musicPlayer.playbackState);
     return (_musicPlayer.playbackState == MPMusicPlaybackStatePlaying);
 }
 
@@ -239,6 +237,9 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 - (void) recompute
 {
     // TODO caching
+    if (_delegate) {
+        [_delegate libraryDidBeginReload:self];
+    }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -286,6 +287,10 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         NSLog(@"TBPLibraryModel: library contents change");
         [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
                                                             object:@(kTBPLibraryModelChangeLibraryContents)];
+        
+        if (_delegate) {
+            [_delegate libraryDidEndReload:self];
+        }
     });
 }
 

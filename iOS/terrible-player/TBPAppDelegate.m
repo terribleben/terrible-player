@@ -40,6 +40,7 @@
     
     // hook up main view controller
     self.vcRoot = [[TBPRootViewController alloc] init];
+    [TBPLibraryModel sharedInstance].delegate = _vcRoot;
     self.window.rootViewController = _vcRoot;
     
     // configure global UI appearance
@@ -47,12 +48,13 @@
     
     [self.window makeKeyAndVisible];
     
+    [[TBPLibraryModel sharedInstance] recompute];
     return YES;
 }
 
 - (void) setUIAppearance
 {
-    [[UIButton appearance] setTintColor:UIColorFromRGB(0xbb0000)];
+    [[UIButton appearance] setTintColor:UIColorFromRGB(TBP_COLOR_ACTION)];
 }
 
 @end
