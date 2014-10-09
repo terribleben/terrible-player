@@ -28,7 +28,7 @@
 - (id) init
 {
     if (self = [super init]) {
-        self.title = @"Artists";
+        self.title = @"Library";
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelChange:) name:kTBPLibraryModelDidChangeNotification object:nil];
     }
     return self;
@@ -68,6 +68,16 @@
     _vArtists.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (_vArtists) {
+        for (NSIndexPath *selectedPath in [_vArtists indexPathsForSelectedRows]) {
+            [_vArtists deselectRowAtIndexPath:selectedPath animated:YES];
+        }
+    }
+}
+
 
 #pragma mark delegate methods
 
@@ -94,6 +104,11 @@
     if (!cell)
         cell = [[TBPArtistTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTBPArtistsTableViewCellIdentifier];
     
+    UIView *vBackground = [[UIView alloc] init];
+    vBackground.backgroundColor = UIColorFromRGB(TBP_COLOR_GREY_DEFAULT);
+    vBackground.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
+    cell.selectedBackgroundView = vBackground;
+    
     if (_artists && indexPath.row < _artists.count)
         cell.artist = (TBPLibraryItem *)[_artists objectAtIndex:indexPath.row];
     
@@ -102,8 +117,6 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
     if (_artists && indexPath.row < _artists.count) {
         TBPLibraryItem *selectedArtist = [_artists objectAtIndex:indexPath.row];
         if (_delegate)

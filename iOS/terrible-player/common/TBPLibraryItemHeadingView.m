@@ -40,8 +40,8 @@
 {
     [super layoutSubviews];
     
-    CGFloat sqrSide = MIN(64.0f, self.frame.size.height * 0.9f);
-    CGFloat margin = MAX(4.0f, MIN(24.0f, self.frame.size.height * 0.05f));
+    CGFloat sqrSide = MIN(128.0f, self.frame.size.height * 0.9f);
+    CGFloat margin = MAX(8.0f, MIN(24.0f, self.frame.size.height * 0.05f));
     _vArtwork.frame = CGRectMake(margin, margin, sqrSide, sqrSide);
     
     CGFloat titleX = _vArtwork.frame.origin.x + _vArtwork.frame.size.width + margin;

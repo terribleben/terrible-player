@@ -10,12 +10,12 @@
 #import "TBPLibraryModel.h"
 #import "TBPAlbumCollectionViewCell.h"
 #import "TBPLibraryItemHeadingView.h"
+#import "TBPConstants.h"
 
 @interface TBPAlbumsViewController ()
 
 @property (nonatomic, strong) NSOrderedSet *albums;
 @property (nonatomic, strong) UICollectionView *vAlbums;
-@property (nonatomic, strong) TBPLibraryItemHeadingView *vArtist;
 
 - (void) onModelChange: (NSNotification *)notification;
 - (void) reload;
@@ -45,10 +45,6 @@
 {
     [super viewDidLoad];
     
-    // artist view
-    self.vArtist = [[TBPLibraryItemHeadingView alloc] init];
-    [self.view addSubview:_vArtist];
-    
     // albums view
     UICollectionViewFlowLayout *loAlbums = [[UICollectionViewFlowLayout alloc] init];
     loAlbums.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -60,6 +56,7 @@
     [_vAlbums registerClass:[TBPAlbumCollectionViewCell class] forCellWithReuseIdentifier:kTBPAlbumsCollectionViewCellIdentifier];
     _vAlbums.delegate = self;
     _vAlbums.dataSource = self;
+    _vAlbums.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
     [self.view addSubview:_vAlbums];
     
     [self reload];
@@ -73,16 +70,9 @@
 - (void) viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    
-    if (_artist) {
-        _vArtist.hidden = NO;
-        _vArtist.frame = CGRectMake(0, 0, self.view.frame.size.width, 96.0f);
-        _vAlbums.frame = CGRectMake(0, _vArtist.frame.size.height,
-                                    self.view.frame.size.width, self.view.frame.size.height - _vArtist.frame.size.height);
-    } else {
-        _vArtist.hidden = YES;
-        _vAlbums.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    }
+
+    CGFloat albumsY = 16.0f;
+    _vAlbums.frame = CGRectMake(0, albumsY, self.view.frame.size.width, self.view.frame.size.height - albumsY);
 }
 
 
@@ -155,7 +145,6 @@
         self.albums = [TBPLibraryModel sharedInstance].albums;
     
     if (self.isViewLoaded) {
-        _vArtist.item = _artist;
         [self.view setNeedsLayout];
         
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -75,7 +75,7 @@
 {
     [super viewWillLayoutSubviews];
     
-    _vAlbum.frame = CGRectMake(0, 0, self.view.frame.size.width, 96.0f);
+    _vAlbum.frame = CGRectMake(0, 0, self.view.frame.size.width, 128.0f);
     _vTracks.frame = CGRectMake(0, _vAlbum.frame.size.height,
                                 self.view.frame.size.width, self.view.frame.size.height - _vAlbum.frame.size.height);
 }

@@ -27,7 +27,7 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
         
         // title label
         self.lblTitle = [[UILabel alloc] init];
-        _lblTitle.font = [UIFont fontWithName:TBP_FONT size:14.0f];
+        _lblTitle.font = [UIFont fontWithName:TBP_FONT size:18.0f];
         _lblTitle.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
         [self addSubview:_lblTitle];
         
@@ -52,7 +52,7 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
     CGFloat margin = MAX(4.0f, MIN(12.0f, self.frame.size.height * 0.05f));
     _vArtwork.frame = CGRectMake(margin, margin, sqrSide, sqrSide);
     
-    CGFloat titleX = _vArtwork.frame.origin.x + _vArtwork.frame.size.width + margin;
+    CGFloat titleX = _vArtwork.frame.origin.x + _vArtwork.frame.size.width + (margin * 2.0f);
     _lblTitle.frame = CGRectMake(titleX, margin,
                                  self.frame.size.width - titleX - margin, self.frame.size.height - margin - margin);
 }
