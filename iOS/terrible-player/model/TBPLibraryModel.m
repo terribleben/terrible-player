@@ -13,7 +13,7 @@
 
 #import <MediaPlayer/MediaPlayer.h>
 
-#define TBP_LAST_FM_NOW_PLAYING_DELAY 8.0f
+#define TBP_LAST_FM_NOW_PLAYING_DELAY 4.0f
 
 NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidChangeNotification";
 
@@ -28,11 +28,13 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 @property (nonatomic, strong) MPMusicPlayerController *musicPlayer;
 
 @property (nonatomic, strong) NSTimer *tmrUpdateNowPlaying;
+@property (nonatomic, strong) NSTimer *tmrScrobble;
 
 - (void) recompute;
 - (void) onNowPlayingItemChanged: (NSNotification *)notification;
 - (void) onPlaybackStateChanged: (NSNotification *)notification;
 - (void) updateLastFMNowPlaying;
+- (void) scrobbleLastFM;
 
 /**
  *  Artist persistent id => albums
@@ -191,7 +193,7 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 
     NSInteger idNowPlaying = (nowPlayingItem) ? [[nowPlayingItem valueForKey:MPMediaItemPropertyPersistentID] integerValue] : 0;
     NSTimeInterval dtmNow = [[NSDate date] timeIntervalSince1970];
-        
+    
     if ((idLastUpdatedNowPlaying == idNowPlaying) && (dtmNow - dtmLastUpdatedNowPlaying <= 1.0f)) {
         // de-dup these updates... do nothing
     } else {
@@ -200,14 +202,28 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         idLastUpdatedNowPlaying = idNowPlaying;
         dtmLastUpdatedNowPlaying = dtmNow;
         
-        // schedule a last.fm now playing update (a few seconds into the song)
+        // kill any outstanding scheduled tasks
         if (_tmrUpdateNowPlaying) {
             [_tmrUpdateNowPlaying invalidate];
             _tmrUpdateNowPlaying = nil;
         }
-        if (idNowPlaying)
+        if (_tmrScrobble) {
+            [_tmrScrobble invalidate];
+            _tmrScrobble = nil;
+        }
+        
+        if (nowPlayingItem) {
+            // schedule a last.fm now playing update (a few seconds into the song)
             _tmrUpdateNowPlaying = [NSTimer scheduledTimerWithTimeInterval:TBP_LAST_FM_NOW_PLAYING_DELAY target:self
                                                                   selector:@selector(updateLastFMNowPlaying) userInfo:nil repeats:NO];
+            
+            // schedule a last.fm scrobble
+            NSTimeInterval duration = [[nowPlayingItem valueForProperty:MPMediaItemPropertyPlaybackDuration] floatValue];
+            if (duration > TBP_LAST_FM_SCROBBLE_MIN_SECS) {
+                _tmrScrobble = [NSTimer scheduledTimerWithTimeInterval:MIN(duration * 0.5f, TBP_LAST_FM_SCROBBLE_MAX_SECS) target:self
+                                                              selector:@selector(scrobbleLastFM) userInfo:nil repeats:NO];
+            }
+        }
         
         // inform everybody else in the app
         [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
@@ -286,6 +302,21 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         
         [[TBPLastFMTrackManager sharedInstance] updateNowPlayingWithArtist:artistName track:trackTitle album:albumTitle duration:duration success:nil failure:^(RKObjectRequestOperation *operation, NSError *error) {
             NSLog(@"Warning: TBPLibraryModel failed to update last.fm now playing: %@", error);
+        }];
+    }
+}
+
+- (void) scrobbleLastFM
+{
+    MPMediaItem *nowPlaying = _musicPlayer.nowPlayingItem;
+    if (nowPlaying) {
+        NSString *trackTitle = [nowPlaying valueForProperty:MPMediaItemPropertyTitle];
+        NSString *artistName = [nowPlaying valueForProperty:MPMediaItemPropertyArtist];
+        NSString *albumTitle = [nowPlaying valueForProperty:MPMediaItemPropertyAlbumTitle];
+        NSNumber *duration = [nowPlaying valueForProperty:MPMediaItemPropertyPlaybackDuration];
+        
+        [[TBPLastFMTrackManager sharedInstance] scrobbleWithArtist:artistName track:trackTitle album:albumTitle duration:duration timestamp:dtmLastUpdatedNowPlaying success:nil failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            NSLog(@"Warning: TBPLibraryModel failed to scrobble: %@", error);
         }];
     }
 }
