@@ -197,8 +197,6 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
     if ((idLastUpdatedNowPlaying == idNowPlaying) && (dtmNow - dtmLastUpdatedNowPlaying <= 1.0f)) {
         // de-dup these updates... do nothing
     } else {
-        NSLog(@"TBPLibraryModel: now playing change: %d", idNowPlaying);
-        
         idLastUpdatedNowPlaying = idNowPlaying;
         dtmLastUpdatedNowPlaying = dtmNow;
         

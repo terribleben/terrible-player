@@ -68,11 +68,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_item) {
             if (_item.releaseDate && item.releaseDate.integerValue != 0) {
-                _lblDate.text = [NSString stringWithFormat:@"%d", item.releaseDate.integerValue];
+                _lblDate.text = [NSString stringWithFormat:@"%ld", (long)item.releaseDate.integerValue];
             } else
                 _lblDate.text = nil;
             
-            _lblCount.text = [NSString stringWithFormat:@"%u tracks", _item.count.unsignedIntegerValue];
+            _lblCount.text = [NSString stringWithFormat:@"%lu tracks", (unsigned long)_item.count.unsignedIntegerValue];
             _lblDuration.text = (_item.duration) ? [NSString stringFromTimeInterval:_item.duration.floatValue] : nil;
             _vArtwork.image = (item.artwork) ? [item.artwork imageWithSize:_vArtwork.frame.size] : nil;
         } else {
