@@ -12,7 +12,7 @@
 #import "TBPAlbumViewController.h"
 
 @interface TBPArtistsNavigationViewController : TBPNavigationViewController
-    <TBPArtistsControllerDelegate, TBPAlbumsControllerDelegate, TBPAlbumControllerDelegate>
+    <TBPArtistsControllerDelegate, TBPAlbumsControllerDelegate, TBPAlbumControllerDelegate, UINavigationControllerDelegate>
 
 /**
  *  Immediately push a view of the currently playing material, unless we're already viewing it.

@@ -45,6 +45,8 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
+    
     // albums view
     UICollectionViewFlowLayout *loAlbums = [[UICollectionViewFlowLayout alloc] init];
     loAlbums.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -141,8 +143,11 @@
 {
     if (_artist)
         self.albums = [[TBPLibraryModel sharedInstance] albumsForArtistWithId:_artist.persistentId];
-    else
-        self.albums = [TBPLibraryModel sharedInstance].albums;
+    else {
+        // this would be the "all albums" case, not currently used
+        // self.albums = [TBPLibraryModel sharedInstance].albums;
+        self.albums = nil;
+    }
     
     if (self.isViewLoaded) {
         [self.view setNeedsLayout];

@@ -29,6 +29,7 @@
         _vcArtists.delegate = self;
         
         self.title = @"Artists";
+        self.delegate = self; // lolb
     }
     return self;
 }
@@ -59,18 +60,17 @@
 
 #pragma mark internal methods
 
-- (void) didPopViewControllers:(NSArray *)controllers
+- (void) navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    [super didPopViewControllers:controllers];
-    
     // free up whatever we can
-    for (UIViewController *controller in controllers) {
-        if (controller == _vcNowPlaying)
-            _vcNowPlaying.album = nil;
-        else if (controller == _vcAlbum)
-            _vcAlbum.album = nil;
-        else if (controller == _vcAlbums)
-            _vcAlbums.artist = nil;
+    if (viewController == _vcArtists && _vcAlbums && _vcAlbums.artist) {
+        _vcAlbums.artist = nil;
+    }
+    if (_vcAlbums && viewController == _vcAlbums && _vcAlbum && _vcAlbum.album) {
+        _vcAlbum.album = nil;
+    }
+    if (_vcNowPlaying && viewController != _vcNowPlaying && _vcNowPlaying.album) {
+        _vcNowPlaying.album = nil;
     }
 }
 
