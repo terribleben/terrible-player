@@ -94,7 +94,6 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 
 - (BOOL) isPlaying
 {
-    NSLog(@"playback state: %u", _musicPlayer.playbackState);
     return (_musicPlayer.playbackState == MPMusicPlaybackStatePlaying);
 }
 
@@ -208,7 +207,7 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
             _tmrScrobble = nil;
         }
         
-        if (nowPlayingItem) {
+        if (nowPlayingItem && self.isPlaying) {
             // schedule a last.fm now playing update (a few seconds into the song)
             _tmrUpdateNowPlaying = [NSTimer scheduledTimerWithTimeInterval:TBP_LAST_FM_NOW_PLAYING_DELAY target:self
                                                                   selector:@selector(updateLastFMNowPlaying) userInfo:nil repeats:NO];
