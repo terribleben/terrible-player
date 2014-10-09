@@ -85,6 +85,13 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
     return (_musicPlayer.playbackState == MPMusicPlaybackStatePlaying);
 }
 
+- (CGFloat)nowPlayingProgress
+{
+    MPMediaItem *nowPlaying = [_musicPlayer nowPlayingItem];
+    NSTimeInterval nowPlayingDuration = [[nowPlaying valueForProperty:MPMediaItemPropertyPlaybackDuration] floatValue];
+    return (_musicPlayer.currentPlaybackTime / nowPlayingDuration);
+}
+
 - (NSOrderedSet *)albumsForArtistWithId:(NSNumber *)artistPersistentId
 {
     if (_albumsByArtist)
@@ -131,7 +138,7 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         if (_musicPlayer.playbackState == MPMusicPlaybackStatePlaying) {
             MPMediaItem *nowPlaying = _musicPlayer.nowPlayingItem;
             if ([nowPlaying isEqual:trackToEnqueue]) {
-                _musicPlayer.currentPlaybackTime = 0;
+                [_musicPlayer skipToBeginning];
                 didSeek = YES;
             }
         }

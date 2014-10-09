@@ -27,6 +27,7 @@ typedef enum TBPLibraryModelChangeReason : NSUInteger {
 
 @property (nonatomic, readonly) TBPLibraryItem *nowPlayingItem;
 @property (nonatomic, readonly) BOOL isPlaying;
+@property (nonatomic, readonly) CGFloat nowPlayingProgress;
 
 /**
  *  Set of TPLibraryItem artists
