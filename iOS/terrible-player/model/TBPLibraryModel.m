@@ -115,9 +115,9 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
     return tracks;
 }
 
-- (void) playTrackWithId:(NSNumber *)trackPersistentId inAlbum:(NSNumber *)albumPersistentId
+- (void) playTrackWithId:(NSNumber *)trackPersistentId inAlbum:(TBPLibraryItem *)album
 {
-    MPMediaPropertyPredicate *albumPredicate = [MPMediaPropertyPredicate predicateWithValue:albumPersistentId
+    MPMediaPropertyPredicate *albumPredicate = [MPMediaPropertyPredicate predicateWithValue:album.persistentId
                                                                                 forProperty:MPMediaItemPropertyAlbumPersistentID];
     MPMediaQuery *albumQuery = [[MPMediaQuery alloc] init];
     [albumQuery addFilterPredicate:albumPredicate];
@@ -149,6 +149,8 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
             [_musicPlayer setNowPlayingItem:trackToEnqueue];
             [_musicPlayer play];
         }
+        
+        self.nowPlayingAlbumCache = album;
     }
 }
 
@@ -169,6 +171,11 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 - (void) onNowPlayingItemChanged:(NSNotification *)notification
 {
     NSLog(@"TBPLibraryModel: now playing change");
+    
+    // if the player has stopped altogether, clear the now playing context.
+    if (_musicPlayer.nowPlayingItem == nil)
+        self.nowPlayingAlbumCache = nil;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
                                                         object:@(kTBPLibraryModelChangeNowPlaying)];
 }

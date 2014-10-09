@@ -14,4 +14,10 @@
 @interface TBPArtistsNavigationViewController : TBPNavigationViewController
     <TBPArtistsControllerDelegate, TBPAlbumsControllerDelegate, TBPAlbumControllerDelegate>
 
+/**
+ *  Immediately push a view of the currently playing material, unless we're already viewing it.
+ *  Return whether any action was taken.
+ */
+- (BOOL) pushNowPlaying;
+
 @end

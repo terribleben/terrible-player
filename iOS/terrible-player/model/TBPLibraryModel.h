@@ -25,8 +25,24 @@ typedef enum TBPLibraryModelChangeReason : NSUInteger {
 
 + (TBPLibraryModel *) sharedInstance;
 
+/**
+ *  Represents the currently-queued album. Not computed from MPMusicPlayer.
+ */
+@property (nonatomic, strong) TBPLibraryItem *nowPlayingAlbumCache;
+
+/**
+ *  Now playing track, computed from the underlying MPMusicPlayer.
+ */
 @property (nonatomic, readonly) TBPLibraryItem *nowPlayingItem;
+
+/**
+ *  Current playback status, computed from the underlying MPMusicPlayer.
+ */
 @property (nonatomic, readonly) BOOL isPlaying;
+
+/**
+ *  Current playback progress, floating from 0-1, computed from the underlying MPMusicPlayer.
+ */
 @property (nonatomic, readonly) CGFloat nowPlayingProgress;
 
 /**
@@ -52,7 +68,7 @@ typedef enum TBPLibraryModelChangeReason : NSUInteger {
 /**
  *  Play a track in an album.
  */
-- (void) playTrackWithId: (NSNumber *)trackPersistentId inAlbum: (NSNumber *)albumPersistentId;
+- (void) playTrackWithId: (NSNumber *)trackPersistentId inAlbum: (TBPLibraryItem *)album;
 
 /**
  *  Change playback state.

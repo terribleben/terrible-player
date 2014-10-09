@@ -24,6 +24,7 @@
 
 - (void) onModelChange: (NSNotification *)notification;
 - (void) onTapPlayPause;
+- (void) onTapNowPlaying;
 - (void) updateCurrentPlaybackTime;
 
 @end
@@ -53,6 +54,11 @@
     self.lblTitle = [[UILabel alloc] init];
     _lblTitle.font = [UIFont fontWithName:TBP_FONT size:16.0f];
     _lblTitle.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
+    _lblTitle.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *tapNowPlaying = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapNowPlaying)];
+    [_lblTitle addGestureRecognizer:tapNowPlaying];
+    
     [self.view addSubview:_lblTitle];
     
     // play button
@@ -134,6 +140,13 @@
 - (void) onTapPlayPause
 {
     [[TBPLibraryModel sharedInstance] playPause];
+}
+
+- (void) onTapNowPlaying
+{
+    if (_delegate) {
+        [_delegate nowPlayingBarDidSelectNowPlaying:self];
+    }
 }
 
 - (void) onModelChange:(NSNotification *)notification

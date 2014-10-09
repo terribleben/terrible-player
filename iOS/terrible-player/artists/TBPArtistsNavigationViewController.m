@@ -14,6 +14,7 @@
 @property (nonatomic, strong) TBPArtistsViewController *vcArtists;
 @property (nonatomic, strong) TBPAlbumsViewController *vcAlbums;
 @property (nonatomic, strong) TBPAlbumViewController *vcAlbum;
+@property (nonatomic, strong) TBPAlbumViewController *vcNowPlaying; // can be pushed any time
 
 @end
 
@@ -30,6 +31,29 @@
         self.title = @"Artists";
     }
     return self;
+}
+
+
+#pragma mark external methods
+
+- (BOOL) pushNowPlaying
+{
+    TBPLibraryItem *nowPlayingAlbum = [TBPLibraryModel sharedInstance].nowPlayingAlbumCache;
+    if (nowPlayingAlbum) {
+        if ((_vcNowPlaying && self.visibleViewController == _vcNowPlaying) ||
+            (_vcAlbum && self.visibleViewController == _vcAlbum && [_vcAlbum.album isEqual:nowPlayingAlbum])) {
+            // we're already on the correct album.
+        } else {
+            if (!_vcNowPlaying) {
+                self.vcNowPlaying = [[TBPAlbumViewController alloc] init];
+                _vcNowPlaying.delegate = self;
+            }
+            _vcNowPlaying.album = nowPlayingAlbum;
+            [self pushViewController:_vcNowPlaying animated:YES];
+            return YES;
+        }
+    }
+    return NO;
 }
 
 
@@ -64,7 +88,7 @@
 - (void) albumViewController:(TBPAlbumViewController *)vcAlbum didSelectTrack:(TBPLibraryItem *)track
 {
     // play the current album at the selected track
-    [[TBPLibraryModel sharedInstance] playTrackWithId:track.persistentId inAlbum:vcAlbum.album.persistentId];
+    [[TBPLibraryModel sharedInstance] playTrackWithId:track.persistentId inAlbum:vcAlbum.album];
 }
 
 @end

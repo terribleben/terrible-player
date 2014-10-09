@@ -8,7 +8,6 @@
 
 #import "TBPRootViewController.h"
 #import "TBPArtistsNavigationViewController.h"
-#import "TBPNowPlayingBarViewController.h"
 #import "TBPConstants.h"
 
 @interface TBPRootViewController ()
@@ -33,6 +32,7 @@
     
     // placeholder now playing bar
     self.vcNowPlaying = [[TBPNowPlayingBarViewController alloc] init];
+    _vcNowPlaying.delegate = self;
     [self.view addSubview:_vcNowPlaying.view];
     
     self.selectedViewController = _vcArtists;
@@ -52,6 +52,20 @@
 - (UIStatusBarStyle) preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+
+#pragma mark delegate methods
+
+- (void) nowPlayingBarDidSelectPlayPause:(TBPNowPlayingBarViewController *)vcNowPlaying
+{
+    // do nothing
+}
+
+- (void) nowPlayingBarDidSelectNowPlaying:(TBPNowPlayingBarViewController *)vcNowPlaying
+{
+    // TODO if not showing the artists view, show it
+    [_vcArtists pushNowPlaying];
 }
 
 

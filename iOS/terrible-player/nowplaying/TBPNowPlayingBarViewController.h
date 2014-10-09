@@ -15,6 +15,7 @@
 @protocol TBPNowPlayingBarDelegate <NSObject>
 
 - (void) nowPlayingBarDidSelectPlayPause: (TBPNowPlayingBarViewController *)vcNowPlaying;
+- (void) nowPlayingBarDidSelectNowPlaying: (TBPNowPlayingBarViewController *)vcNowPlaying;
 
 @end
 
