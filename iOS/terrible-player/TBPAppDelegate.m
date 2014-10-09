@@ -10,6 +10,7 @@
 #import "TBPRootViewController.h"
 #import "TBPLibraryModel.h"
 #import "TBPConstants.h"
+#import "TBPLastFMSession.h"
 
 #import <RKLog.h>
 

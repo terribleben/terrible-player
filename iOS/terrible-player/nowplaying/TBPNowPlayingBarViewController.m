@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *lblTitle;
 @property (nonatomic, strong) UIButton *btnPlay;
 @property (nonatomic, strong) UIButton *btnPause;
+@property (nonatomic, strong) UIButton *btnSettings;
 @property (nonatomic, strong) UIView *vCurrentTimeBackground;
 @property (nonatomic, strong) UIView *vCurrentTimeProgress;
 
@@ -25,6 +26,7 @@
 - (void) onModelChange: (NSNotification *)notification;
 - (void) onTapPlayPause;
 - (void) onTapNowPlaying;
+- (void) onTapSettings;
 - (void) updateCurrentPlaybackTime;
 
 @end
@@ -73,6 +75,12 @@
     [_btnPause addTarget:self action:@selector(onTapPlayPause) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_btnPause];
     
+    // settings button
+    self.btnSettings = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_btnSettings setImage:[UIImage imageNamed:@"settings"] forState:UIControlStateNormal];
+    [_btnSettings addTarget:self action:@selector(onTapSettings) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_btnSettings];
+    
     // current time bar background
     self.vCurrentTimeBackground = [[UIView alloc] init];
     _vCurrentTimeBackground.userInteractionEnabled = NO;
@@ -91,8 +99,11 @@
     CGFloat currentTimeBarHeight = 4.0f;
     
     CGFloat sqrSide = MIN(32.0f, MAX(4.0f, (self.view.frame.size.height - currentTimeBarHeight) * 0.95f));
+    _btnSettings.frame = CGRectMake(0, 0, sqrSide * 0.9f, sqrSide * 0.9f);
+    _btnSettings.center = CGPointMake(self.view.frame.size.width - 8.0f - (sqrSide * 0.5f), (self.view.frame.size.height - currentTimeBarHeight) * 0.5f);
+    
     _btnPlay.frame = CGRectMake(0, 0, sqrSide, sqrSide);
-    _btnPlay.center = CGPointMake(self.view.frame.size.width - 8.0f - (sqrSide * 0.5f), (self.view.frame.size.height - currentTimeBarHeight) * 0.5f);
+    _btnPlay.center = CGPointMake(_btnSettings.center.x - 8.0f - sqrSide, _btnSettings.center.y);
     _btnPause.frame = _btnPlay.frame;
     _lblTitle.frame = CGRectMake(8.0f, 0, _btnPlay.frame.origin.x - 16.0f, self.view.frame.size.height - currentTimeBarHeight);
     
@@ -146,6 +157,13 @@
 {
     if (_delegate) {
         [_delegate nowPlayingBarDidSelectNowPlaying:self];
+    }
+}
+
+- (void) onTapSettings
+{
+    if (_delegate) {
+        [_delegate nowPlayingBarDidSelectSettings:self];
     }
 }
 

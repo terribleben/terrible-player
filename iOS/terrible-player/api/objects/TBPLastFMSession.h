@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+FOUNDATION_EXPORT NSString * const kTBPLastFMSessionDidChangeNotification;
+
 @interface TBPLastFMSession : NSObject
 
 + (TBPLastFMSession *)sharedInstance;

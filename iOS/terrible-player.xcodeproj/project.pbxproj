@@ -34,6 +34,7 @@
 		B5BDB2A119E64024004184F8 /* TBPLastFMObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB29C19E64024004184F8 /* TBPLastFMObjectManager.m */; };
 		B5BDB2A219E64024004184F8 /* TBPObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB29E19E64024004184F8 /* TBPObjectManager.m */; };
 		B5BDB2A519E64044004184F8 /* TBPLastFMSession.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2A419E64044004184F8 /* TBPLastFMSession.m */; };
+		B5BDB2A919E644AA004184F8 /* TBPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2A819E644AA004184F8 /* TBPSettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,8 @@
 		B5BDB29E19E64024004184F8 /* TBPObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPObjectManager.m; sourceTree = "<group>"; };
 		B5BDB2A319E64044004184F8 /* TBPLastFMSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLastFMSession.h; sourceTree = "<group>"; };
 		B5BDB2A419E64044004184F8 /* TBPLastFMSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLastFMSession.m; sourceTree = "<group>"; };
+		B5BDB2A719E644AA004184F8 /* TBPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPSettingsViewController.h; sourceTree = "<group>"; };
+		B5BDB2A819E644AA004184F8 /* TBPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPSettingsViewController.m; sourceTree = "<group>"; };
 		E842D728F319499BB9741BE3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,6 +184,7 @@
 				B5365F4919E5AB9C000B780D /* albums */,
 				B502791A19E5DD7D00BAD1F5 /* album */,
 				B502792919E60A3400BAD1F5 /* nowplaying */,
+				B5BDB2A619E64498004184F8 /* settings */,
 				B5365F3619E59901000B780D /* frameworks */,
 				B5365F2F19E5976A000B780D /* supporting */,
 			);
@@ -304,6 +308,15 @@
 				B5BDB2A419E64044004184F8 /* TBPLastFMSession.m */,
 			);
 			path = objects;
+			sourceTree = "<group>";
+		};
+		B5BDB2A619E64498004184F8 /* settings */ = {
+			isa = PBXGroup;
+			children = (
+				B5BDB2A719E644AA004184F8 /* TBPSettingsViewController.h */,
+				B5BDB2A819E644AA004184F8 /* TBPSettingsViewController.m */,
+			);
+			path = settings;
 			sourceTree = "<group>";
 		};
 		F13FCC0EF82A4D08A6BA5291 /* Frameworks */ = {
@@ -452,6 +465,7 @@
 			files = (
 				B502792819E607C900BAD1F5 /* TBPRootViewController.m in Sources */,
 				B502791919E5D80000BAD1F5 /* TBPArtistTableViewCell.m in Sources */,
+				B5BDB2A919E644AA004184F8 /* TBPSettingsViewController.m in Sources */,
 				B5365F4219E5A493000B780D /* NSString+TBP.m in Sources */,
 				B502791419E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m in Sources */,
 				B5BDB2A119E64024004184F8 /* TBPLastFMObjectManager.m in Sources */,

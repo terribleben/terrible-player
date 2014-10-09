@@ -57,6 +57,8 @@
                 [TBPLastFMSession sharedInstance].sessionKey = sessionKey;
                 [TBPLastFMSession sharedInstance].name = sessionName;
                 
+                [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLastFMSessionDidChangeNotification object:nil];
+                
                 if (success)
                     success();
             } else {

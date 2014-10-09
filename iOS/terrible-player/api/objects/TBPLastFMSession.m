@@ -8,6 +8,8 @@
 
 #import "TBPLastFMSession.h"
 
+NSString * const kTBPLastFMSessionDidChangeNotification = @"TBPLastFMSessionDidChangeNotification";
+
 NSString * const kTBPLastFMSessionDefaultsKeyName = @"TBPLastFMSessionDefaultsKeyName";
 NSString * const kTBPLastFMSessionDefaultsKeyKey = @"TBPLastFMSessionDefaultsKeyKey";
 

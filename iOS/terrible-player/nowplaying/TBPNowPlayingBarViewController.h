@@ -16,6 +16,7 @@
 
 - (void) nowPlayingBarDidSelectPlayPause: (TBPNowPlayingBarViewController *)vcNowPlaying;
 - (void) nowPlayingBarDidSelectNowPlaying: (TBPNowPlayingBarViewController *)vcNowPlaying;
+- (void) nowPlayingBarDidSelectSettings: (TBPNowPlayingBarViewController *)vcNowPlaying;
 
 @end
 
