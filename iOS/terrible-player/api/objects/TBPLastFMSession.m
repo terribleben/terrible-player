@@ -27,6 +27,12 @@ NSString * const kTBPLastFMSessionDefaultsKeyKey = @"TBPLastFMSessionDefaultsKey
     return theSession;
 }
 
+- (void) invalidate
+{
+    self.sessionKey = nil;
+    self.name = nil;
+}
+
 - (BOOL) isLoggedIn
 {
     return (self.sessionKey && self.sessionKey.length);

@@ -18,4 +18,6 @@ FOUNDATION_EXPORT NSString * const kTBPLastFMSessionDidChangeNotification;
 @property (nonatomic, strong) NSString *sessionKey;
 @property (nonatomic, strong) NSString *name;
 
+- (void) invalidate;
+
 @end

@@ -69,4 +69,11 @@
     } failure:failure];
 }
 
+- (void) signOut
+{
+    // last.fm doesn't appear to have a "sign out" API call for some reason, so just kill the session locally.
+    [[TBPLastFMSession sharedInstance] invalidate];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLastFMSessionDidChangeNotification object:nil];
+}
+
 @end

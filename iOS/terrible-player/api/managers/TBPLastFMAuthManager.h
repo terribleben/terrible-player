@@ -17,4 +17,6 @@
                           success: (void (^)(void))success
                           failure: (TBPObjectManagerFailure)failure;
 
+- (void) signOut;
+
 @end

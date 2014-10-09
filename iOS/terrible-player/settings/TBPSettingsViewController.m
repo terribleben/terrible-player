@@ -9,6 +9,7 @@
 #import "TBPSettingsViewController.h"
 #import "TBPConstants.h"
 #import "TBPLastFMSession.h"
+#import "TBPLastFMAuthManager.h"
 
 @interface TBPSettingsViewController ()
 
@@ -16,9 +17,11 @@
 @property (nonatomic, strong) UILabel *lblSessionHeading;
 @property (nonatomic, strong) UILabel *lblSessionDetail;
 @property (nonatomic, strong) UIButton *btnSignIn;
+@property (nonatomic, strong) UIButton *btnSignOut;
 
 - (void) onSessionChange;
 - (void) onTapSignIn;
+- (void) onTapSignOut;
 
 @end
 
@@ -68,7 +71,16 @@
     _btnSignIn.frame = CGRectMake(0, 0, 32.0f, 32.0f);
     [_btnSignIn setImage:[UIImage imageNamed:@"login"] forState:UIControlStateNormal];
     [_btnSignIn addTarget:self action:@selector(onTapSignIn) forControlEvents:UIControlEventTouchUpInside];
+    _btnSignIn.hidden = YES;
     [_vSessionContainer addSubview:_btnSignIn];
+    
+    // sign out button
+    self.btnSignOut = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _btnSignOut.frame = _btnSignIn.frame;
+    [_btnSignOut setImage:[UIImage imageNamed:@"logout"] forState:UIControlStateNormal];
+    [_btnSignOut addTarget:self action:@selector(onTapSignOut) forControlEvents:UIControlEventTouchUpInside];
+    _btnSignOut.hidden = YES;
+    [_vSessionContainer addSubview:_btnSignOut];
     
     [self onSessionChange];
 }
@@ -84,6 +96,7 @@
     
     _vSessionContainer.frame = CGRectMake(0, 0, self.view.frame.size.width, 64.0f);
     _btnSignIn.center = CGPointMake(_vSessionContainer.frame.size.width - 28.0f, _vSessionContainer.frame.size.height * 0.5f);
+    _btnSignOut.center = _btnSignIn.center;
     _lblSessionHeading.frame = CGRectMake(12.0f, 8.0f, _btnSignIn.frame.origin.x - 24.0f, 32.0f);
     _lblSessionDetail.frame = CGRectMake(_lblSessionHeading.frame.origin.x, _lblSessionHeading.frame.origin.y + _lblSessionHeading.frame.size.height,
                                          _lblSessionHeading.frame.size.width, 16.0f);
@@ -94,15 +107,21 @@
 
 - (void) onSessionChange
 {
-    if ([TBPLastFMSession sharedInstance].isLoggedIn) {
-        _lblSessionHeading.text = [TBPLastFMSession sharedInstance].name;
-        _lblSessionDetail.text = @"SIGNED IN WITH LAST.FM";
-        _btnSignIn.hidden = YES;
-    } else {
-        _lblSessionHeading.text = @"Welcome to Cartridge";
-        _lblSessionDetail.text = @"SIGN IN WITH LAST.FM TO SCROBBLE";
-        _btnSignIn.hidden = NO;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([TBPLastFMSession sharedInstance].isLoggedIn) {
+            _lblSessionHeading.text = [TBPLastFMSession sharedInstance].name;
+            _lblSessionDetail.text = @"SIGNED IN WITH LAST.FM";
+            _btnSignIn.hidden = YES;
+            _btnSignOut.hidden = NO;
+        } else {
+            _lblSessionHeading.text = @"Welcome to Cartridge";
+            _lblSessionDetail.text = @"SIGN IN WITH LAST.FM TO SCROBBLE";
+            _btnSignIn.hidden = NO;
+            _btnSignOut.hidden = YES;
+        }
+        
+        [_vSessionContainer setNeedsDisplay];
+    });
 }
 
 - (void) onTapSignIn
@@ -111,6 +130,13 @@
         if (_delegate) {
             [_delegate settingsViewControllerDidTapSignIn:self];
         }
+    }
+}
+
+- (void) onTapSignOut
+{
+    if ([TBPLastFMSession sharedInstance].isLoggedIn) {
+        [[TBPLastFMAuthManager sharedInstance] signOut];
     }
 }
 
