@@ -36,6 +36,7 @@
 		B5BDB2A519E64044004184F8 /* TBPLastFMSession.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2A419E64044004184F8 /* TBPLastFMSession.m */; };
 		B5BDB2A919E644AA004184F8 /* TBPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2A819E644AA004184F8 /* TBPSettingsViewController.m */; };
 		B5BDB2AC19E64CD7004184F8 /* TBPLastFMTrackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2AB19E64CD7004184F8 /* TBPLastFMTrackManager.m */; };
+		B5BDB2AF19E6F157004184F8 /* TBPSettingsNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2AE19E6F157004184F8 /* TBPSettingsNavigationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,8 @@
 		B5BDB2A819E644AA004184F8 /* TBPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPSettingsViewController.m; sourceTree = "<group>"; };
 		B5BDB2AA19E64CD7004184F8 /* TBPLastFMTrackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLastFMTrackManager.h; sourceTree = "<group>"; };
 		B5BDB2AB19E64CD7004184F8 /* TBPLastFMTrackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLastFMTrackManager.m; sourceTree = "<group>"; };
+		B5BDB2AD19E6F157004184F8 /* TBPSettingsNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPSettingsNavigationViewController.h; sourceTree = "<group>"; };
+		B5BDB2AE19E6F157004184F8 /* TBPSettingsNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPSettingsNavigationViewController.m; sourceTree = "<group>"; };
 		E842D728F319499BB9741BE3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -318,6 +321,8 @@
 		B5BDB2A619E64498004184F8 /* settings */ = {
 			isa = PBXGroup;
 			children = (
+				B5BDB2AD19E6F157004184F8 /* TBPSettingsNavigationViewController.h */,
+				B5BDB2AE19E6F157004184F8 /* TBPSettingsNavigationViewController.m */,
 				B5BDB2A719E644AA004184F8 /* TBPSettingsViewController.h */,
 				B5BDB2A819E644AA004184F8 /* TBPSettingsViewController.m */,
 			);
@@ -482,6 +487,7 @@
 				B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */,
 				B5BDB2A019E64024004184F8 /* TBPLastFMAuthManager.m in Sources */,
 				B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */,
+				B5BDB2AF19E6F157004184F8 /* TBPSettingsNavigationViewController.m in Sources */,
 				B5365F4F19E5AB9C000B780D /* TBPArtistsNavigationViewController.m in Sources */,
 				B5365F5019E5AB9C000B780D /* TBPArtistsViewController.m in Sources */,
 				B5BDB2AC19E64CD7004184F8 /* TBPLastFMTrackManager.m in Sources */,

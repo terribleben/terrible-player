@@ -14,6 +14,7 @@ FOUNDATION_EXPORT NSString * const kTBPLastFMSessionDidChangeNotification;
 
 + (TBPLastFMSession *)sharedInstance;
 
+@property (nonatomic, readonly) BOOL isLoggedIn;
 @property (nonatomic, strong) NSString *sessionKey;
 @property (nonatomic, strong) NSString *name;
 

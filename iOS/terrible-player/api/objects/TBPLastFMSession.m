@@ -27,6 +27,11 @@ NSString * const kTBPLastFMSessionDefaultsKeyKey = @"TBPLastFMSessionDefaultsKey
     return theSession;
 }
 
+- (BOOL) isLoggedIn
+{
+    return (self.sessionKey && self.sessionKey.length);
+}
+
 - (void) setName:(NSString *)name
 {
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:kTBPLastFMSessionDefaultsKeyName];

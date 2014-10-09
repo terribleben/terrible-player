@@ -8,13 +8,13 @@
 
 #import "TBPRootViewController.h"
 #import "TBPArtistsNavigationViewController.h"
-#import "TBPSettingsViewController.h"
+#import "TBPSettingsNavigationViewController.h"
 #import "TBPConstants.h"
 
 @interface TBPRootViewController ()
 
 @property (nonatomic, strong) TBPArtistsNavigationViewController *vcArtists;
-@property (nonatomic, strong) TBPSettingsViewController *vcSettings;
+@property (nonatomic, strong) TBPSettingsNavigationViewController *vcSettings;
 @property (nonatomic, strong) TBPNowPlayingBarViewController *vcNowPlaying;
 
 @property (nonatomic, assign) UIViewController *selectedViewController;
@@ -33,7 +33,7 @@
     self.vcArtists = [[TBPArtistsNavigationViewController alloc] init];
     
     // settings vc
-    self.vcSettings = [[TBPSettingsViewController alloc] init];
+    self.vcSettings = [[TBPSettingsNavigationViewController alloc] init];
     
     // placeholder now playing bar
     self.vcNowPlaying = [[TBPNowPlayingBarViewController alloc] init];

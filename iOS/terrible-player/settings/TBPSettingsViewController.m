@@ -12,7 +12,8 @@
 
 @interface TBPSettingsViewController ()
 
-@property (nonatomic, strong) UILabel *lblSessionName;
+@property (nonatomic, strong) UILabel *lblSessionHeading;
+@property (nonatomic, strong) UILabel *lblSessionDetail;
 
 - (void) onSessionChange;
 
@@ -23,6 +24,7 @@
 - (id) init
 {
     if (self = [super init]) {
+        self.title = @"Cartridge";
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSessionChange) name:kTBPLastFMSessionDidChangeNotification object:nil];
     }
     return self;
@@ -38,11 +40,17 @@
 {
     [super viewDidLoad];
     
-    // last.fm session name
-    self.lblSessionName = [[UILabel alloc] init];
-    _lblSessionName.font = [UIFont fontWithName:TBP_FONT size:20.0f];
-    _lblSessionName.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
-    [self.view addSubview:_lblSessionName];
+    // session heading
+    self.lblSessionHeading = [[UILabel alloc] init];
+    _lblSessionHeading.font = [UIFont fontWithName:TBP_FONT_LIGHT size:24.0f];
+    _lblSessionHeading.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
+    [self.view addSubview:_lblSessionHeading];
+    
+    // session detail
+    self.lblSessionDetail = [[UILabel alloc] init];
+    _lblSessionDetail.font = [UIFont fontWithName:TBP_FONT size:10.0f];
+    _lblSessionDetail.textColor = UIColorFromRGB(TBP_COLOR_TEXT_DIM);
+    [self.view addSubview:_lblSessionDetail];
     
     [self onSessionChange];
 }
@@ -56,12 +64,20 @@
 {
     [super viewWillLayoutSubviews];
     
-    _lblSessionName.frame = CGRectMake(8.0f, 32.0f, self.view.frame.size.width - 16.0f, 32.0f);
+    _lblSessionHeading.frame = CGRectMake(12.0f, 8.0f, self.view.frame.size.width - 24.0f, 32.0f);
+    _lblSessionDetail.frame = CGRectMake(_lblSessionHeading.frame.origin.x, _lblSessionHeading.frame.origin.y + _lblSessionHeading.frame.size.height,
+                                         _lblSessionHeading.frame.size.width, 16.0f);
 }
 
 - (void) onSessionChange
 {
-    _lblSessionName.text = [NSString stringWithFormat:@"last.fm: %@", [TBPLastFMSession sharedInstance].name];
+    if ([TBPLastFMSession sharedInstance].isLoggedIn) {
+        _lblSessionHeading.text = [TBPLastFMSession sharedInstance].name;
+        _lblSessionDetail.text = @"SIGNED IN WITH LAST.FM";
+    } else {
+        _lblSessionHeading.text = @"Welcome to Cartridge";
+        _lblSessionDetail.text = @"SIGN IN WITH LAST.FM TO SCROBBLE";
+    }
 }
 
 @end
