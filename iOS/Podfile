@@ -1,0 +1,6 @@
+
+platform :ios, '8.0'
+
+pod 'AFNetworking', "~> 1.2"   # can't use 2.x with restkit, will upgrade when available.
+pod 'RestKit'
+pod 'TPKeyboardAvoiding', "~> 1.2.3"
