@@ -42,6 +42,7 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 
 - (void) recompute;
 
+- (void) scheduleLastFMUpdates;
 - (void) updateLastFMNowPlaying;
 - (void) scrobbleLastFM;
 
@@ -230,34 +231,13 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
     NSInteger idNowPlaying = (nowPlayingItem) ? [[nowPlayingItem valueForKey:MPMediaItemPropertyPersistentID] integerValue] : 0;
     NSTimeInterval dtmNow = [[NSDate date] timeIntervalSince1970];
     
+    [self scheduleLastFMUpdates];
+    
     if ((idLastUpdatedNowPlaying == idNowPlaying) && (dtmNow - dtmLastUpdatedNowPlaying <= 1.0f)) {
         // de-dup these updates... do nothing
     } else {
         idLastUpdatedNowPlaying = idNowPlaying;
         dtmLastUpdatedNowPlaying = dtmNow;
-        
-        // kill any outstanding scheduled tasks
-        if (_tmrUpdateNowPlaying) {
-            [_tmrUpdateNowPlaying invalidate];
-            _tmrUpdateNowPlaying = nil;
-        }
-        if (_tmrScrobble) {
-            [_tmrScrobble invalidate];
-            _tmrScrobble = nil;
-        }
-        
-        if (nowPlayingItem && self.isPlaying) {
-            // schedule a last.fm now playing update (a few seconds into the song)
-            _tmrUpdateNowPlaying = [NSTimer scheduledTimerWithTimeInterval:TBP_LAST_FM_NOW_PLAYING_DELAY target:self
-                                                                  selector:@selector(updateLastFMNowPlaying) userInfo:nil repeats:NO];
-            
-            // schedule a last.fm scrobble
-            NSTimeInterval duration = [[nowPlayingItem valueForProperty:MPMediaItemPropertyPlaybackDuration] floatValue];
-            if (duration > TBP_LAST_FM_SCROBBLE_MIN_SECS) {
-                _tmrScrobble = [NSTimer scheduledTimerWithTimeInterval:MIN(duration * 0.5f, TBP_LAST_FM_SCROBBLE_MAX_SECS) target:self
-                                                              selector:@selector(scrobbleLastFM) userInfo:nil repeats:NO];
-            }
-        }
         
         // inform everybody else in the app
         [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
@@ -267,7 +247,7 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 
 - (void) onPlaybackStateChanged:(NSNotification *)notification
 {
-    NSLog(@"TBPLibraryModel: playback state change");
+    [self scheduleLastFMUpdates];
     [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
                                                         object:@(kTBPLibraryModelChangePlaybackState)];
 }
@@ -331,7 +311,6 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
             self.artists = orderedArtistSet;
             self.albumsByArtist = artistAlbumMap;
             
-            NSLog(@"TBPLibraryModel: library contents change");
             [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
                                                                 object:@(kTBPLibraryModelChangeLibraryContents)];
             
@@ -354,6 +333,36 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 {
     [[NSUserDefaults standardUserDefaults] setObject:dtmLastRecomputed forKey:kTBPLibraryDateRecomputedDefaultsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)scheduleLastFMUpdates
+{
+    // kill any outstanding scheduled tasks
+    if (_tmrUpdateNowPlaying) {
+        [_tmrUpdateNowPlaying invalidate];
+        _tmrUpdateNowPlaying = nil;
+    }
+    if (_tmrScrobble) {
+        [_tmrScrobble invalidate];
+        _tmrScrobble = nil;
+    }
+    
+    MPMediaItem *nowPlayingItem = _musicPlayer.nowPlayingItem;
+    
+    if (nowPlayingItem && self.isPlaying) {
+        NSLog(@"TBPLibrary: Scheduling scrobble");
+        // schedule a last.fm now playing update (a few seconds into the song)
+        _tmrUpdateNowPlaying = [NSTimer scheduledTimerWithTimeInterval:TBP_LAST_FM_NOW_PLAYING_DELAY target:self
+                                                              selector:@selector(updateLastFMNowPlaying) userInfo:nil repeats:NO];
+        
+        // schedule a last.fm scrobble
+        NSTimeInterval duration = [[nowPlayingItem valueForProperty:MPMediaItemPropertyPlaybackDuration] floatValue];
+        if (duration > TBP_LAST_FM_SCROBBLE_MIN_SECS) {
+            _tmrScrobble = [NSTimer scheduledTimerWithTimeInterval:MIN(duration * 0.5f, TBP_LAST_FM_SCROBBLE_MAX_SECS) target:self
+                                                          selector:@selector(scrobbleLastFM) userInfo:nil repeats:NO];
+        }
+    } else
+        NSLog(@"TBPLibrary: Aborting scrobble");
 }
 
 - (void) updateLastFMNowPlaying

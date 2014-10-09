@@ -51,6 +51,7 @@
 - (void)updateNowPlayingWithArtist:(NSString *)artistName track:(NSString *)trackTitle album:(NSString *)albumTitle duration:(NSNumber *)duration success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
 {
     if ([TBPLastFMSession sharedInstance].isScrobblingEnabled) {
+        NSLog(@"LastFM: Update now playing: %@ - %@", artistName, trackTitle);
         if (artistName && artistName.length && trackTitle && trackTitle.length) {
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                           @"method": @"track.updateNowPlaying",
@@ -72,8 +73,10 @@
                             NSLog(@"Warning: TBPLastFmTrackManager: track.updateNowPlaying ignored: %@", ignoredMessage);
                     }
                     
-                    if (success)
+                    if (success) {
+                        NSLog(@"        Now playing success");
                         success();
+                    }
                 }
             } failure:failure];
         } else
@@ -85,6 +88,7 @@
 - (void)scrobbleWithArtist:(NSString *)artistName track:(NSString *)trackTitle album:(NSString *)albumTitle duration:(NSNumber *)duration timestamp:(NSTimeInterval)unixTimestampSinceTrackStarted success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
 {
     if ([TBPLastFMSession sharedInstance].isScrobblingEnabled) {
+        NSLog(@"LastFM: Scrobble: %@ - %@", artistName, trackTitle);
         if (artistName && artistName.length && trackTitle && trackTitle.length && unixTimestampSinceTrackStarted && unixTimestampSinceTrackStarted > 0) {
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                           @"method": @"track.scrobble",
@@ -101,8 +105,10 @@
                 if (mappingResult && mappingResult.dictionary) {
                     NSDictionary *scrobbles = [mappingResult.dictionary objectForKey:@"scrobbles"];
                     
-                    if (success)
+                    if (success) {
+                        NSLog(@"        Scrobble success");
                         success();
+                    }
                 }
             } failure:failure];
         } else
