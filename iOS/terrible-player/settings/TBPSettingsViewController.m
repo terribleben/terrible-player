@@ -19,9 +19,14 @@
 @property (nonatomic, strong) UIButton *btnSignIn;
 @property (nonatomic, strong) UIButton *btnSignOut;
 
+@property (nonatomic, strong) UIView *vScrobbleContainer;
+@property (nonatomic, strong) UILabel *lblScrobbles;
+@property (nonatomic, strong) UISwitch *vScrobblesEnabled;
+
 - (void) onSessionChange;
 - (void) onTapSignIn;
 - (void) onTapSignOut;
+- (void) onTapScrobbleEnabled: (UIControl *)control;
 
 @end
 
@@ -48,7 +53,7 @@
     
     // session container view
     self.vSessionContainer = [[UIView alloc] init];
-    _vSessionContainer.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
+    _vSessionContainer.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_vSessionContainer];
     
     UITapGestureRecognizer *tapSession = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapSignIn)];
@@ -82,6 +87,23 @@
     _btnSignOut.hidden = YES;
     [_vSessionContainer addSubview:_btnSignOut];
     
+    // scrobble settings container
+    self.vScrobbleContainer = [[UIView alloc] init];
+    _vScrobbleContainer.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_vScrobbleContainer];
+    
+    // scrobble settings label
+    self.lblScrobbles = [[UILabel alloc] init];
+    _lblScrobbles.text = @"Enable scrobbling";
+    _lblScrobbles.font = [UIFont fontWithName:TBP_FONT size:16.0f];
+    _lblScrobbles.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
+    [_vScrobbleContainer addSubview:_lblScrobbles];
+    
+    // scrobbling enabled switch
+    self.vScrobblesEnabled = [[UISwitch alloc] init];
+    [_vScrobblesEnabled addTarget:self action:@selector(onTapScrobbleEnabled:) forControlEvents:UIControlEventValueChanged];
+    [_vScrobbleContainer addSubview:_vScrobblesEnabled];
+    
     [self onSessionChange];
 }
 
@@ -100,6 +122,11 @@
     _lblSessionHeading.frame = CGRectMake(12.0f, 8.0f, _btnSignIn.frame.origin.x - 24.0f, 32.0f);
     _lblSessionDetail.frame = CGRectMake(_lblSessionHeading.frame.origin.x, _lblSessionHeading.frame.origin.y + _lblSessionHeading.frame.size.height,
                                          _lblSessionHeading.frame.size.width, 16.0f);
+    
+    _vScrobbleContainer.frame = CGRectMake(0, _vSessionContainer.frame.origin.y + _vSessionContainer.frame.size.height,
+                                           self.view.frame.size.width, 64.0f);
+    _vScrobblesEnabled.center = CGPointMake(_vScrobbleContainer.frame.size.width - (_vScrobblesEnabled.frame.size.width * 0.5f) - 12.0f, _vScrobbleContainer.frame.size.height * 0.5f);
+    _lblScrobbles.frame = CGRectMake(_lblSessionHeading.frame.origin.x, 0, _vScrobblesEnabled.frame.origin.x - 8.0f, _vScrobbleContainer.frame.size.height);
 }
 
 
@@ -113,11 +140,15 @@
             _lblSessionDetail.text = @"SIGNED IN WITH LAST.FM";
             _btnSignIn.hidden = YES;
             _btnSignOut.hidden = NO;
+            _vScrobbleContainer.hidden = NO;
+            if ([TBPLastFMSession sharedInstance].isScrobblingEnabled != _vScrobblesEnabled.isOn)
+                [_vScrobblesEnabled setOn:[TBPLastFMSession sharedInstance].isScrobblingEnabled];
         } else {
             _lblSessionHeading.text = @"Welcome to Cartridge";
             _lblSessionDetail.text = @"SIGN IN WITH LAST.FM TO SCROBBLE";
             _btnSignIn.hidden = NO;
             _btnSignOut.hidden = YES;
+            _vScrobbleContainer.hidden = YES;
         }
         
         [_vSessionContainer setNeedsDisplay];
@@ -137,6 +168,14 @@
 {
     if ([TBPLastFMSession sharedInstance].isLoggedIn) {
         [[TBPLastFMAuthManager sharedInstance] signOut];
+    }
+}
+
+- (void) onTapScrobbleEnabled:(UIControl *)control
+{
+    if (self.isViewLoaded) {
+        [TBPLastFMSession sharedInstance].isScrobblingEnabled = _vScrobblesEnabled.isOn;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLastFMSessionDidChangeNotification object:nil];
     }
 }
 

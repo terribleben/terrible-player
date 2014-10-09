@@ -12,6 +12,7 @@ NSString * const kTBPLastFMSessionDidChangeNotification = @"TBPLastFMSessionDidC
 
 NSString * const kTBPLastFMSessionDefaultsKeyName = @"TBPLastFMSessionDefaultsKeyName";
 NSString * const kTBPLastFMSessionDefaultsKeyKey = @"TBPLastFMSessionDefaultsKeyKey";
+NSString * const kTBPLastFMSessionDefaultsKeyScrobblingEnabled = @"TBPLastFMSessionDefaultsKeyScrobblingEnabled";
 
 @implementation TBPLastFMSession
 
@@ -27,10 +28,20 @@ NSString * const kTBPLastFMSessionDefaultsKeyKey = @"TBPLastFMSessionDefaultsKey
     return theSession;
 }
 
+- (id) init
+{
+    if (self = [super init]) {
+        if (!self.isLoggedIn)
+            self.isScrobblingEnabled = YES;
+    }
+    return self;
+}
+
 - (void) invalidate
 {
     self.sessionKey = nil;
     self.name = nil;
+    self.isScrobblingEnabled = YES;
 }
 
 - (BOOL) isLoggedIn
@@ -58,6 +69,17 @@ NSString * const kTBPLastFMSessionDefaultsKeyKey = @"TBPLastFMSessionDefaultsKey
 - (NSString *)sessionKey
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:kTBPLastFMSessionDefaultsKeyKey];
+}
+
+- (void) setIsScrobblingEnabled:(BOOL)isScrobblingEnabled
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isScrobblingEnabled forKey:kTBPLastFMSessionDefaultsKeyScrobblingEnabled];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)isScrobblingEnabled
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kTBPLastFMSessionDefaultsKeyScrobblingEnabled];
 }
 
 @end
