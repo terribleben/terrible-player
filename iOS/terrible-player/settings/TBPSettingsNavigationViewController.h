@@ -7,7 +7,9 @@
 //
 
 #import "TBPNavigationViewController.h"
+#import "TBPSettingsViewController.h"
+#import "TBPAuthViewController.h"
 
-@interface TBPSettingsNavigationViewController : TBPNavigationViewController
+@interface TBPSettingsNavigationViewController : TBPNavigationViewController <TBPSettingsDelegate, TBPAuthDelegate>
 
 @end

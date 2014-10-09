@@ -52,7 +52,7 @@
 
 - (void) setUIAppearance
 {
-
+    [[UIButton appearance] setTintColor:UIColorFromRGB(0xbb0000)];
 }
 
 @end

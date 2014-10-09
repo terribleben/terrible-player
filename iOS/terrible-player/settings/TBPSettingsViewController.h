@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class TBPSettingsViewController;
+
+@protocol TBPSettingsDelegate <NSObject>
+
+- (void) settingsViewControllerDidTapSignIn: (TBPSettingsViewController *)vcSettings;
+
+@end
+
 @interface TBPSettingsViewController : UIViewController
+
+@property (nonatomic, assign) id <TBPSettingsDelegate> delegate;
 
 @end
