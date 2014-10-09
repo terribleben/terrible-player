@@ -47,9 +47,12 @@
     [self setUIAppearance];
     
     [self.window makeKeyAndVisible];
-    
-    [[TBPLibraryModel sharedInstance] recompute];
     return YES;
+}
+
+- (void) applicationDidBecomeActive:(UIApplication *)application
+{
+    [[TBPLibraryModel sharedInstance] readMediaLibrary];
 }
 
 - (void) setUIAppearance

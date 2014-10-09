@@ -38,8 +38,9 @@ typedef enum TBPLibraryModelChangeReason : NSUInteger {
 
 /**
  *  Re-scan the library on the device.
+ *  Won't redundantly scan the library if nothing has changed.
  */
-- (void) recompute;
+- (void) readMediaLibrary;
 
 /**
  *  Represents the currently-queued album. Not computed from MPMusicPlayer.

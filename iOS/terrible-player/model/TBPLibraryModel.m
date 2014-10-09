@@ -14,8 +14,10 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 #define TBP_LAST_FM_NOW_PLAYING_DELAY 4.0f
+#define TBP_RECOMPUTE_DELAY 3.0f
 
 NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidChangeNotification";
+NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomputedDefaultsKey";
 
 @interface TBPLibraryModel ()
 {
@@ -29,9 +31,17 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 
 @property (nonatomic, strong) NSTimer *tmrUpdateNowPlaying;
 @property (nonatomic, strong) NSTimer *tmrScrobble;
+@property (nonatomic, strong) NSTimer *tmrRecompute;
+
+@property (atomic, strong) NSNumber *isLoading;
+@property (nonatomic, readwrite) NSDate *dtmLastRecomputed;
 
 - (void) onNowPlayingItemChanged: (NSNotification *)notification;
 - (void) onPlaybackStateChanged: (NSNotification *)notification;
+- (void) onMediaLibraryChanged: (NSNotification *)notification;
+
+- (void) recompute;
+
 - (void) updateLastFMNowPlaying;
 - (void) scrobbleLastFM;
 
@@ -66,10 +76,15 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         [_musicPlayer setShuffleMode: MPMusicShuffleModeOff];
         [_musicPlayer setRepeatMode: MPMusicRepeatModeNone];
         
+        // listen to the device media player
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver:self selector:@selector(onNowPlayingItemChanged:) name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification object:nil];
         [notificationCenter addObserver:self selector:@selector(onPlaybackStateChanged:) name:MPMusicPlayerControllerPlaybackStateDidChangeNotification object:nil];
         [_musicPlayer beginGeneratingPlaybackNotifications];
+        
+        // listen to the device media library (for syncs / changes)
+        [notificationCenter addObserver:self selector:@selector(onMediaLibraryChanged:) name:MPMediaLibraryDidChangeNotification object:nil];
+        [[MPMediaLibrary defaultMediaLibrary] beginGeneratingLibraryChangeNotifications];
     }
     return self;
 }
@@ -78,7 +93,9 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 {
     // [super dealloc];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [_musicPlayer endGeneratingPlaybackNotifications];
+    [[MPMediaLibrary defaultMediaLibrary] endGeneratingLibraryChangeNotifications];
 }
 
 
@@ -177,6 +194,28 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
     }
 }
 
+- (void) readMediaLibrary
+{
+    if (!self.albumsByArtist) {
+        // zero cache yet, recompute immediately.
+        [self recompute];
+    } else {
+        // we've got a cache, it might need updating.
+        NSDate *dtmMediaLibraryUpdated = [MPMediaLibrary defaultMediaLibrary].lastModifiedDate;
+        NSDate *dtmCacheUpdated = self.dtmLastRecomputed;
+        
+        if (!dtmCacheUpdated || [dtmMediaLibraryUpdated compare:self.dtmLastRecomputed] == NSOrderedDescending) {
+            // yes, our cache is old.
+            // in order to avoid duplicate hits, recompute after a few seconds.
+            if (_tmrRecompute) {
+                [_tmrRecompute invalidate];
+                _tmrRecompute = nil;
+            }
+            self.tmrRecompute = [NSTimer scheduledTimerWithTimeInterval:TBP_RECOMPUTE_DELAY target:self selector:@selector(recompute) userInfo:nil repeats:NO];
+        }
+    }
+}
+
 
 #pragma mark internal methods
 
@@ -233,64 +272,88 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
                                                         object:@(kTBPLibraryModelChangePlaybackState)];
 }
 
+- (void) onMediaLibraryChanged:(NSNotification *)notification
+{
+    NSLog(@"TBPLibraryModel: media library change");
+    [self readMediaLibrary];
+}
+
 - (void) recompute
 {
-    // TODO caching
-    if (_delegate) {
-        [_delegate libraryDidBeginReload:self];
-    }
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSMutableOrderedSet *orderedArtistSet = [NSMutableOrderedSet orderedSet];
-        NSMutableOrderedSet *orderedAlbumSet = [NSMutableOrderedSet orderedSet];
-        NSMutableDictionary *artistAlbumMap = [NSMutableDictionary dictionary];
-        
-        // recompute index of artists
-        MPMediaQuery *qArtists = [MPMediaQuery artistsQuery];
-        NSArray *artists = [qArtists collections];
-        
-        for (MPMediaItemCollection *artistGrouping in artists) {
-            TBPLibraryItem *result = [TBPLibraryItem itemWithMediaCollection:artistGrouping grouping:MPMediaGroupingArtist];
-            
-            // start with an empty list of albums for this artist
-            [artistAlbumMap setObject:[NSMutableOrderedSet orderedSet] forKey:result.persistentId];
-            
-            // add artist to index
-            [orderedArtistSet addObject:result];
-        }
-        
-        // recompute index of albums
-        MPMediaQuery *qAlbums = [MPMediaQuery albumsQuery];
-        NSArray *albums = [qAlbums collections];
-        
-        for (MPMediaItemCollection *albumGrouping in albums) {
-            TBPLibraryItem *result = [TBPLibraryItem itemWithMediaCollection:albumGrouping grouping:MPMediaGroupingAlbum];
-            
-            // add album to list of albums by artist
-            MPMediaItem *groupItem = [albumGrouping representativeItem];
-            NSNumber *artistId = [groupItem valueForProperty:MPMediaItemPropertyArtistPersistentID];
-            if ([artistAlbumMap objectForKey:artistId]) {
-                NSMutableOrderedSet *byArtist = [artistAlbumMap objectForKey:artistId];
-                [byArtist addObject:result];
-            }
-            
-            // add to overall album index
-            [orderedAlbumSet addObject:result];
-        }
-        
-        self.albums = orderedAlbumSet;
-        self.artists = orderedArtistSet;
-        self.albumsByArtist = artistAlbumMap;
-        
-        NSLog(@"TBPLibraryModel: library contents change");
-        [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
-                                                            object:@(kTBPLibraryModelChangeLibraryContents)];
+    if (![self.isLoading boolValue]) {
+        self.isLoading = @(YES);
+        NSDate *dtmRecomputeStarted = [NSDate date];
         
         if (_delegate) {
-            [_delegate libraryDidEndReload:self];
+            [_delegate libraryDidBeginReload:self];
         }
-    });
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            NSMutableOrderedSet *orderedArtistSet = [NSMutableOrderedSet orderedSet];
+            NSMutableOrderedSet *orderedAlbumSet = [NSMutableOrderedSet orderedSet];
+            NSMutableDictionary *artistAlbumMap = [NSMutableDictionary dictionary];
+            
+            // recompute index of artists
+            MPMediaQuery *qArtists = [MPMediaQuery artistsQuery];
+            NSArray *artists = [qArtists collections];
+            
+            for (MPMediaItemCollection *artistGrouping in artists) {
+                TBPLibraryItem *result = [TBPLibraryItem itemWithMediaCollection:artistGrouping grouping:MPMediaGroupingArtist];
+                
+                // start with an empty list of albums for this artist
+                [artistAlbumMap setObject:[NSMutableOrderedSet orderedSet] forKey:result.persistentId];
+                
+                // add artist to index
+                [orderedArtistSet addObject:result];
+            }
+            
+            // recompute index of albums
+            MPMediaQuery *qAlbums = [MPMediaQuery albumsQuery];
+            NSArray *albums = [qAlbums collections];
+            
+            for (MPMediaItemCollection *albumGrouping in albums) {
+                TBPLibraryItem *result = [TBPLibraryItem itemWithMediaCollection:albumGrouping grouping:MPMediaGroupingAlbum];
+                
+                // add album to list of albums by artist
+                MPMediaItem *groupItem = [albumGrouping representativeItem];
+                NSNumber *artistId = [groupItem valueForProperty:MPMediaItemPropertyArtistPersistentID];
+                if ([artistAlbumMap objectForKey:artistId]) {
+                    NSMutableOrderedSet *byArtist = [artistAlbumMap objectForKey:artistId];
+                    [byArtist addObject:result];
+                }
+                
+                // add to overall album index
+                [orderedAlbumSet addObject:result];
+            }
+            
+            self.albums = orderedAlbumSet;
+            self.artists = orderedArtistSet;
+            self.albumsByArtist = artistAlbumMap;
+            
+            NSLog(@"TBPLibraryModel: library contents change");
+            [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
+                                                                object:@(kTBPLibraryModelChangeLibraryContents)];
+            
+            if (_delegate) {
+                [_delegate libraryDidEndReload:self];
+            }
+            
+            self.isLoading = @(NO);
+            self.dtmLastRecomputed = dtmRecomputeStarted;
+        });
+    }
+}
+
+- (NSDate *)dtmLastRecomputed
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kTBPLibraryDateRecomputedDefaultsKey];
+}
+
+- (void)setDtmLastRecomputed:(NSDate *)dtmLastRecomputed
+{
+    [[NSUserDefaults standardUserDefaults] setObject:dtmLastRecomputed forKey:kTBPLibraryDateRecomputedDefaultsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void) updateLastFMNowPlaying
