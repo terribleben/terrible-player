@@ -35,6 +35,7 @@
 		B5BDB2A219E64024004184F8 /* TBPObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB29E19E64024004184F8 /* TBPObjectManager.m */; };
 		B5BDB2A519E64044004184F8 /* TBPLastFMSession.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2A419E64044004184F8 /* TBPLastFMSession.m */; };
 		B5BDB2A919E644AA004184F8 /* TBPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2A819E644AA004184F8 /* TBPSettingsViewController.m */; };
+		B5BDB2AC19E64CD7004184F8 /* TBPLastFMTrackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2AB19E64CD7004184F8 /* TBPLastFMTrackManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,8 @@
 		B5BDB2A419E64044004184F8 /* TBPLastFMSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLastFMSession.m; sourceTree = "<group>"; };
 		B5BDB2A719E644AA004184F8 /* TBPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPSettingsViewController.h; sourceTree = "<group>"; };
 		B5BDB2A819E644AA004184F8 /* TBPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPSettingsViewController.m; sourceTree = "<group>"; };
+		B5BDB2AA19E64CD7004184F8 /* TBPLastFMTrackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLastFMTrackManager.h; sourceTree = "<group>"; };
+		B5BDB2AB19E64CD7004184F8 /* TBPLastFMTrackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLastFMTrackManager.m; sourceTree = "<group>"; };
 		E842D728F319499BB9741BE3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -297,6 +300,8 @@
 				B5BDB29C19E64024004184F8 /* TBPLastFMObjectManager.m */,
 				B5BDB29919E64024004184F8 /* TBPLastFMAuthManager.h */,
 				B5BDB29A19E64024004184F8 /* TBPLastFMAuthManager.m */,
+				B5BDB2AA19E64CD7004184F8 /* TBPLastFMTrackManager.h */,
+				B5BDB2AB19E64CD7004184F8 /* TBPLastFMTrackManager.m */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 				B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */,
 				B5365F4F19E5AB9C000B780D /* TBPArtistsNavigationViewController.m in Sources */,
 				B5365F5019E5AB9C000B780D /* TBPArtistsViewController.m in Sources */,
+				B5BDB2AC19E64CD7004184F8 /* TBPLastFMTrackManager.m in Sources */,
 				B502792319E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m in Sources */,
 				B5365F3E19E5A351000B780D /* TBPLibraryModel.m in Sources */,
 				B5BDB2A519E64044004184F8 /* TBPLastFMSession.m in Sources */,

@@ -9,20 +9,30 @@
 #import "TBPLibraryModel.h"
 #import "NSString+TBP.h"
 #import "TBPLibraryItem.h"
+#import "TBPLastFMTrackManager.h"
 
 #import <MediaPlayer/MediaPlayer.h>
+
+#define TBP_LAST_FM_NOW_PLAYING_DELAY 8.0f
 
 NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidChangeNotification";
 
 @interface TBPLibraryModel ()
-
-- (void) recompute;
-- (void) onNowPlayingItemChanged: (NSNotification *)notification;
-- (void) onPlaybackStateChanged: (NSNotification *)notification;
+{
+    NSTimeInterval dtmLastUpdatedNowPlaying;
+    NSInteger idLastUpdatedNowPlaying;
+}
 
 @property (nonatomic, strong) NSMutableOrderedSet *artists;
 @property (nonatomic, strong) NSMutableOrderedSet *albums;
 @property (nonatomic, strong) MPMusicPlayerController *musicPlayer;
+
+@property (nonatomic, strong) NSTimer *tmrUpdateNowPlaying;
+
+- (void) recompute;
+- (void) onNowPlayingItemChanged: (NSNotification *)notification;
+- (void) onPlaybackStateChanged: (NSNotification *)notification;
+- (void) updateLastFMNowPlaying;
 
 /**
  *  Artist persistent id => albums
@@ -48,6 +58,9 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 - (id) init
 {
     if (self = [super init]) {
+        dtmLastUpdatedNowPlaying = 0;
+        idLastUpdatedNowPlaying = 0;
+        
         self.musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
         [_musicPlayer setShuffleMode: MPMusicShuffleModeOff];
         [_musicPlayer setRepeatMode: MPMusicRepeatModeNone];
@@ -170,14 +183,36 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 
 - (void) onNowPlayingItemChanged:(NSNotification *)notification
 {
-    NSLog(@"TBPLibraryModel: now playing change");
+    MPMediaItem *nowPlayingItem = _musicPlayer.nowPlayingItem;
     
     // if the player has stopped altogether, clear the now playing context.
-    if (_musicPlayer.nowPlayingItem == nil)
+    if (!nowPlayingItem)
         self.nowPlayingAlbumCache = nil;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
-                                                        object:@(kTBPLibraryModelChangeNowPlaying)];
+
+    NSInteger idNowPlaying = (nowPlayingItem) ? [[nowPlayingItem valueForKey:MPMediaItemPropertyPersistentID] integerValue] : 0;
+    NSTimeInterval dtmNow = [[NSDate date] timeIntervalSince1970];
+        
+    if ((idLastUpdatedNowPlaying == idNowPlaying) && (dtmNow - dtmLastUpdatedNowPlaying <= 1.0f)) {
+        // de-dup these updates... do nothing
+    } else {
+        NSLog(@"TBPLibraryModel: now playing change: %d", idNowPlaying);
+        
+        idLastUpdatedNowPlaying = idNowPlaying;
+        dtmLastUpdatedNowPlaying = dtmNow;
+        
+        // schedule a last.fm now playing update (a few seconds into the song)
+        if (_tmrUpdateNowPlaying) {
+            [_tmrUpdateNowPlaying invalidate];
+            _tmrUpdateNowPlaying = nil;
+        }
+        if (idNowPlaying)
+            _tmrUpdateNowPlaying = [NSTimer scheduledTimerWithTimeInterval:TBP_LAST_FM_NOW_PLAYING_DELAY target:self
+                                                                  selector:@selector(updateLastFMNowPlaying) userInfo:nil repeats:NO];
+        
+        // inform everybody else in the app
+        [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
+                                                            object:@(kTBPLibraryModelChangeNowPlaying)];
+    }
 }
 
 - (void) onPlaybackStateChanged:(NSNotification *)notification
@@ -238,6 +273,21 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
         [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
                                                             object:@(kTBPLibraryModelChangeLibraryContents)];
     });
+}
+
+- (void) updateLastFMNowPlaying
+{
+    MPMediaItem *nowPlaying = _musicPlayer.nowPlayingItem;
+    if (nowPlaying) {
+        NSString *trackTitle = [nowPlaying valueForProperty:MPMediaItemPropertyTitle];
+        NSString *artistName = [nowPlaying valueForProperty:MPMediaItemPropertyArtist];
+        NSString *albumTitle = [nowPlaying valueForProperty:MPMediaItemPropertyAlbumTitle];
+        NSNumber *duration = [nowPlaying valueForProperty:MPMediaItemPropertyPlaybackDuration];
+        
+        [[TBPLastFMTrackManager sharedInstance] updateNowPlayingWithArtist:artistName track:trackTitle album:albumTitle duration:duration success:nil failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            NSLog(@"Warning: TBPLibraryModel failed to update last.fm now playing: %@", error);
+        }];
+    }
 }
 
 @end
