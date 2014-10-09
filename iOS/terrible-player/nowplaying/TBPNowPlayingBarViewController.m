@@ -101,7 +101,7 @@
     CGFloat currentTimeBarHeight = 4.0f;
     
     CGFloat sqrSide = MIN(32.0f, MAX(4.0f, (self.view.frame.size.height - currentTimeBarHeight) * 0.95f));
-    _btnSettings.frame = CGRectMake(0, 0, sqrSide * 0.9f, sqrSide * 0.9f);
+    _btnSettings.frame = CGRectMake(0, 0, sqrSide, sqrSide);
     _btnSettings.center = CGPointMake(self.view.frame.size.width - 8.0f - (sqrSide * 0.5f), (self.view.frame.size.height - currentTimeBarHeight) * 0.5f);
     
     _btnPlay.frame = CGRectMake(0, 0, sqrSide, sqrSide);
@@ -138,12 +138,12 @@
             _lblTitle.text = _nowPlayingItem.title;
             _btnPlay.hidden = isPlaying;
             _btnPause.hidden = !isPlaying;
-            _vCurrentTimeBackground.hidden = NO;
+            _vCurrentTimeProgress.hidden = NO;
         } else {
             _lblTitle.text = nil;
             _btnPlay.hidden = YES;
             _btnPause.hidden = YES;
-            _vCurrentTimeBackground.hidden = YES;
+            _vCurrentTimeProgress.hidden = YES;
         }
         
         [self.view setNeedsDisplay];
