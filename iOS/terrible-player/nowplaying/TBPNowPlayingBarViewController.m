@@ -67,12 +67,14 @@
     self.btnPlay = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_btnPlay setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
     [_btnPlay addTarget:self action:@selector(onTapPlayPause) forControlEvents:UIControlEventTouchUpInside];
+    _btnPlay.hidden = YES;
     [self.view addSubview:_btnPlay];
     
     // pause button
     self.btnPause = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_btnPause setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
     [_btnPause addTarget:self action:@selector(onTapPlayPause) forControlEvents:UIControlEventTouchUpInside];
+    _btnPause.hidden = YES;
     [self.view addSubview:_btnPause];
     
     // settings button
