@@ -32,8 +32,8 @@
         self.lblCount = [[UILabel alloc] init];
         
         for (UILabel *lbl in @[ _lblDuration, _lblDate, _lblCount ]) {
-            lbl.font = [UIFont fontWithName:TBP_FONT_BOLD size:20.0f];
-            lbl.textColor = UIColorFromRGB(TBP_COLOR_GREY_SELECTED);
+            lbl.font = [UIFont fontWithName:TBP_FONT size:20.0f];
+            lbl.textColor = UIColorFromRGB(TBP_COLOR_TEXT_DIM);
             [self addSubview:lbl];
         }
         

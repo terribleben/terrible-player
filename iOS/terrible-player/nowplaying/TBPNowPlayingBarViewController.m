@@ -9,14 +9,14 @@
 #import "TBPNowPlayingBarViewController.h"
 #import "TBPConstants.h"
 #import "TBPLibraryModel.h"
+#import "TBPPlayPauseView.h"
 
 @interface TBPNowPlayingBarViewController ()
 
 @property (nonatomic, strong) TBPLibraryItem *nowPlayingItem;
 
 @property (nonatomic, strong) UILabel *lblTitle;
-@property (nonatomic, strong) UIButton *btnPlay;
-@property (nonatomic, strong) UIButton *btnPause;
+@property (nonatomic, strong) TBPPlayPauseView *vPlayPause;
 @property (nonatomic, strong) UIButton *btnSettings;
 @property (nonatomic, strong) UIView *vCurrentTimeBackground;
 @property (nonatomic, strong) UIView *vCurrentTimeProgress;
@@ -63,19 +63,14 @@
     
     [self.view addSubview:_lblTitle];
     
-    // play button
-    self.btnPlay = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_btnPlay setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
-    [_btnPlay addTarget:self action:@selector(onTapPlayPause) forControlEvents:UIControlEventTouchUpInside];
-    _btnPlay.hidden = YES;
-    [self.view addSubview:_btnPlay];
+    // play/pause button
+    self.vPlayPause = [[TBPPlayPauseView alloc] init];
+    _vPlayPause.hidden = YES;
     
-    // pause button
-    self.btnPause = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_btnPause setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
-    [_btnPause addTarget:self action:@selector(onTapPlayPause) forControlEvents:UIControlEventTouchUpInside];
-    _btnPause.hidden = YES;
-    [self.view addSubview:_btnPause];
+    UITapGestureRecognizer *tapPlayPause = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapPlayPause)];
+    [_vPlayPause addGestureRecognizer:tapPlayPause];
+    
+    [self.view addSubview:_vPlayPause];
     
     // settings button
     self.btnSettings = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -104,10 +99,9 @@
     _btnSettings.frame = CGRectMake(0, 0, sqrSide, sqrSide);
     _btnSettings.center = CGPointMake(self.view.frame.size.width - 8.0f - (sqrSide * 0.5f), (self.view.frame.size.height - currentTimeBarHeight) * 0.5f);
     
-    _btnPlay.frame = CGRectMake(0, 0, sqrSide, sqrSide);
-    _btnPlay.center = CGPointMake(_btnSettings.center.x - 8.0f - sqrSide, _btnSettings.center.y);
-    _btnPause.frame = _btnPlay.frame;
-    _lblTitle.frame = CGRectMake(8.0f, 0, _btnPlay.frame.origin.x - 16.0f, self.view.frame.size.height - currentTimeBarHeight);
+    _vPlayPause.frame = CGRectMake(0, 0, sqrSide, sqrSide);
+    _vPlayPause.center = CGPointMake(_btnSettings.center.x - 8.0f - sqrSide, _btnSettings.center.y);
+    _lblTitle.frame = CGRectMake(8.0f, 0, _vPlayPause.frame.origin.x - 16.0f, self.view.frame.size.height - currentTimeBarHeight);
     
     _vCurrentTimeBackground.frame = CGRectMake(0, self.view.frame.size.height - currentTimeBarHeight,
                                                self.view.frame.size.width, currentTimeBarHeight);
@@ -136,13 +130,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_nowPlayingItem) {
             _lblTitle.text = _nowPlayingItem.title;
-            _btnPlay.hidden = isPlaying;
-            _btnPause.hidden = !isPlaying;
             _vCurrentTimeProgress.hidden = NO;
+            _vPlayPause.hidden = NO;
+            _vPlayPause.isPlaying = isPlaying;
         } else {
             _lblTitle.text = nil;
-            _btnPlay.hidden = YES;
-            _btnPause.hidden = YES;
+            _vPlayPause.hidden = YES;
             _vCurrentTimeProgress.hidden = YES;
         }
         

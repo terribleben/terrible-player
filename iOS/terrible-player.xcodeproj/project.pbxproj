@@ -39,6 +39,7 @@
 		B5BDB2AF19E6F157004184F8 /* TBPSettingsNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2AE19E6F157004184F8 /* TBPSettingsNavigationViewController.m */; };
 		B5BDB2B219E6F7C8004184F8 /* TBPAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2B119E6F7C8004184F8 /* TBPAuthViewController.m */; };
 		B5F176D919E70C8A00593D12 /* TBPActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F176D819E70C8A00593D12 /* TBPActivityIndicatorView.m */; };
+		B5F176DC19E7267C00593D12 /* TBPPlayPauseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F176DB19E7267C00593D12 /* TBPPlayPauseView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,8 @@
 		B5BDB2B119E6F7C8004184F8 /* TBPAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAuthViewController.m; sourceTree = "<group>"; };
 		B5F176D719E70C8A00593D12 /* TBPActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPActivityIndicatorView.h; sourceTree = "<group>"; };
 		B5F176D819E70C8A00593D12 /* TBPActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPActivityIndicatorView.m; sourceTree = "<group>"; };
+		B5F176DA19E7267C00593D12 /* TBPPlayPauseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPPlayPauseView.h; sourceTree = "<group>"; };
+		B5F176DB19E7267C00593D12 /* TBPPlayPauseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPPlayPauseView.m; sourceTree = "<group>"; };
 		E842D728F319499BB9741BE3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +159,8 @@
 			children = (
 				B502792A19E60A4300BAD1F5 /* TBPNowPlayingBarViewController.h */,
 				B502792B19E60A4300BAD1F5 /* TBPNowPlayingBarViewController.m */,
+				B5F176DA19E7267C00593D12 /* TBPPlayPauseView.h */,
+				B5F176DB19E7267C00593D12 /* TBPPlayPauseView.m */,
 			);
 			path = nowplaying;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 				B5BDB2A219E64024004184F8 /* TBPObjectManager.m in Sources */,
 				B5365F4519E5A8A1000B780D /* TBPNavigationViewController.m in Sources */,
 				B5365F5919E5AE1B000B780D /* TBPLibraryItem.m in Sources */,
+				B5F176DC19E7267C00593D12 /* TBPPlayPauseView.m in Sources */,
 				B502792C19E60A4300BAD1F5 /* TBPNowPlayingBarViewController.m in Sources */,
 				B502792019E5DEC100BAD1F5 /* TBPTrackTableViewCell.m in Sources */,
 				B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */,
