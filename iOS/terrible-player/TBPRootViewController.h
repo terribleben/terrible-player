@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  TBPRootViewController.h
 //  terrible-player
 //
 //  Created by Ben Roth on 10/8/14.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TBPTabViewController : UITabBarController
-
+@interface TBPRootViewController : UIViewController
 
 @end
-

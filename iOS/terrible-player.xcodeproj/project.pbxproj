@@ -13,8 +13,8 @@
 		B502791D19E5DDA800BAD1F5 /* TBPAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791C19E5DDA800BAD1F5 /* TBPAlbumViewController.m */; };
 		B502792019E5DEC100BAD1F5 /* TBPTrackTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791F19E5DEC100BAD1F5 /* TBPTrackTableViewCell.m */; };
 		B502792319E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B502792219E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m */; };
+		B502792819E607C900BAD1F5 /* TBPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B502792719E607C900BAD1F5 /* TBPRootViewController.m */; };
 		B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F0E19E59580000B780D /* TBPAppDelegate.m */; };
-		B5365F1219E59580000B780D /* TBPTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F1119E59580000B780D /* TBPTabViewController.m */; };
 		B5365F1719E59580000B780D /* TBPImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5365F1619E59580000B780D /* TBPImages.xcassets */; };
 		B5365F2619E59580000B780D /* terrible_playerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F2519E59580000B780D /* terrible_playerTests.m */; };
 		B5365F3319E5976A000B780D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F3119E5976A000B780D /* main.m */; };
@@ -53,11 +53,11 @@
 		B502792219E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLibraryItemHeadingView.m; sourceTree = "<group>"; };
 		B502792419E5E71600BAD1F5 /* TBPConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPConstants.h; sourceTree = "<group>"; };
 		B502792519E5E7BC00BAD1F5 /* TBP-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TBP-prefix.pch"; sourceTree = "<group>"; };
+		B502792619E607C900BAD1F5 /* TBPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPRootViewController.h; sourceTree = "<group>"; };
+		B502792719E607C900BAD1F5 /* TBPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPRootViewController.m; sourceTree = "<group>"; };
 		B5365F0619E59580000B780D /* terrible-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "terrible-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5365F0D19E59580000B780D /* TBPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPAppDelegate.h; sourceTree = "<group>"; };
 		B5365F0E19E59580000B780D /* TBPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPAppDelegate.m; sourceTree = "<group>"; };
-		B5365F1019E59580000B780D /* TBPTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPTabViewController.h; sourceTree = "<group>"; };
-		B5365F1119E59580000B780D /* TBPTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPTabViewController.m; sourceTree = "<group>"; };
 		B5365F1619E59580000B780D /* TBPImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBPImages.xcassets; sourceTree = "<group>"; };
 		B5365F1919E59580000B780D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBPLaunchScreen.xib; sourceTree = "<group>"; };
 		B5365F1F19E59580000B780D /* terrible-playerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "terrible-playerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,8 +138,8 @@
 			children = (
 				B5365F0D19E59580000B780D /* TBPAppDelegate.h */,
 				B5365F0E19E59580000B780D /* TBPAppDelegate.m */,
-				B5365F1019E59580000B780D /* TBPTabViewController.h */,
-				B5365F1119E59580000B780D /* TBPTabViewController.m */,
+				B502792619E607C900BAD1F5 /* TBPRootViewController.h */,
+				B502792719E607C900BAD1F5 /* TBPRootViewController.m */,
 				B5365F1619E59580000B780D /* TBPImages.xcassets */,
 				B5365F1819E59580000B780D /* TBPLaunchScreen.xib */,
 				B5365F3F19E5A46C000B780D /* common */,
@@ -340,6 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B502792819E607C900BAD1F5 /* TBPRootViewController.m in Sources */,
 				B502791919E5D80000BAD1F5 /* TBPArtistTableViewCell.m in Sources */,
 				B5365F4219E5A493000B780D /* NSString+TBP.m in Sources */,
 				B502791419E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m in Sources */,
@@ -349,7 +350,6 @@
 				B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */,
 				B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */,
 				B5365F4F19E5AB9C000B780D /* TBPArtistsNavigationViewController.m in Sources */,
-				B5365F1219E59580000B780D /* TBPTabViewController.m in Sources */,
 				B5365F5019E5AB9C000B780D /* TBPArtistsViewController.m in Sources */,
 				B502792319E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m in Sources */,
 				B5365F3E19E5A351000B780D /* TBPLibraryModel.m in Sources */,

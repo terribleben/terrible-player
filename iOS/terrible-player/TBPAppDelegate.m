@@ -7,13 +7,13 @@
 //
 
 #import "TBPAppDelegate.h"
-#import "TBPTabViewController.h"
+#import "TBPRootViewController.h"
 #import "TBPLibraryModel.h"
 #import "TBPConstants.h"
 
 @interface AppDelegate ()
 
-@property (nonatomic, strong) TBPTabViewController *vcRoot;
+@property (nonatomic, strong) TBPRootViewController *vcRoot;
 
 - (void) setUIAppearance;
 
@@ -31,7 +31,7 @@
     [TBPLibraryModel sharedInstance];
     
     // hook up main view controller
-    self.vcRoot = [[TBPTabViewController alloc] init];
+    self.vcRoot = [[TBPRootViewController alloc] init];
     self.window.rootViewController = _vcRoot;
     
     // configure global UI appearance
@@ -44,16 +44,7 @@
 
 - (void) setUIAppearance
 {
-    // tab bar custom font
-    [[UITabBarItem appearance] setTitleTextAttributes:@{
-                                                        NSForegroundColorAttributeName: UIColorFromRGB(TBP_COLOR_TEXT_LIGHT),
-                                                        NSFontAttributeName: [UIFont fontWithName:TBP_FONT_BOLD size:14.0f],
-                                                        }
-                                             forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:@{
-                                                        NSForegroundColorAttributeName: UIColorFromRGB(TBP_COLOR_TEXT_LIGHT)
-                                                        }
-                                             forState:UIControlStateSelected];
+
 }
 
 @end

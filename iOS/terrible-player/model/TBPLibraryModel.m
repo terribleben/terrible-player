@@ -49,6 +49,8 @@ NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidCha
 {
     if (self = [super init]) {
         self.musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+        [_musicPlayer setShuffleMode: MPMusicShuffleModeOff];
+        [_musicPlayer setRepeatMode: MPMusicRepeatModeNone];
         
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver:self selector:@selector(onNowPlayingItemChanged:) name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification object:nil];
