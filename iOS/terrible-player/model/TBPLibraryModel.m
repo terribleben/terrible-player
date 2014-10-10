@@ -119,7 +119,7 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 {
     MPMediaItem *nowPlaying = [_musicPlayer nowPlayingItem];
     NSTimeInterval nowPlayingDuration = [[nowPlaying valueForProperty:MPMediaItemPropertyPlaybackDuration] floatValue];
-    return (_musicPlayer.currentPlaybackTime / nowPlayingDuration);
+    return (nowPlayingDuration) ? (_musicPlayer.currentPlaybackTime / nowPlayingDuration) : 0;
 }
 
 - (NSOrderedSet *)albumsForArtistWithId:(NSNumber *)artistPersistentId

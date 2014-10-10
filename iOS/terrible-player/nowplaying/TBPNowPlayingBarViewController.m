@@ -117,11 +117,11 @@
     BOOL isPlaying = [TBPLibraryModel sharedInstance].isPlaying;
     
     // if playing, schedule a timer to read the current playback time
+    if (_timerPlayback) {
+        [_timerPlayback invalidate];
+        _timerPlayback = nil;
+    }
     if (isPlaying) {
-        if (_timerPlayback) {
-            [_timerPlayback invalidate];
-            _timerPlayback = nil;
-        }
         _timerPlayback = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(updateCurrentPlaybackTime)
                                                         userInfo:nil repeats:YES];
     }
