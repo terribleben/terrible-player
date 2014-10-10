@@ -50,7 +50,7 @@
 
 - (void)updateNowPlayingWithArtist:(NSString *)artistName track:(NSString *)trackTitle album:(NSString *)albumTitle duration:(NSNumber *)duration success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
 {
-    if ([TBPLastFMSession sharedInstance].isScrobblingEnabled) {
+    if ([TBPLastFMSession sharedInstance].isLoggedIn && [TBPLastFMSession sharedInstance].isScrobblingEnabled) {
         NSLog(@"LastFM: Update now playing: %@ - %@", artistName, trackTitle);
         if (artistName && artistName.length && trackTitle && trackTitle.length) {
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
@@ -74,7 +74,6 @@
                     }
                     
                     if (success) {
-                        NSLog(@"        Now playing success");
                         success();
                     }
                 }
@@ -87,7 +86,7 @@
 
 - (void)scrobbleWithArtist:(NSString *)artistName track:(NSString *)trackTitle album:(NSString *)albumTitle duration:(NSNumber *)duration timestamp:(NSTimeInterval)unixTimestampSinceTrackStarted success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
 {
-    if ([TBPLastFMSession sharedInstance].isScrobblingEnabled) {
+    if ([TBPLastFMSession sharedInstance].isLoggedIn && [TBPLastFMSession sharedInstance].isScrobblingEnabled) {
         NSLog(@"LastFM: Scrobble: %@ - %@", artistName, trackTitle);
         if (artistName && artistName.length && trackTitle && trackTitle.length && unixTimestampSinceTrackStarted && unixTimestampSinceTrackStarted > 0) {
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
@@ -106,7 +105,6 @@
                     NSDictionary *scrobbles = [mappingResult.dictionary objectForKey:@"scrobbles"];
                     
                     if (success) {
-                        NSLog(@"        Scrobble success");
                         success();
                     }
                 }
