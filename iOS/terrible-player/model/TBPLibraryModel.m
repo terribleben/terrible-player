@@ -10,6 +10,7 @@
 #import "NSString+TBP.h"
 #import "TBPLibraryItem.h"
 #import "TBPLastFMTrackManager.h"
+#import "TBPLastFMScrobbleQueue.h"
 
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -383,16 +384,7 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 - (void) scrobbleLastFM
 {
     MPMediaItem *nowPlaying = _musicPlayer.nowPlayingItem;
-    if (nowPlaying) {
-        NSString *trackTitle = [nowPlaying valueForProperty:MPMediaItemPropertyTitle];
-        NSString *artistName = [nowPlaying valueForProperty:MPMediaItemPropertyArtist];
-        NSString *albumTitle = [nowPlaying valueForProperty:MPMediaItemPropertyAlbumTitle];
-        NSNumber *duration = [nowPlaying valueForProperty:MPMediaItemPropertyPlaybackDuration];
-        
-        [[TBPLastFMTrackManager sharedInstance] scrobbleWithArtist:artistName track:trackTitle album:albumTitle duration:duration timestamp:dtmLastUpdatedNowPlaying success:nil failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            NSLog(@"Warning: TBPLibraryModel failed to scrobble: %@", error);
-        }];
-    }
+    [[TBPLastFMScrobbleQueue sharedInstance] scrobbleMediaItem:nowPlaying withTimestamp:dtmLastUpdatedNowPlaying];
 }
 
 @end

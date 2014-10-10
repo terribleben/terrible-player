@@ -14,6 +14,11 @@ NSString * const kTBPQueuedScrobbleTimestamp = @"timestamp";
 
 @dynamic artist, track, album, duration, timestamp;
 
++ (NSString *)entityName
+{
+    return @"QueuedScrobble";
+}
+
 + (NSPredicate *)identityPredicateForId:(NSNumber *)persistentId timestamp:(NSNumber *)timestamp
 {
     if (persistentId && timestamp)
