@@ -25,6 +25,10 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowOffset = CGSizeMake(0.0f, 3.0f);
+        self.layer.shadowRadius = 2.0f;
+        self.layer.shadowOpacity = 0.9f;
         
         // labels
         self.lblDuration = [[UILabel alloc] init];
@@ -39,6 +43,7 @@
         
         // artwork view
         self.vArtwork = [[UIImageView alloc] init];
+        _vArtwork.backgroundColor = UIColorFromRGB(TBP_COLOR_GREY_DEFAULT);
         [self addSubview:_vArtwork];
     }
     return self;
@@ -74,7 +79,7 @@
             
             _lblCount.text = [NSString stringWithFormat:@"%lu tracks", (unsigned long)_item.count.unsignedIntegerValue];
             _lblDuration.text = (_item.duration) ? [NSString stringFromTimeInterval:_item.duration.floatValue] : nil;
-            _vArtwork.image = (item.artwork) ? [item.artwork imageWithSize:_vArtwork.frame.size] : nil;
+            _vArtwork.image = (item.artwork) ? [item.artwork imageWithSize:_vArtwork.frame.size] : [UIImage imageNamed:@"platter"];
         } else {
             _lblDate.text = nil;
             _lblDuration.text = nil;

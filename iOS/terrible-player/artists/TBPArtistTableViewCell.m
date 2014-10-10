@@ -33,6 +33,7 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
         
         // artwork view
         self.vArtwork = [[UIImageView alloc] init];
+        _vArtwork.backgroundColor = UIColorFromRGB(TBP_COLOR_GREY_DEFAULT);
         [self addSubview:_vArtwork];
     }
     return self;
@@ -67,7 +68,7 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
             if (artist.artwork) {
                 _vArtwork.image = [artist.artwork imageWithSize:_vArtwork.frame.size];
             } else
-                _vArtwork.image = nil;
+                _vArtwork.image = [UIImage imageNamed:@"platter"];
         } else {
             _lblTitle.text = nil;
             _vArtwork.image = nil;

@@ -50,10 +50,6 @@
     
     self.view.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
     
-    // album view
-    self.vAlbum = [[TBPLibraryItemHeadingView alloc] init];
-    [self.view addSubview:_vAlbum];
-    
     // tracks view
     self.vTracks = [[UITableView alloc] init];
     _vTracks.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
@@ -62,6 +58,10 @@
     _vTracks.delegate = self;
     _vTracks.dataSource = self;
     [self.view addSubview:_vTracks];
+    
+    // album view
+    self.vAlbum = [[TBPLibraryItemHeadingView alloc] init];
+    [self.view addSubview:_vAlbum];
     
     [self reload];
 }

@@ -405,6 +405,11 @@
 					B5365F0519E59580000B780D = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 79EBH94J28;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					B5365F1E19E59580000B780D = {
 						CreatedOnToolsVersion = 6.0.1;

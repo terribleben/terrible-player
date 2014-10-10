@@ -24,10 +24,11 @@ NSString * const kTBPAlbumsCollectionViewCellIdentifier = @"TBPAlbumsCollectionV
 {
     if (self = [super initWithFrame:frame]) {
         self.vAlbumArt = [[UIImageView alloc] init];
+        _vAlbumArt.backgroundColor = UIColorFromRGB(TBP_COLOR_GREY_DEFAULT);
         [self addSubview:_vAlbumArt];
         
         self.lblTitle = [[UILabel alloc] init];
-        _lblTitle.font = [UIFont fontWithName:TBP_FONT size:10.0f];
+        _lblTitle.font = [UIFont fontWithName:TBP_FONT size:11.0f];
         _lblTitle.textColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
         _lblTitle.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_lblTitle];
@@ -65,7 +66,7 @@ NSString * const kTBPAlbumsCollectionViewCellIdentifier = @"TBPAlbumsCollectionV
             if (album.artwork) {
                 _vAlbumArt.image = [album.artwork imageWithSize:_vAlbumArt.frame.size];
             } else
-                _vAlbumArt.image = nil;
+                _vAlbumArt.image = [UIImage imageNamed:@"platter"];
         } else {
             _lblTitle.text = nil;
             _vAlbumArt.image = nil;
