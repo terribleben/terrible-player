@@ -29,6 +29,10 @@
 		B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F5219E5ABD4000B780D /* TBPAlbumsNavigationViewController.m */; };
 		B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F5519E5ABF0000B780D /* TBPAlbumsViewController.m */; };
 		B5365F5919E5AE1B000B780D /* TBPLibraryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F5819E5AE1B000B780D /* TBPLibraryItem.m */; };
+		B5A9806619E76E510072E3FB /* TBPDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A9806519E76E510072E3FB /* TBPDatabase.m */; };
+		B5A9806919E7709D0072E3FB /* TBPDatabaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A9806819E7709D0072E3FB /* TBPDatabaseObject.m */; };
+		B5A9806F19E772BF0072E3FB /* TBPModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5A9806D19E772BF0072E3FB /* TBPModel.xcdatamodeld */; };
+		B5A9807219E774020072E3FB /* TBPQueuedScrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A9807119E774020072E3FB /* TBPQueuedScrobble.m */; };
 		B5BDB29419E638CB004184F8 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5BDB29319E638CB004184F8 /* config.plist */; };
 		B5BDB2A019E64024004184F8 /* TBPLastFMAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB29A19E64024004184F8 /* TBPLastFMAuthManager.m */; };
 		B5BDB2A119E64024004184F8 /* TBPLastFMObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB29C19E64024004184F8 /* TBPLastFMObjectManager.m */; };
@@ -98,6 +102,13 @@
 		B5365F5519E5ABF0000B780D /* TBPAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAlbumsViewController.m; sourceTree = "<group>"; };
 		B5365F5719E5AE1B000B780D /* TBPLibraryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLibraryItem.h; sourceTree = "<group>"; };
 		B5365F5819E5AE1B000B780D /* TBPLibraryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLibraryItem.m; sourceTree = "<group>"; };
+		B5A9806419E76E510072E3FB /* TBPDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPDatabase.h; sourceTree = "<group>"; };
+		B5A9806519E76E510072E3FB /* TBPDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPDatabase.m; sourceTree = "<group>"; };
+		B5A9806719E7709D0072E3FB /* TBPDatabaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPDatabaseObject.h; sourceTree = "<group>"; };
+		B5A9806819E7709D0072E3FB /* TBPDatabaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPDatabaseObject.m; sourceTree = "<group>"; };
+		B5A9806E19E772BF0072E3FB /* TBPModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TBPModel.xcdatamodel; sourceTree = "<group>"; };
+		B5A9807019E774020072E3FB /* TBPQueuedScrobble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPQueuedScrobble.h; sourceTree = "<group>"; };
+		B5A9807119E774020072E3FB /* TBPQueuedScrobble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPQueuedScrobble.m; sourceTree = "<group>"; };
 		B5BDB29319E638CB004184F8 /* config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
 		B5BDB29919E64024004184F8 /* TBPLastFMAuthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLastFMAuthManager.h; sourceTree = "<group>"; };
 		B5BDB29A19E64024004184F8 /* TBPLastFMAuthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLastFMAuthManager.m; sourceTree = "<group>"; };
@@ -197,6 +208,7 @@
 				B5365F3F19E5A46C000B780D /* common */,
 				B5BDB28C19E632D7004184F8 /* api */,
 				B5365F3B19E5A33F000B780D /* model */,
+				B5A9806319E7614A0072E3FB /* database */,
 				B5365F4A19E5AB9C000B780D /* artists */,
 				B5365F4919E5AB9C000B780D /* albums */,
 				B502791A19E5DD7D00BAD1F5 /* album */,
@@ -296,6 +308,20 @@
 				B502791819E5D80000BAD1F5 /* TBPArtistTableViewCell.m */,
 			);
 			path = artists;
+			sourceTree = "<group>";
+		};
+		B5A9806319E7614A0072E3FB /* database */ = {
+			isa = PBXGroup;
+			children = (
+				B5A9806D19E772BF0072E3FB /* TBPModel.xcdatamodeld */,
+				B5A9806419E76E510072E3FB /* TBPDatabase.h */,
+				B5A9806519E76E510072E3FB /* TBPDatabase.m */,
+				B5A9806719E7709D0072E3FB /* TBPDatabaseObject.h */,
+				B5A9806819E7709D0072E3FB /* TBPDatabaseObject.m */,
+				B5A9807019E774020072E3FB /* TBPQueuedScrobble.h */,
+				B5A9807119E774020072E3FB /* TBPQueuedScrobble.m */,
+			);
+			path = database;
 			sourceTree = "<group>";
 		};
 		B5BDB28C19E632D7004184F8 /* api */ = {
@@ -407,7 +433,7 @@
 						DevelopmentTeam = 79EBH94J28;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -501,17 +527,21 @@
 				B502791419E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m in Sources */,
 				B5BDB2A119E64024004184F8 /* TBPLastFMObjectManager.m in Sources */,
 				B5BDB2A219E64024004184F8 /* TBPObjectManager.m in Sources */,
+				B5A9806F19E772BF0072E3FB /* TBPModel.xcdatamodeld in Sources */,
 				B5365F4519E5A8A1000B780D /* TBPNavigationViewController.m in Sources */,
 				B5365F5919E5AE1B000B780D /* TBPLibraryItem.m in Sources */,
 				B5F176DC19E7267C00593D12 /* TBPPlayPauseView.m in Sources */,
 				B502792C19E60A4300BAD1F5 /* TBPNowPlayingBarViewController.m in Sources */,
 				B502792019E5DEC100BAD1F5 /* TBPTrackTableViewCell.m in Sources */,
+				B5A9806919E7709D0072E3FB /* TBPDatabaseObject.m in Sources */,
+				B5A9807219E774020072E3FB /* TBPQueuedScrobble.m in Sources */,
 				B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */,
 				B5BDB2A019E64024004184F8 /* TBPLastFMAuthManager.m in Sources */,
 				B5F176D919E70C8A00593D12 /* TBPActivityIndicatorView.m in Sources */,
 				B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */,
 				B5BDB2AF19E6F157004184F8 /* TBPSettingsNavigationViewController.m in Sources */,
 				B5365F4F19E5AB9C000B780D /* TBPArtistsNavigationViewController.m in Sources */,
+				B5A9806619E76E510072E3FB /* TBPDatabase.m in Sources */,
 				B5365F5019E5AB9C000B780D /* TBPArtistsViewController.m in Sources */,
 				B5BDB2AC19E64CD7004184F8 /* TBPLastFMTrackManager.m in Sources */,
 				B502792319E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m in Sources */,
@@ -722,6 +752,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B5A9806D19E772BF0072E3FB /* TBPModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B5A9806E19E772BF0072E3FB /* TBPModel.xcdatamodel */,
+			);
+			currentVersion = B5A9806E19E772BF0072E3FB /* TBPModel.xcdatamodel */;
+			path = TBPModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B5365EFE19E5957F000B780D /* Project object */;
 }

@@ -11,6 +11,7 @@
 #import "TBPLibraryModel.h"
 #import "TBPConstants.h"
 #import "TBPLastFMSession.h"
+#import "TBPDatabase.h"
 
 #import <RKLog.h>
 
@@ -34,6 +35,9 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = UIColorFromRGB(TBP_COLOR_BACKGROUND);
+    
+    // init coredata
+    [TBPDatabase sharedInstance];
     
     // init music library
     [TBPLibraryModel sharedInstance];
