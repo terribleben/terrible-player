@@ -8,8 +8,21 @@
 
 #import "TBPQueuedScrobble.h"
 
+NSString * const kTBPQueuedScrobbleTimestamp = @"timestamp";
+
 @implementation TBPQueuedScrobble
 
 @dynamic artist, track, album, duration, timestamp;
+
++ (NSPredicate *)identityPredicateForId:(NSNumber *)persistentId timestamp:(NSNumber *)timestamp
+{
+    if (persistentId && timestamp)
+        return [NSPredicate predicateWithFormat:@"((%K=%llu) AND (%K=%d))",
+                kTBPDatabaseObjectPersistentId, persistentId.unsignedLongLongValue,
+                kTBPQueuedScrobbleTimestamp, timestamp.integerValue
+                ];
+    else
+        return nil;
+}
 
 @end

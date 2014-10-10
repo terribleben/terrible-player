@@ -13,7 +13,12 @@
 @property (nonatomic, strong) NSString *artist;
 @property (nonatomic, strong) NSString *track;
 @property (nonatomic, strong) NSString *album;
-@property (nonatomic, strong) NSNumber *duration;
-@property (nonatomic, strong) NSNumber *timestamp;
+@property (nonatomic, strong) NSNumber *duration;  // NSTimeInterval / float
+@property (nonatomic, strong) NSNumber *timestamp; // int32
+
+/**
+ *  Scrobble is uniquely identified by both its persistentId and the timestamp.
+ */
++ (NSPredicate *)identityPredicateForId: (NSNumber *)persistentId timestamp: (NSNumber *)timestamp;
 
 @end

@@ -24,9 +24,6 @@ FOUNDATION_EXPORT NSString * const kTBPDatabaseObjectPersistentId;
 + (id) insert;
 + (id) insertInContext:(NSManagedObjectContext *)context;
 
-+ (id) upsertWithId: (NSNumber *)persistentId;
-+ (id) upsertWithId: (NSNumber *)persistentId inContext:(NSManagedObjectContext*)context;
-
-+ (BOOL) existsWithId: (NSNumber *)persistentId;
++ (id) selectWithPredicate: (NSPredicate *)predicate;
 
 @end

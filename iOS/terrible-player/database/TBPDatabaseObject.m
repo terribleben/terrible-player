@@ -13,8 +13,6 @@ NSString * const kTBPDatabaseObjectPersistentId = @"persistentId";
 
 @interface TBPDatabaseObject ()
 
-+ (id) insertWithId: (NSNumber *)persistentId inContext: (NSManagedObjectContext *)context;
-
 @end
 
 @implementation TBPDatabaseObject
@@ -31,49 +29,13 @@ NSString * const kTBPDatabaseObjectPersistentId = @"persistentId";
     return [[TBPDatabase sharedInstance] insertEntityOfType:[self entityName] inContext:context];
 }
 
-+ (id) insertWithId:(NSNumber *)persistentId inContext:(NSManagedObjectContext *)context
-{
-    id result;
-    if (context)
-        result = [self insertInContext:context];
-    else
-        result = [self insert];
-    ((TBPDatabaseObject *)result).persistentId = persistentId;
-    return result;
-}
-
-+ (id) upsertWithId:(NSNumber *)persistentId
++ (id) selectWithPredicate:(NSPredicate *)predicate
 {
     NSArray *results = [[TBPDatabase sharedInstance] fetchEntitiesOfType:[self entityName]
-                                                          withPredicate:[self identityPredicateForId:persistentId]];
-    if (results && results.count) {
-        if (results.count > 1) {
-            NSLog(@"Warning: Fetch entity %@ by id %@ returned %lu instances", [self entityName], persistentId, (unsigned long)results.count);
-        }
+                                                           withPredicate:predicate];
+    if (results && results.count)
         return [results objectAtIndex:0];
-    } else
-        return [self insertWithId:persistentId inContext:nil];
-}
-
-+ (id) upsertWithId:(NSNumber *)persistentId inContext:(NSManagedObjectContext *)context
-{
-    NSArray *results = [[TBPDatabase sharedInstance] fetchEntitiesOfType:[self entityName]
-                                                          withPredicate:[self identityPredicateForId:persistentId]
-                                                              inContext:context];
-    if (results && results.count) {
-        if (results.count > 1) {
-            NSLog(@"Warning: Fetch entity %@ by id %@ returned %lu instances", [self entityName], persistentId, (unsigned long)results.count);
-        }
-        return [results objectAtIndex:0];
-    } else
-        return [self insertWithId:persistentId inContext:context];
-}
-
-+ (BOOL) existsWithId:(NSNumber *)persistentId
-{
-    NSArray *results = [[TBPDatabase sharedInstance] fetchEntitiesOfType:[self entityName]
-                                                           withPredicate:[self identityPredicateForId:persistentId]];
-    return (results && results.count);
+    return nil;
 }
 
 + (NSString *)entityName

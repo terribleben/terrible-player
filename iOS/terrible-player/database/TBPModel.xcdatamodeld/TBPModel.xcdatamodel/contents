@@ -7,7 +7,7 @@
         <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="artist" attributeType="String" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="timestamp" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timestamp" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
         <attribute name="track" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
