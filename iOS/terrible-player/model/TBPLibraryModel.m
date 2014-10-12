@@ -16,6 +16,7 @@
 
 #define TBP_LAST_FM_NOW_PLAYING_DELAY 4.0f
 #define TBP_RECOMPUTE_DELAY 3.0f
+#define TBP_NOTIFY_DELAY 0.1f
 
 NSString * const kTBPLibraryModelDidChangeNotification = @"TBPLibraryModelDidChangeNotification";
 NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomputedDefaultsKey";
@@ -23,16 +24,17 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 @interface TBPLibraryModel ()
 {
     NSTimeInterval dtmLastUpdatedNowPlaying;
-    NSInteger idLastUpdatedNowPlaying;
 }
 
 @property (nonatomic, strong) NSMutableOrderedSet *artists;
 @property (nonatomic, strong) NSMutableOrderedSet *albums;
 @property (nonatomic, strong) MPMusicPlayerController *musicPlayer;
 
-@property (nonatomic, strong) NSTimer *tmrUpdateNowPlaying;
+@property (nonatomic, strong) NSTimer *tmrUpdateLastFMNowPlaying;
 @property (nonatomic, strong) NSTimer *tmrScrobble;
 @property (nonatomic, strong) NSTimer *tmrRecompute;
+@property (nonatomic, strong) NSTimer *tmrNotifyNowPlaying;
+@property (nonatomic, strong) NSTimer *tmrNotifyPlaybackState;
 
 @property (atomic, strong) NSNumber *isLoading;
 @property (nonatomic, readwrite) NSDate *dtmLastRecomputed;
@@ -41,6 +43,8 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 - (void) onPlaybackStateChanged: (NSNotification *)notification;
 - (void) onMediaLibraryChanged: (NSNotification *)notification;
 
+- (void) fireNowPlayingNotification;
+- (void) firePlaybackStateNotification;
 - (void) recompute;
 
 - (void) scheduleLastFMUpdates;
@@ -72,7 +76,6 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 {
     if (self = [super init]) {
         dtmLastUpdatedNowPlaying = 0;
-        idLastUpdatedNowPlaying = 0;
         
         self.musicPlayer = [MPMusicPlayerController systemMusicPlayer];
         [_musicPlayer setShuffleMode: MPMusicShuffleModeOff];
@@ -188,10 +191,18 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 - (void) playPause
 {
     if (_musicPlayer.playbackState == MPMusicPlaybackStatePlaying) {
-        [_musicPlayer pause];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // workaround from stack overflow
+            [_musicPlayer play];
+            [_musicPlayer pause];
+        });
     } else {
         if (_musicPlayer.nowPlayingItem != nil) {
-            [_musicPlayer play];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // workaround from stack overflow
+                [_musicPlayer pause];
+                [_musicPlayer play];
+            });
         }
     }
 }
@@ -223,34 +234,46 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 
 - (void) onNowPlayingItemChanged:(NSNotification *)notification
 {
-    MPMediaItem *nowPlayingItem = _musicPlayer.nowPlayingItem;
-    
     // if the player has stopped altogether, clear the now playing context.
-    if (!nowPlayingItem)
+    if (!_musicPlayer.nowPlayingItem)
         self.nowPlayingAlbumCache = nil;
+    
+    // notify the rest of the app after a slight delay, to prevent dupes
+    if (_tmrNotifyNowPlaying) {
+        [_tmrNotifyNowPlaying invalidate];
+        _tmrNotifyNowPlaying = nil;
+    }
+    self.tmrNotifyNowPlaying = [NSTimer scheduledTimerWithTimeInterval:TBP_NOTIFY_DELAY target:self selector:@selector(fireNowPlayingNotification) userInfo:nil repeats:NO];
+}
 
-    NSInteger idNowPlaying = (nowPlayingItem) ? [[nowPlayingItem valueForKey:MPMediaItemPropertyPersistentID] integerValue] : 0;
-    NSTimeInterval dtmNow = [[NSDate date] timeIntervalSince1970];
+- (void) fireNowPlayingNotification
+{
+    dtmLastUpdatedNowPlaying = [[NSDate date] timeIntervalSince1970];
+    
+    // inform the rest of the app about the now playing change
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
+                                                        object:@(kTBPLibraryModelChangeNowPlaying)];
     
     [self scheduleLastFMUpdates];
-    
-    if ((idLastUpdatedNowPlaying == idNowPlaying) && (dtmNow - dtmLastUpdatedNowPlaying <= 1.0f)) {
-        // de-dup these updates... do nothing
-    } else {
-        idLastUpdatedNowPlaying = idNowPlaying;
-        dtmLastUpdatedNowPlaying = dtmNow;
-        
-        // inform everybody else in the app
-        [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
-                                                            object:@(kTBPLibraryModelChangeNowPlaying)];
-    }
 }
 
 - (void) onPlaybackStateChanged:(NSNotification *)notification
 {
-    [self scheduleLastFMUpdates];
+    // notify the rest of the app after a slight delay, to prevent dupes
+    if (_tmrNotifyPlaybackState) {
+        [_tmrNotifyPlaybackState invalidate];
+        _tmrNotifyPlaybackState = nil;
+    }
+    self.tmrNotifyPlaybackState = [NSTimer scheduledTimerWithTimeInterval:TBP_NOTIFY_DELAY target:self selector:@selector(firePlaybackStateNotification) userInfo:nil repeats:NO];
+}
+
+- (void) firePlaybackStateNotification
+{
+    // inform the rest of the app about the playback state change
     [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
                                                         object:@(kTBPLibraryModelChangePlaybackState)];
+    
+    [self scheduleLastFMUpdates];
 }
 
 - (void) onMediaLibraryChanged:(NSNotification *)notification
@@ -339,9 +362,9 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 - (void)scheduleLastFMUpdates
 {
     // kill any outstanding scheduled tasks
-    if (_tmrUpdateNowPlaying) {
-        [_tmrUpdateNowPlaying invalidate];
-        _tmrUpdateNowPlaying = nil;
+    if (_tmrUpdateLastFMNowPlaying) {
+        [_tmrUpdateLastFMNowPlaying invalidate];
+        _tmrUpdateLastFMNowPlaying = nil;
     }
     if (_tmrScrobble) {
         [_tmrScrobble invalidate];
@@ -353,7 +376,7 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
     if (nowPlayingItem && self.isPlaying) {
         NSLog(@"TBPLibrary: Scheduling scrobble");
         // schedule a last.fm now playing update (a few seconds into the song)
-        _tmrUpdateNowPlaying = [NSTimer scheduledTimerWithTimeInterval:TBP_LAST_FM_NOW_PLAYING_DELAY target:self
+        _tmrUpdateLastFMNowPlaying = [NSTimer scheduledTimerWithTimeInterval:TBP_LAST_FM_NOW_PLAYING_DELAY target:self
                                                               selector:@selector(updateLastFMNowPlaying) userInfo:nil repeats:NO];
         
         // schedule a last.fm scrobble
