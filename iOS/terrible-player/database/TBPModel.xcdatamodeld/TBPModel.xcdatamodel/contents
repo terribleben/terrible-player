@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DatabaseObject" representedClassName="TBPDatabaseObject" isAbstract="YES" syncable="YES">
-        <attribute name="persistentId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="persistentId" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
     </entity>
     <entity name="QueuedScrobble" representedClassName="TBPQueuedScrobble" parentEntity="DatabaseObject" syncable="YES">
         <attribute name="album" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="artist" attributeType="String" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="timestamp" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timestamp" attributeType="Integer 32" defaultValueString="0.0" indexed="YES" syncable="YES"/>
         <attribute name="track" attributeType="String" syncable="YES"/>
     </entity>
     <elements>

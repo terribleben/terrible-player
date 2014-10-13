@@ -77,9 +77,13 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
     if (self = [super init]) {
         dtmLastUpdatedNowPlaying = 0;
         
+        // init device media player
         self.musicPlayer = [MPMusicPlayerController systemMusicPlayer];
         [_musicPlayer setShuffleMode: MPMusicShuffleModeOff];
         [_musicPlayer setRepeatMode: MPMusicRepeatModeNone];
+        
+        // init scrobble queue
+        [TBPLastFMScrobbleQueue sharedInstance];
         
         // listen to the device media player
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];

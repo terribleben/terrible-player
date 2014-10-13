@@ -16,7 +16,8 @@ FOUNDATION_EXPORT NSString * const kTBPAPIErrorDomain;
 typedef enum TBPAPIErrorCode : NSUInteger {
     kTBPAPIErrorCodeUnknown = 0,
     kTBPAPIErrorCodeInvalidRequest = 1,
-    kTBPAPIErrorCodeUnexpectedResponse = 2
+    kTBPAPIErrorCodeUnexpectedResponse = 2,
+    kTBPAPIErrorCodeSession = 3
 } TBPAPIErrorCode;
 
 /**

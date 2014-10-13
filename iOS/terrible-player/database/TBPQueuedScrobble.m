@@ -14,6 +14,24 @@ NSString * const kTBPQueuedScrobbleTimestamp = @"timestamp";
 
 @dynamic artist, track, album, duration, timestamp;
 
++ (instancetype)insertWithMediaItem:(MPMediaItem *)item timestamp:(NSTimeInterval)timestamp
+{
+    TBPQueuedScrobble *scrobble = [[self class] insert];
+    
+    NSString *trackTitle = [item valueForProperty:MPMediaItemPropertyTitle];
+    NSString *artistName = [item valueForProperty:MPMediaItemPropertyArtist];
+    NSString *albumTitle = [item valueForProperty:MPMediaItemPropertyAlbumTitle];
+    NSNumber *duration = [item valueForProperty:MPMediaItemPropertyPlaybackDuration];
+    
+    scrobble.track = trackTitle;
+    scrobble.artist = artistName;
+    scrobble.album = albumTitle;
+    scrobble.duration = duration;
+    scrobble.timestamp = @(floorf(timestamp));
+    
+    return scrobble;
+}
+
 + (NSString *)entityName
 {
     return @"QueuedScrobble";

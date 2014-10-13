@@ -8,9 +8,16 @@
 
 #import "TBPLastFMTrackManager.h"
 #import "TBPLastFMSession.h"
+#import "TBPQueuedScrobble.h"
 
 #import <RKRequestDescriptor.h>
 #import <RKResponseDescriptor.h>
+
+@interface TBPLastFMTrackManager ()
+
+- (NSString *)scrobbleParamWithName: (NSString *)name index: (NSUInteger)index;
+
+@end
 
 @implementation TBPLastFMTrackManager
 
@@ -84,8 +91,13 @@
     // if scrobbling not enabled, fail silently
 }
 
-- (void)scrobbleWithArtist:(NSString *)artistName track:(NSString *)trackTitle album:(NSString *)albumTitle duration:(NSNumber *)duration timestamp:(NSTimeInterval)unixTimestampSinceTrackStarted success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
+- (void)scrobbleMediaItem:(MPMediaItem *)item timestamp:(NSTimeInterval)unixTimestampSinceTrackStarted success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
 {
+    NSString *trackTitle = [item valueForProperty:MPMediaItemPropertyTitle];
+    NSString *artistName = [item valueForProperty:MPMediaItemPropertyArtist];
+    NSString *albumTitle = [item valueForProperty:MPMediaItemPropertyAlbumTitle];
+    NSNumber *duration = [item valueForProperty:MPMediaItemPropertyPlaybackDuration];
+    
     if ([TBPLastFMSession sharedInstance].isLoggedIn && [TBPLastFMSession sharedInstance].isScrobblingEnabled) {
         NSLog(@"LastFM: Scrobble: %@ - %@", artistName, trackTitle);
         if (artistName && artistName.length && trackTitle && trackTitle.length && unixTimestampSinceTrackStarted && unixTimestampSinceTrackStarted > 0) {
@@ -113,6 +125,52 @@
             failure(nil, [NSError errorWithDomain:kTBPAPIErrorDomain code:kTBPAPIErrorCodeInvalidRequest userInfo:nil]);
     }
     // scrobbling not enabled, fail silently
+}
+
+- (void)scrobbleEnqueuedScrobbles:(NSArray *)scrobbles success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
+{
+    if ([TBPLastFMSession sharedInstance].isLoggedIn && [TBPLastFMSession sharedInstance].isScrobblingEnabled) {
+        
+        // build big dictionary of scrobble params
+        NSUInteger scrobbleIdx = 0;
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{ @"method": @"track.scrobble" }];
+        
+        for (TBPQueuedScrobble *scrobble in scrobbles) {
+            if (scrobble.artist && scrobble.track && scrobble.timestamp) {
+                NSMutableDictionary *trackParams = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                                   [self scrobbleParamWithName:@"artist" index:scrobbleIdx]: scrobble.artist,
+                                                                                                   [self scrobbleParamWithName:@"track" index:scrobbleIdx]: scrobble.track,
+                                                                                                   [self scrobbleParamWithName:@"timestamp" index:scrobbleIdx]: [NSString stringWithFormat:@"%.0f", scrobble.timestamp.floatValue]
+                                                                                                   }];
+                if (scrobble.album)
+                    [params setObject:scrobble.album forKey:[self scrobbleParamWithName:@"album" index:scrobbleIdx]];
+                if (scrobble.duration)
+                    [params setObject:[NSString stringWithFormat:@"%.0f", scrobble.duration.floatValue] forKey:[self scrobbleParamWithName:@"duration" index:scrobbleIdx]];
+                
+                [params addEntriesFromDictionary:trackParams];
+                scrobbleIdx++;
+            }
+        }
+        NSLog(@"Last.FM: Scrobble %lu tracks", (unsigned long)scrobbleIdx);
+        
+        [self postObject:nil path:@"" parameters:params success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            if (mappingResult && mappingResult.dictionary) {
+                NSDictionary *scrobbles = [mappingResult.dictionary objectForKey:@"scrobbles"];
+                
+                if (success) {
+                    success();
+                }
+            }
+        } failure:failure];
+    } else {
+        // scrobbling not enabled / not logged in
+        failure(nil, [NSError errorWithDomain:kTBPAPIErrorDomain code:kTBPAPIErrorCodeSession userInfo:nil]);
+    }
+}
+
+- (NSString *)scrobbleParamWithName:(NSString *)name index:(NSUInteger)index
+{
+    return [NSString stringWithFormat:@"%@[%u]", name, index];
 }
 
 @end

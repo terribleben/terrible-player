@@ -7,9 +7,11 @@
 //
 
 #import "TBPLastFMObjectManager.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 #define TBP_LAST_FM_SCROBBLE_MIN_SECS 30.0f
 #define TBP_LAST_FM_SCROBBLE_MAX_SECS (60.0f * 4.0f)
+#define TBP_LAST_FM_SCROBBLE_BATCH_SIZE 50
 
 @interface TBPLastFMTrackManager : TBPLastFMObjectManager
 
@@ -22,12 +24,13 @@
                            success: (void (^)(void))success
                            failure: (TBPObjectManagerFailure)failure;
 
-- (void)scrobbleWithArtist: (NSString *)artistName
-                     track: (NSString *)trackTitle
-                     album: (NSString *)albumTitle
-                  duration: (NSNumber *)duration
-                 timestamp: (NSTimeInterval)unixTimestampSinceTrackStarted
-                   success: (void (^)(void))success
-                   failure: (TBPObjectManagerFailure)failure;
+- (void)scrobbleMediaItem: (MPMediaItem *)item
+                timestamp: (NSTimeInterval)unixTimestampSinceTrackStarted
+                  success: (void (^)(void))success
+                  failure: (TBPObjectManagerFailure)failure;
+
+- (void)scrobbleEnqueuedScrobbles: (NSArray *)scrobbles
+                          success: (void (^)(void))success
+                          failure: (TBPObjectManagerFailure)failure;
 
 @end

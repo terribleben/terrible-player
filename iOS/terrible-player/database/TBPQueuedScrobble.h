@@ -7,6 +7,7 @@
 //
 
 #import "TBPDatabaseObject.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface TBPQueuedScrobble : TBPDatabaseObject
 
@@ -15,6 +16,8 @@
 @property (nonatomic, strong) NSString *album;
 @property (nonatomic, strong) NSNumber *duration;  // NSTimeInterval / float
 @property (nonatomic, strong) NSNumber *timestamp; // int32
+
++ (instancetype)insertWithMediaItem: (MPMediaItem *)item timestamp: (NSTimeInterval)timestamp;
 
 /**
  *  Scrobble is uniquely identified by both its persistentId and the timestamp.

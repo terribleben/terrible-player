@@ -17,4 +17,6 @@
 
 - (void) scrobbleMediaItem: (MPMediaItem *)item withTimestamp: (NSTimeInterval)timestamp;
 
+- (void) submitQueuedScrobbles;
+
 @end
