@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="CachedNowPlayingContext" representedClassName="TBPCachedNowPlayingContext" parentEntity="DatabaseObject" syncable="YES">
+        <attribute name="dateCached" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="didScrobbleNowPlaying" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="indexOfNowPlaying" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="playCounts" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="timeInNowPlaying" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+    </entity>
     <entity name="DatabaseObject" representedClassName="TBPDatabaseObject" isAbstract="YES" syncable="YES">
         <attribute name="persistentId" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
     </entity>
@@ -13,5 +20,6 @@
     <elements>
         <element name="DatabaseObject" positionX="-63" positionY="-18" width="128" height="58"/>
         <element name="QueuedScrobble" positionX="-54" positionY="0" width="128" height="118"/>
+        <element name="CachedNowPlayingContext" positionX="-54" positionY="27" width="128" height="118"/>
     </elements>
 </model>
