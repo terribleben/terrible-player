@@ -38,6 +38,9 @@
 - (instancetype)init
 {
     if (self = [super init]) {
+        self.isScrobbling = NO;
+        self.isReadyToScrobble = NO;
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
         
@@ -64,18 +67,18 @@
         [[TBPLastFMTrackManager sharedInstance] scrobbleMediaItem:item timestamp:timestamp success:^{
             // delete existing from queue
             if (existing) {
-                // TODO delete
+                [[TBPDatabase sharedInstance].managedObjectStore.mainQueueManagedObjectContext deleteObject:existing];
+                [[TBPDatabase sharedInstance] save];
             }
                 
         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-            NSLog(@"TBPLastFMScrobbleQueue will enqueue failed scrobble");
-            
             // update existing or create new
             if (!existing) {
                 existing = [TBPQueuedScrobble insertWithMediaItem:item timestamp:timestamp];
             } else
                 existing.timestamp = @(floorf(timestamp));
             
+            NSLog(@"TBPLastFMScrobbleQueue: enqueue failed scrobble: %@ - %@", existing.artist, existing.track);
             [[TBPDatabase sharedInstance] save];
         }];
     }
@@ -96,7 +99,7 @@
         
         NSArray *queued = [[TBPDatabase sharedInstance].managedObjectStore.mainQueueManagedObjectContext executeFetchRequest:fetchQueue error:&err];
         
-        if (self.isReadyToScrobble) {
+        if (self.isReadyToScrobble && queued.count) {
             __block NSUInteger batchIndex = 0;
             __block NSUInteger batchSize = MIN(queued.count, TBP_LAST_FM_SCROBBLE_BATCH_SIZE);
 
@@ -132,7 +135,7 @@
             };
             
             // send initial batch
-            NSLog(@"TBPLastFMScrobbleQueue attempting to clear queue...");
+            NSLog(@"TBPLastFMScrobbleQueue attempting to clear queue (%lu)...", (unsigned long)queued.count);
             [[TBPLastFMTrackManager sharedInstance] scrobbleEnqueuedScrobbles:batch success:batchSucceeded failure:batchFailed];
         } else
             self.isScrobbling = @(NO);

@@ -170,7 +170,7 @@
 
 - (NSString *)scrobbleParamWithName:(NSString *)name index:(NSUInteger)index
 {
-    return [NSString stringWithFormat:@"%@[%u]", name, index];
+    return [NSString stringWithFormat:@"%@[%lu]", name, (unsigned long)index];
 }
 
 @end
