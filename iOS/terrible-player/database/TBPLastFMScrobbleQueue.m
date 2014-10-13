@@ -104,15 +104,29 @@
             __block NSUInteger batchSize = MIN(queued.count, TBP_LAST_FM_SCROBBLE_BATCH_SIZE);
 
             __block NSArray *batch = [queued subarrayWithRange:NSMakeRange(batchIndex, batchSize)];
+            __block NSMutableSet *submitted = [NSMutableSet set];
+            
+            // block to execute when we're done scrobbling for any reason
+            void (^onFinishedScrobbling)(void) = ^{
+                // clear submitted scrobbles from queue
+                for (TBPQueuedScrobble *toDelete in submitted) {
+                    [[TBPDatabase sharedInstance].managedObjectStore.mainQueueManagedObjectContext deleteObject:toDelete];
+                }
+                [[TBPDatabase sharedInstance] save];
+                self.isScrobbling = @(NO);
+            };
             
             void (^batchFailed)(RKObjectRequestOperation *, NSError *) = ^(RKObjectRequestOperation *operation, NSError *error) {
                 // abort this whole endeavor
-                self.isScrobbling = @(NO);
                 NSLog(@"TBPLastFMScrobbleQueue failed to submit batch, aborting: %@", error);
+                onFinishedScrobbling();
             };
             
             void (^batchSucceeded)(void) = ^(void) {
-                // TODO clear enqueued scrobbles
+                // add submitted scrobbles to submitted set
+                for (TBPQueuedScrobble *submittedScrobble in batch) {
+                    [submitted addObject:submittedScrobble];
+                }
                 
                 // compute next batch
                 batchIndex += batchSize;
@@ -120,7 +134,7 @@
                 if (batchSize == 0) {
                     // none left, we're finished
                     NSLog(@"TBPLastFMScrobbleQueue fully cleared");
-                    self.isScrobbling = @(NO);
+                    onFinishedScrobbling();
                 } else {
                     // submit next batch
                     if (self.isReadyToScrobble) {
@@ -129,7 +143,7 @@
                     } else {
                         // or get interrupted
                         NSLog(@"TBPLastFMScrobbleQueue interrupted clearing queue");
-                        self.isScrobbling = @(NO);
+                        onFinishedScrobbling();
                     }
                 }
             };
