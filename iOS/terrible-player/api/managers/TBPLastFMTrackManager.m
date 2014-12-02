@@ -91,7 +91,7 @@
     // if scrobbling not enabled, fail silently
 }
 
-- (void)scrobbleMediaItem:(MPMediaItem *)item timestamp:(NSTimeInterval)unixTimestampSinceTrackStarted success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
+- (void)scrobbleMediaItem:(MPMediaItem *)item timestamp:(NSTimeInterval)unixTimestampSinceTrackStarted success:(void (^)(NSDictionary *))success failure:(TBPObjectManagerFailure)failure
 {
     NSString *trackTitle = [item valueForProperty:MPMediaItemPropertyTitle];
     NSString *artistName = [item valueForProperty:MPMediaItemPropertyArtist];
@@ -117,7 +117,7 @@
                     NSDictionary *scrobbles = [mappingResult.dictionary objectForKey:@"scrobbles"];
                     
                     if (success) {
-                        success();
+                        success(scrobbles);
                     }
                 }
             } failure:failure];
@@ -127,7 +127,7 @@
     // scrobbling not enabled, fail silently
 }
 
-- (void)scrobbleEnqueuedScrobbles:(NSArray *)scrobbles success:(void (^)(void))success failure:(TBPObjectManagerFailure)failure
+- (void)scrobbleEnqueuedScrobbles:(NSArray *)scrobbles success:(void (^)(NSDictionary *))success failure:(TBPObjectManagerFailure)failure
 {
     if ([TBPLastFMSession sharedInstance].isLoggedIn && [TBPLastFMSession sharedInstance].isScrobblingEnabled) {
         
@@ -158,7 +158,7 @@
                 NSDictionary *scrobbles = [mappingResult.dictionary objectForKey:@"scrobbles"];
                 
                 if (success) {
-                    success();
+                    success(scrobbles);
                 }
             }
         } failure:failure];

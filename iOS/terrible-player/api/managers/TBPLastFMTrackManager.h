@@ -26,11 +26,11 @@
 
 - (void)scrobbleMediaItem: (MPMediaItem *)item
                 timestamp: (NSTimeInterval)unixTimestampSinceTrackStarted
-                  success: (void (^)(void))success
+                  success: (void (^)(NSDictionary *response))success
                   failure: (TBPObjectManagerFailure)failure;
 
 - (void)scrobbleEnqueuedScrobbles: (NSArray *)scrobbles
-                          success: (void (^)(void))success
+                          success: (void (^)(NSDictionary *response))success
                           failure: (TBPObjectManagerFailure)failure;
 
 @end

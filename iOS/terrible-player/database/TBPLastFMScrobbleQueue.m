@@ -64,7 +64,7 @@
     if (item) {
         __block TBPQueuedScrobble *existing = [TBPQueuedScrobble selectWithPredicate:[TBPQueuedScrobble identityPredicateForId:@(item.persistentID) timestamp:@(timestamp)]];
         
-        [[TBPLastFMTrackManager sharedInstance] scrobbleMediaItem:item timestamp:timestamp success:^{
+        [[TBPLastFMTrackManager sharedInstance] scrobbleMediaItem:item timestamp:timestamp success: ^(NSDictionary *response) {
             // delete existing from queue
             if (existing) {
                 [[TBPDatabase sharedInstance].managedObjectStore.mainQueueManagedObjectContext deleteObject:existing];
@@ -122,7 +122,7 @@
                 onFinishedScrobbling();
             };
             
-            void (^batchSucceeded)(void) = ^(void) {
+            void (^batchSucceeded)(NSDictionary *) = ^(NSDictionary *response) {
                 // add submitted scrobbles to submitted set
                 for (TBPQueuedScrobble *submittedScrobble in batch) {
                     [submitted addObject:submittedScrobble];
