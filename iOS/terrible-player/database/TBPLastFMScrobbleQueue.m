@@ -38,8 +38,8 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.isScrobbling = NO;
-        self.isReadyToScrobble = NO;
+        self.isScrobbling = @(NO);
+        self.isReadyToScrobble = @(NO);
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
