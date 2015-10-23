@@ -82,22 +82,27 @@
 
 #pragma mark delegate methods
 
-- (void) nowPlayingBarDidSelectPlayPause:(TBPNowPlayingBarViewController *)vcNowPlaying
+- (void)nowPlayingBarDidSelectPlayPause:(TBPNowPlayingBarViewController *)vcNowPlaying
 {
     // do nothing
 }
 
-- (void) nowPlayingBarDidSelectNowPlaying:(TBPNowPlayingBarViewController *)vcNowPlaying
+- (void) nowPlayingBar:(TBPNowPlayingBarViewController *)vcNowPlaying didSelectMode:(TBPNowPlayingBarViewMode)mode
 {
-    if (_selectedViewController != _vcArtists)
-        self.selectedViewController = _vcArtists;
-    
-    [_vcArtists pushNowPlaying];
-}
-
-- (void) nowPlayingBarDidSelectSettings:(TBPNowPlayingBarViewController *)vcNowPlaying
-{
-    self.selectedViewController = _vcSettings;
+    switch (mode) {
+        case kTBPNowPlayingBarViewModeSettings:
+            self.selectedViewController = _vcSettings;
+            break;
+        case kTBPNowPlayingBarViewModeLibrary:
+            if (_selectedViewController != _vcArtists)
+                self.selectedViewController = _vcArtists;
+            
+            [_vcArtists pushNowPlaying];
+            break;
+        default:
+            // do nothing
+            break;
+    }
 }
 
 - (void) libraryDidBeginReload:(TBPLibraryModel *)library
