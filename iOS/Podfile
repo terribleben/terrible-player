@@ -3,5 +3,5 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 pod 'AFNetworking', "~> 1.2"   # can't use 2.x with restkit, will upgrade when available.
-pod 'RestKit'
+pod 'RestKit', '~> 0.25.0'
 pod 'TPKeyboardAvoiding', "~> 1.2.3"
