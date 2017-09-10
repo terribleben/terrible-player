@@ -77,34 +77,22 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
     if (self = [super init]) {
         dtmLastUpdatedNowPlaying = 0;
         
-        // init device media player
-        self.musicPlayer = [MPMusicPlayerController systemMusicPlayer];
-        [_musicPlayer setShuffleMode: MPMusicShuffleModeOff];
-        [_musicPlayer setRepeatMode: MPMusicRepeatModeNone];
-        
         // init scrobble queue
         [TBPLastFMScrobbleQueue sharedInstance];
         
-        // listen to the device media player
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        [notificationCenter addObserver:self selector:@selector(onNowPlayingItemChanged:) name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification object:nil];
-        [notificationCenter addObserver:self selector:@selector(onPlaybackStateChanged:) name:MPMusicPlayerControllerPlaybackStateDidChangeNotification object:nil];
-        [_musicPlayer beginGeneratingPlaybackNotifications];
-        
-        // listen to the device media library (for syncs / changes)
-        [notificationCenter addObserver:self selector:@selector(onMediaLibraryChanged:) name:MPMediaLibraryDidChangeNotification object:nil];
-        [[MPMediaLibrary defaultMediaLibrary] beginGeneratingLibraryChangeNotifications];
+        // init device media player
+        self.musicPlayer = [MPMusicPlayerController systemMusicPlayer];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onIsPreparedToPlayChanged:)
+                                                     name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification
+                                                   object:nil];
     }
     return self;
 }
 
 - (void) dealloc
 {
-    // [super dealloc];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [_musicPlayer endGeneratingPlaybackNotifications];
-    [[MPMediaLibrary defaultMediaLibrary] endGeneratingLibraryChangeNotifications];
+    [self setIsListeningToMediaLibraryNotifications:NO];
 }
 
 
@@ -234,7 +222,39 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 }
 
 
-#pragma mark internal methods
+#pragma mark - internal methods
+
+- (void)onIsPreparedToPlayChanged:(NSNotification *)notification
+{
+    if (_musicPlayer.isPreparedToPlay) {
+        [_musicPlayer setShuffleMode: MPMusicShuffleModeOff];
+        [_musicPlayer setRepeatMode: MPMusicRepeatModeNone];
+        
+        [self setIsListeningToMediaLibraryNotifications:YES];
+    } else {
+        [self setIsListeningToMediaLibraryNotifications:NO];
+    }
+}
+
+- (void)setIsListeningToMediaLibraryNotifications:(BOOL)isListening
+{
+    if (isListening) {
+        // listen to the device media player
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self selector:@selector(onNowPlayingItemChanged:) name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification object:nil];
+        [notificationCenter addObserver:self selector:@selector(onPlaybackStateChanged:) name:MPMusicPlayerControllerPlaybackStateDidChangeNotification object:nil];
+        [_musicPlayer beginGeneratingPlaybackNotifications];
+        
+        // listen to the device media library (for syncs / changes)
+        [notificationCenter addObserver:self selector:@selector(onMediaLibraryChanged:) name:MPMediaLibraryDidChangeNotification object:nil];
+        [[MPMediaLibrary defaultMediaLibrary] beginGeneratingLibraryChangeNotifications];
+    } else {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        
+        [_musicPlayer endGeneratingPlaybackNotifications];
+        [[MPMediaLibrary defaultMediaLibrary] endGeneratingLibraryChangeNotifications];
+    }
+}
 
 - (void) onNowPlayingItemChanged:(NSNotification *)notification
 {
