@@ -133,7 +133,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat sqrSide = MIN(self.view.frame.size.width * 0.48f, self.view.frame.size.height * 0.48f);
-    return CGSizeMake(sqrSide, sqrSide);
+    return CGSizeMake(sqrSide, sqrSide + 12.0f);
 }
 
 

@@ -12,12 +12,29 @@
 
 #import <TPKeyboardAvoidingScrollView.h>
 
+@interface TBPTextField : UITextField
+
+@end
+
+@implementation TBPTextField
+
+- (void)drawPlaceholderInRect:(CGRect)rect
+{
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName: [UIFont systemFontOfSize:16.0],
+                                 NSForegroundColorAttributeName: [UIColor whiteColor],
+                                 };
+    [[self placeholder] drawInRect:CGRectInset(rect, 0, (rect.size.height - self.font.lineHeight) / 2.0) withAttributes:attributes];
+}
+
+@end
+
 @interface TBPAuthViewController ()
 
 @property (nonatomic, strong) TPKeyboardAvoidingScrollView *vContainer;
 @property (nonatomic, strong) UILabel *lblHeading;
-@property (nonatomic, strong) UITextField *vUsername;
-@property (nonatomic, strong) UITextField *vPassword;
+@property (nonatomic, strong) TBPTextField *vUsername;
+@property (nonatomic, strong) TBPTextField *vPassword;
 @property (nonatomic, strong) UIButton *btnSubmit;
 @property (nonatomic, strong) UIActivityIndicatorView *vLoading;
 
@@ -47,13 +64,13 @@
     [_vContainer addSubview:_lblHeading];
     
     // username text field
-    self.vUsername = [[UITextField alloc] init];
+    self.vUsername = [[TBPTextField alloc] init];
     _vUsername.placeholder = @"Last.fm Username";
     _vUsername.returnKeyType = UIReturnKeyNext;
     [_vContainer addSubview:_vUsername];
     
     // password text field
-    self.vPassword = [[UITextField alloc] init];
+    self.vPassword = [[TBPTextField alloc] init];
     _vPassword.placeholder = @"Last.fm Password";
     _vPassword.returnKeyType = UIReturnKeyGo;
     _vPassword.secureTextEntry = YES;
@@ -102,9 +119,9 @@
     _vContainer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     _lblHeading.frame = CGRectMake(12.0f, 16.0f, _vContainer.frame.size.width - 24.0f, 32.0f);
     _vUsername.frame = CGRectMake(_lblHeading.frame.origin.x, _lblHeading.frame.origin.y + _lblHeading.frame.size.height + 16.0f,
-                                  _lblHeading.frame.size.width, 32.0f);
+                                  _lblHeading.frame.size.width, 48.0f);
     _vPassword.frame = CGRectMake(_lblHeading.frame.origin.x, _vUsername.frame.origin.y + _vUsername.frame.size.height + 16.0f,
-                                  _lblHeading.frame.size.width, 32.0f);
+                                  _lblHeading.frame.size.width, 48.0f);
     _btnSubmit.frame = CGRectMake(_lblHeading.frame.origin.x, _vPassword.frame.origin.y + _vPassword.frame.size.height + 16.0f,
                                   _lblHeading.frame.size.width, 32.0f);
     _vLoading.center = _btnSubmit.center;

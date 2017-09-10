@@ -57,7 +57,7 @@
     CGFloat margin = MAX(8.0f, MIN(24.0f, self.frame.size.height * 0.05f));
     _vArtwork.frame = CGRectMake(margin, margin, sqrSide, sqrSide);
     
-    CGFloat titleX = _vArtwork.frame.origin.x + _vArtwork.frame.size.width + margin;
+    CGFloat titleX = _vArtwork.frame.origin.x + _vArtwork.frame.size.width + margin * 2.0f;
     _lblCount.frame = CGRectMake(titleX, margin,
                                  self.frame.size.width - titleX - margin, 32.0f);
     _lblDuration.frame = CGRectMake(titleX, _lblCount.frame.origin.y + _lblCount.frame.size.height,
@@ -77,7 +77,10 @@
             } else
                 _lblDate.text = nil;
             
-            _lblCount.text = [NSString stringWithFormat:@"%lu tracks", (unsigned long)_item.count.unsignedIntegerValue];
+            NSUInteger tracks = _item.count.unsignedIntegerValue;
+            _lblCount.text = (tracks == 1)
+                ? [NSString stringWithFormat:@"%lu track", (unsigned long)tracks]
+                : [NSString stringWithFormat:@"%lu tracks", (unsigned long)tracks];
             _lblDuration.text = (_item.duration) ? [NSString stringFromTimeInterval:_item.duration.floatValue] : nil;
             _vArtwork.image = (item.artwork) ? [item.artwork imageWithSize:_vArtwork.frame.size] : [UIImage imageNamed:@"platter"];
         } else {

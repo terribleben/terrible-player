@@ -47,8 +47,8 @@ NSString * const kTBPTrackTableViewCellIdentifier = @"TBPTrackTableViewCellIdent
     
     CGFloat margin = MAX(8.0f, MIN(16.0f, self.frame.size.height * 0.05f));
 
-    _lblTitle.frame = CGRectMake(margin, margin,
-                                 self.frame.size.width - (margin * 2.0f), self.frame.size.height - (margin * 2.0f));
+    _lblTitle.frame = CGRectMake(margin * 2.0f, margin,
+                                 self.frame.size.width - (margin * 3.0f), self.frame.size.height - (margin * 2.0f));
 }
 
 - (void) setTrack:(TBPLibraryItem *)track

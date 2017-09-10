@@ -40,11 +40,11 @@ NSString * const kTBPAlbumsCollectionViewCellIdentifier = @"TBPAlbumsCollectionV
 {
     [super layoutSubviews];
     
-    _lblTitle.frame = CGRectMake(0, self.frame.size.height - 16.0f,
+    _lblTitle.frame = CGRectMake(0, self.frame.size.height - 24.0f,
                                  self.frame.size.width * 0.9f, 16.0f);
     _lblTitle.center = CGPointMake(self.frame.size.width * 0.5f, _lblTitle.center.y);
     
-    CGFloat sqrDimension = MIN(self.frame.size.width * 0.9f, self.frame.size.height - _lblTitle.frame.size.height - 4.0f);
+    CGFloat sqrDimension = MIN(self.frame.size.width * 0.9f, self.frame.size.height - _lblTitle.frame.size.height - 8.0f);
     _vAlbumArt.frame = CGRectMake(0, 0, sqrDimension, sqrDimension);
     _vAlbumArt.center = CGPointMake(_lblTitle.center.x, sqrDimension * 0.5f);
 }

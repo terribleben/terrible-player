@@ -35,7 +35,13 @@
 {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
+    if (interval >= 60 * 60) {
+        [formatter setDateFormat:@"H'h' m'm'"];
+    } else if (interval >= 15 * 60) {
+        [formatter setDateFormat:@"m'm'"];
+    } else {
+        [formatter setDateFormat:@"m'm' s's'"];
+    }
     [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     return [formatter stringFromDate:date];
 }

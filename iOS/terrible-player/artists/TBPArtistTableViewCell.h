@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TBPLibraryItem.h"
 
-#define TBP_ARTIST_TABLE_CELL_HEIGHT 64.0f
+#define TBP_ARTIST_TABLE_CELL_HEIGHT 70.0f
 
 FOUNDATION_EXPORT NSString * const kTBPArtistsTableViewCellIdentifier;
 
