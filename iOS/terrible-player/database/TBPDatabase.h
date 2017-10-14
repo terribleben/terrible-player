@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RKManagedObjectStore.h>
+#import "RKManagedObjectStore.h"
 
 @interface TBPDatabase : NSObject
 

@@ -9,8 +9,8 @@
 #import "TBPLastFMAuthManager.h"
 #import "TBPLastFMSession.h"
 
-#import <RKRequestDescriptor.h>
-#import <RKResponseDescriptor.h>
+#import "RKRequestDescriptor.h"
+#import "RKResponseDescriptor.h"
 
 @implementation TBPLastFMAuthManager
 

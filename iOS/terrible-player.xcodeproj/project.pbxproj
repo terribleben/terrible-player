@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E495DBCD4B049909F0FD666 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 773720CD89AF46CD957A9DB0 /* libPods.a */; };
 		B502791419E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791319E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m */; };
 		B502791619E5B26900BAD1F5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B502791519E5B26900BAD1F5 /* AssetsLibrary.framework */; };
 		B502791919E5D80000BAD1F5 /* TBPArtistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B502791819E5D80000BAD1F5 /* TBPArtistTableViewCell.m */; };
@@ -48,6 +47,7 @@
 		B5DDD5A91F92B92E003B944A /* silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = B5DDD5A81F92B92E003B944A /* silence.wav */; };
 		B5F176D919E70C8A00593D12 /* TBPActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F176D819E70C8A00593D12 /* TBPActivityIndicatorView.m */; };
 		B5F176DC19E7267C00593D12 /* TBPPlayPauseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F176DB19E7267C00593D12 /* TBPPlayPauseView.m */; };
+		D8DCDCD4F585B752AE3E81A7 /* libPods-terrible-player.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 205C0893AEC67688EAAB8831 /* libPods-terrible-player.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,9 +61,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		60DB3B57266813A036AA1820 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		773720CD89AF46CD957A9DB0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B2DE1BC1D4D8C7E33EBE1144 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		205C0893AEC67688EAAB8831 /* libPods-terrible-player.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-terrible-player.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87E99F75F893D17AFA466641 /* Pods-terrible-player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-terrible-player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-terrible-player/Pods-terrible-player.debug.xcconfig"; sourceTree = "<group>"; };
+		A5989008BE6B28D551A34537 /* Pods-terrible-player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-terrible-player.release.xcconfig"; path = "Pods/Target Support Files/Pods-terrible-player/Pods-terrible-player.release.xcconfig"; sourceTree = "<group>"; };
 		B502791219E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPAlbumCollectionViewCell.h; sourceTree = "<group>"; };
 		B502791319E5B19000BAD1F5 /* TBPAlbumCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAlbumCollectionViewCell.m; sourceTree = "<group>"; };
 		B502791519E5B26900BAD1F5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -151,7 +151,7 @@
 			files = (
 				B502791619E5B26900BAD1F5 /* AssetsLibrary.framework in Frameworks */,
 				B5365F3519E598F2000B780D /* MediaPlayer.framework in Frameworks */,
-				7E495DBCD4B049909F0FD666 /* libPods.a in Frameworks */,
+				D8DCDCD4F585B752AE3E81A7 /* libPods-terrible-player.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,11 +165,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4B296EAC6CB70F4282CFA861 /* Pods */ = {
+		144E6D8653C3073BD7163D65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				60DB3B57266813A036AA1820 /* Pods.debug.xcconfig */,
-				B2DE1BC1D4D8C7E33EBE1144 /* Pods.release.xcconfig */,
+				205C0893AEC67688EAAB8831 /* libPods-terrible-player.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4A9C44A8EBB3608777988B30 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				87E99F75F893D17AFA466641 /* Pods-terrible-player.debug.xcconfig */,
+				A5989008BE6B28D551A34537 /* Pods-terrible-player.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -202,8 +210,8 @@
 				B5365F0819E59580000B780D /* terrible-player */,
 				B5365F2219E59580000B780D /* terrible-playerTests */,
 				B5365F0719E59580000B780D /* Products */,
-				F13FCC0EF82A4D08A6BA5291 /* Frameworks */,
-				4B296EAC6CB70F4282CFA861 /* Pods */,
+				4A9C44A8EBB3608777988B30 /* Pods */,
+				144E6D8653C3073BD7163D65 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -396,14 +404,6 @@
 			path = settings;
 			sourceTree = "<group>";
 		};
-		F13FCC0EF82A4D08A6BA5291 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				773720CD89AF46CD957A9DB0 /* libPods.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -411,11 +411,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5365F2919E59580000B780D /* Build configuration list for PBXNativeTarget "terrible-player" */;
 			buildPhases = (
-				00376318FC264AE2B3FA0205 /* Check Pods Manifest.lock */,
+				3AFF53CEC7FF0F810E83AD22 /* [CP] Check Pods Manifest.lock */,
 				B5365F0219E59580000B780D /* Sources */,
 				B5365F0319E59580000B780D /* Frameworks */,
 				B5365F0419E59580000B780D /* Resources */,
-				6FB0A630AD00400B80DDFEAC /* Copy Pods Resources */,
+				72C3EDC9ACFF697C6E816893 /* [CP] Embed Pods Frameworks */,
+				6B82A8193712BBD93D155811 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -451,7 +452,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = TBP;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Ben Roth";
 				TargetAttributes = {
 					B5365F0519E59580000B780D = {
@@ -510,34 +511,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00376318FC264AE2B3FA0205 /* Check Pods Manifest.lock */ = {
+		3AFF53CEC7FF0F810E83AD22 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-terrible-player-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6FB0A630AD00400B80DDFEAC /* Copy Pods Resources */ = {
+		6B82A8193712BBD93D155811 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-terrible-player/Pods-terrible-player-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		72C3EDC9ACFF697C6E816893 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-terrible-player/Pods-terrible-player-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -621,13 +640,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -636,6 +663,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -648,7 +676,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -663,13 +691,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -677,13 +713,14 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -692,7 +729,7 @@
 		};
 		B5365F2A19E59580000B780D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60DB3B57266813A036AA1820 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 87E99F75F893D17AFA466641 /* Pods-terrible-player.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -702,12 +739,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terribleben.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/Pods/**";
 			};
 			name = Debug;
 		};
 		B5365F2B19E59580000B780D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2DE1BC1D4D8C7E33EBE1144 /* Pods.release.xcconfig */;
+			baseConfigurationReference = A5989008BE6B28D551A34537 /* Pods-terrible-player.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -717,6 +755,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.terribleben.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/Pods/**";
 			};
 			name = Release;
 		};

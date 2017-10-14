@@ -10,8 +10,8 @@
 #import "TBPLastFMSession.h"
 #import "TBPQueuedScrobble.h"
 
-#import <RKRequestDescriptor.h>
-#import <RKResponseDescriptor.h>
+#import "RKRequestDescriptor.h"
+#import "RKResponseDescriptor.h"
 
 @interface TBPLastFMTrackManager ()
 

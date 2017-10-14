@@ -8,8 +8,8 @@
 
 #import "TBPObjectManager.h"
 
-#import <RKMIMETypes.h>
-#import <RKResponseDescriptor.h>
+#import "RKMIMETypes.h"
+#import "RKResponseDescriptor.h"
 
 NSString * const kTBPAPIErrorDomain = @"TBPAPIErrorDomain";
 
