@@ -1,18 +1,5 @@
-Cartridge
-=========
-Cartridge (working title) is a music player for iOS that contains only features I will use.
+## terrible-player
 
-That includes:
-- Playing albums from the iTunes library on the device's hard disk
-- Scrobbling plays to last.fm
+This app plays media from the device's local iTunes library and optionally scrobbles it to last.fm.
 
-It doesn't include:
-- Anything related to iCloud
-- Playlists, genres, radio, etc.
-- Ads
-- Crap
-
-To build:
-- Clone the repo
-- pod install
-- You'll need to add your own config.plist containing a last.fm API key
+The only reason to use this is if you really like last.fm and mostly play music from the device's media library (rather than using a streaming service). You will need to provide your own last.fm API key in `config.plist`.

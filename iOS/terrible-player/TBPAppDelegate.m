@@ -61,12 +61,6 @@
 - (void) applicationDidBecomeActive:(UIApplication *)application
 {
     [[TBPLibraryModel sharedInstance] readMediaLibrary];
-    NSLog(@"app entered foreground");
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    NSLog(@"app entered background");
 }
 
 - (void) setUIAppearance
@@ -74,6 +68,10 @@
     [[UIButton appearance] setTintColor:UIColorFromRGB(TBP_COLOR_ACTION)];
 }
 
+/**
+ *  Required for iOS to deliver media player NSNotifications while we're in the background or while
+ *  the device is locked.
+ */
 - (void)shittyPlayBackgroundSound
 {
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"silence" ofType:@"wav"]];
