@@ -15,9 +15,12 @@
 
 #import <RKLog.h>
 
+@import AVFoundation;
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) TBPRootViewController *vcRoot;
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 
 - (void) setUIAppearance;
 
@@ -51,17 +54,35 @@
     [self setUIAppearance];
     
     [self.window makeKeyAndVisible];
+    [self shittyPlayBackgroundSound];
     return YES;
 }
 
 - (void) applicationDidBecomeActive:(UIApplication *)application
 {
     [[TBPLibraryModel sharedInstance] readMediaLibrary];
+    NSLog(@"app entered foreground");
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    NSLog(@"app entered background");
 }
 
 - (void) setUIAppearance
 {
     [[UIButton appearance] setTintColor:UIColorFromRGB(TBP_COLOR_ACTION)];
+}
+
+- (void)shittyPlayBackgroundSound
+{
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"silence" ofType:@"wav"]];
+    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:nil];
+    [[AVAudioSession sharedInstance] setActive: YES error: nil];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    _audioPlayer.numberOfLoops = -1;
+    [_audioPlayer play];
 }
 
 @end

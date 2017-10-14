@@ -272,6 +272,7 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 
 - (void) fireNowPlayingNotification
 {
+    NSLog(@"now playing item changed (debounced from system notif)");
     dtmLastUpdatedNowPlaying = [[NSDate date] timeIntervalSince1970];
     
     // inform the rest of the app about the now playing change
@@ -283,6 +284,7 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 
 - (void) onPlaybackStateChanged:(NSNotification *)notification
 {
+    NSLog(@"playback state changed: %@", notification.userInfo);
     // notify the rest of the app after a slight delay, to prevent dupes
     if (_tmrNotifyPlaybackState) {
         [_tmrNotifyPlaybackState invalidate];

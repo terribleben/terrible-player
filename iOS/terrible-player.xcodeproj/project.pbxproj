@@ -44,6 +44,8 @@
 		B5BDB2AC19E64CD7004184F8 /* TBPLastFMTrackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2AB19E64CD7004184F8 /* TBPLastFMTrackManager.m */; };
 		B5BDB2AF19E6F157004184F8 /* TBPSettingsNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2AE19E6F157004184F8 /* TBPSettingsNavigationViewController.m */; };
 		B5BDB2B219E6F7C8004184F8 /* TBPAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BDB2B119E6F7C8004184F8 /* TBPAuthViewController.m */; };
+		B5DDD5A71F92B88D003B944A /* stupid-noise.wav in Resources */ = {isa = PBXBuildFile; fileRef = B5DDD5A61F92B88C003B944A /* stupid-noise.wav */; };
+		B5DDD5A91F92B92E003B944A /* silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = B5DDD5A81F92B92E003B944A /* silence.wav */; };
 		B5F176D919E70C8A00593D12 /* TBPActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F176D819E70C8A00593D12 /* TBPActivityIndicatorView.m */; };
 		B5F176DC19E7267C00593D12 /* TBPPlayPauseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F176DB19E7267C00593D12 /* TBPPlayPauseView.m */; };
 /* End PBXBuildFile section */
@@ -134,6 +136,8 @@
 		B5BDB2AE19E6F157004184F8 /* TBPSettingsNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPSettingsNavigationViewController.m; sourceTree = "<group>"; };
 		B5BDB2B019E6F7C8004184F8 /* TBPAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPAuthViewController.h; sourceTree = "<group>"; };
 		B5BDB2B119E6F7C8004184F8 /* TBPAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAuthViewController.m; sourceTree = "<group>"; };
+		B5DDD5A61F92B88C003B944A /* stupid-noise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "stupid-noise.wav"; sourceTree = "<group>"; };
+		B5DDD5A81F92B92E003B944A /* silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = silence.wav; sourceTree = "<group>"; };
 		B5F176D719E70C8A00593D12 /* TBPActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPActivityIndicatorView.h; sourceTree = "<group>"; };
 		B5F176D819E70C8A00593D12 /* TBPActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPActivityIndicatorView.m; sourceTree = "<group>"; };
 		B5F176DA19E7267C00593D12 /* TBPPlayPauseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPPlayPauseView.h; sourceTree = "<group>"; };
@@ -256,6 +260,8 @@
 		B5365F2F19E5976A000B780D /* supporting */ = {
 			isa = PBXGroup;
 			children = (
+				B5DDD5A81F92B92E003B944A /* silence.wav */,
+				B5DDD5A61F92B88C003B944A /* stupid-noise.wav */,
 				B5365F3019E5976A000B780D /* Info.plist */,
 				B5BDB29319E638CB004184F8 /* config.plist */,
 				B5365F3119E5976A000B780D /* main.m */,
@@ -487,7 +493,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5DDD5A71F92B88D003B944A /* stupid-noise.wav in Resources */,
 				B5BDB29419E638CB004184F8 /* config.plist in Resources */,
+				B5DDD5A91F92B92E003B944A /* silence.wav in Resources */,
 				B5365F1719E59580000B780D /* TBPImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
