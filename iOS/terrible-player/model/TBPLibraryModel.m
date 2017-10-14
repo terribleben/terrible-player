@@ -36,6 +36,7 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 @property (nonatomic, strong) NSTimer *tmrNotifyNowPlaying;
 @property (nonatomic, strong) NSTimer *tmrNotifyPlaybackState;
 
+@property (nonatomic, assign) BOOL isListeningToMediaLibraryNotifications;
 @property (atomic, strong) NSNumber *isLoading;
 @property (nonatomic, readwrite) NSDate *dtmLastRecomputed;
 
@@ -238,25 +239,32 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 
 - (void)setIsListeningToMediaLibraryNotifications:(BOOL)isListening
 {
-    if (isListening) {
-        // listen to the device media player
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        [notificationCenter addObserver:self selector:@selector(onNowPlayingItemChanged:) name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification object:nil];
-        [notificationCenter addObserver:self selector:@selector(onPlaybackStateChanged:) name:MPMusicPlayerControllerPlaybackStateDidChangeNotification object:nil];
-        [_musicPlayer beginGeneratingPlaybackNotifications];
-        
-        // listen to the device media library (for syncs / changes)
-        [notificationCenter addObserver:self selector:@selector(onMediaLibraryChanged:) name:MPMediaLibraryDidChangeNotification object:nil];
-        [[MPMediaLibrary defaultMediaLibrary] beginGeneratingLibraryChangeNotifications];
-    } else {
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
-        
-        [_musicPlayer endGeneratingPlaybackNotifications];
-        [[MPMediaLibrary defaultMediaLibrary] endGeneratingLibraryChangeNotifications];
+    if (isListening != _isListeningToMediaLibraryNotifications) {
+        _isListeningToMediaLibraryNotifications = isListening;
+        if (isListening) {
+            // listen to the device media player
+            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+            [notificationCenter addObserver:self selector:@selector(onNowPlayingItemChanged:) name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification object:nil];
+            [notificationCenter addObserver:self selector:@selector(onPlaybackStateChanged:) name:MPMusicPlayerControllerPlaybackStateDidChangeNotification object:nil];
+            [_musicPlayer beginGeneratingPlaybackNotifications];
+            
+            // listen to the device media library (for syncs / changes)
+            [notificationCenter addObserver:self selector:@selector(onMediaLibraryChanged:) name:MPMediaLibraryDidChangeNotification object:nil];
+            [[MPMediaLibrary defaultMediaLibrary] beginGeneratingLibraryChangeNotifications];
+            
+            // sometimes these fire before we are listening. trigger them both once right now.
+            [self onNowPlayingItemChanged:nil];
+            [self onPlaybackStateChanged:nil];
+        } else {
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            
+            [_musicPlayer endGeneratingPlaybackNotifications];
+            [[MPMediaLibrary defaultMediaLibrary] endGeneratingLibraryChangeNotifications];
+        }
     }
 }
 
-- (void) onNowPlayingItemChanged:(NSNotification *)notification
+- (void) onNowPlayingItemChanged:(__unused NSNotification *)notification
 {
     // if the player has stopped altogether, clear the now playing context.
     if (!_musicPlayer.nowPlayingItem)
@@ -282,9 +290,9 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
     [self scheduleLastFMUpdates];
 }
 
-- (void) onPlaybackStateChanged:(NSNotification *)notification
+- (void) onPlaybackStateChanged:(__unused NSNotification *)notification
 {
-    NSLog(@"playback state changed: %@", notification.userInfo);
+    NSLog(@"playback state changed");
     // notify the rest of the app after a slight delay, to prevent dupes
     if (_tmrNotifyPlaybackState) {
         [_tmrNotifyPlaybackState invalidate];
