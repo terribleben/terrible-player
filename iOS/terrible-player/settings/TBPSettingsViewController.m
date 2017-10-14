@@ -35,7 +35,7 @@
 - (id) init
 {
     if (self = [super init]) {
-        self.title = @"Cartridge";
+        self.title = @"Settings";
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSessionChange) name:kTBPLastFMSessionDidChangeNotification object:nil];
     }
     return self;
@@ -50,6 +50,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     
     // session container view
     self.vSessionContainer = [[UIView alloc] init];
@@ -103,6 +104,9 @@
     self.vScrobblesEnabled = [[UISwitch alloc] init];
     [_vScrobblesEnabled addTarget:self action:@selector(onTapScrobbleEnabled:) forControlEvents:UIControlEventValueChanged];
     [_vScrobbleContainer addSubview:_vScrobblesEnabled];
+    
+    // done button
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(_onTapDone)];
     
     [self onSessionChange];
 }
@@ -177,6 +181,11 @@
         [TBPLastFMSession sharedInstance].isScrobblingEnabled = _vScrobblesEnabled.isOn;
         [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLastFMSessionDidChangeNotification object:nil];
     }
+}
+
+- (void)_onTapDone
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

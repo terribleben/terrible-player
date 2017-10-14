@@ -17,8 +17,6 @@
 
 @property (nonatomic, strong) UILabel *lblTitle;
 @property (nonatomic, strong) TBPPlayPauseView *vPlayPause;
-@property (nonatomic, strong) UIButton *btnSettings;
-@property (nonatomic, strong) UIButton *btnLibrary;
 @property (nonatomic, strong) UIView *vCurrentTimeBackground;
 @property (nonatomic, strong) UIView *vCurrentTimeProgress;
 
@@ -26,8 +24,6 @@
 
 - (void) onModelChange: (NSNotification *)notification;
 - (void) onTapPlayPause;
-- (void) onTapLibrary;
-- (void) onTapSettings;
 - (void) updateCurrentPlaybackTime;
 
 @end
@@ -68,20 +64,7 @@
     [_vPlayPause addGestureRecognizer:tapPlayPause];
     
     [self.view addSubview:_vPlayPause];
-    
-    // settings button
-    self.btnSettings = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_btnSettings setImage:[UIImage imageNamed:@"settings"] forState:UIControlStateNormal];
-    [_btnSettings addTarget:self action:@selector(onTapSettings) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_btnSettings];
-    
-    // library button
-    self.btnLibrary = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_btnLibrary setImage:[UIImage imageNamed:@"library"] forState:UIControlStateNormal];
-    [_btnLibrary addTarget:self action:@selector(onTapLibrary) forControlEvents:UIControlEventTouchUpInside];
-    _btnLibrary.transform = CGAffineTransformMakeScale(0.75f, 0.75f);
-    [self.view addSubview:_btnLibrary];
-    
+
     // current time bar background
     self.vCurrentTimeBackground = [[UIView alloc] init];
     _vCurrentTimeBackground.userInteractionEnabled = NO;
@@ -92,8 +75,6 @@
     self.vCurrentTimeProgress = [[UIView alloc] init];
     _vCurrentTimeProgress.backgroundColor = UIColorFromRGB(TBP_COLOR_TEXT_LIGHT);
     [_vCurrentTimeBackground addSubview:_vCurrentTimeProgress];
-    
-    self.mode = kTBPNowPlayingBarViewModeLibrary;
 }
 
 - (void) viewWillLayoutSubviews
@@ -102,27 +83,14 @@
     CGFloat currentTimeBarHeight = 4.0f;
     
     CGFloat sqrSide = MIN(32.0f, MAX(4.0f, (self.view.frame.size.height - currentTimeBarHeight) * 0.95f));
-    _btnSettings.frame = CGRectMake(0, 0, sqrSide, sqrSide);
-    _btnSettings.center = CGPointMake(self.view.frame.size.width - 8.0f - (sqrSide * 0.5f), (self.view.frame.size.height - currentTimeBarHeight) * 0.5f);
-    _btnLibrary.frame = _btnSettings.frame;
     
     _vPlayPause.frame = CGRectMake(0, 0, sqrSide, sqrSide);
-    _vPlayPause.center = CGPointMake(_btnSettings.center.x - 8.0f - sqrSide, _btnSettings.center.y);
+    _vPlayPause.center = CGPointMake(self.view.frame.size.width - 8.0f - (sqrSide * 0.5f), (self.view.frame.size.height - currentTimeBarHeight) * 0.5f);
     _lblTitle.frame = CGRectMake(8.0f, 0, _vPlayPause.frame.origin.x - 16.0f, self.view.frame.size.height - currentTimeBarHeight);
     
     _vCurrentTimeBackground.frame = CGRectMake(0, self.view.frame.size.height - currentTimeBarHeight,
                                                self.view.frame.size.width, currentTimeBarHeight);
     _vCurrentTimeProgress.frame = CGRectMake(0, 0, _vCurrentTimeProgress.frame.size.width, currentTimeBarHeight);
-}
-
-- (void)setMode:(TBPNowPlayingBarViewMode)mode
-{
-    _mode = mode;
-    
-    _btnSettings.hidden = (_mode == kTBPNowPlayingBarViewModeSettings);
-    _btnLibrary.hidden = (_mode == kTBPNowPlayingBarViewModeLibrary);
-    
-    [self.view setNeedsLayout];
 }
 
 
@@ -163,22 +131,6 @@
 - (void) onTapPlayPause
 {
     [[TBPLibraryModel sharedInstance] playPause];
-}
-
-- (void) onTapLibrary
-{
-    self.mode = kTBPNowPlayingBarViewModeLibrary;
-    if (_delegate) {
-        [_delegate nowPlayingBar:self didSelectMode:_mode];
-    }
-}
-
-- (void) onTapSettings
-{
-    self.mode = kTBPNowPlayingBarViewModeSettings;
-    if (_delegate) {
-        [_delegate nowPlayingBar:self didSelectMode:_mode];
-    }
 }
 
 - (void) onModelChange:(NSNotification *)notification

@@ -8,6 +8,8 @@
 
 #import "TBPSettingsNavigationViewController.h"
 
+NSNotificationName const kTBPShowSettingsNotification = @"TBPShowSettingsNotification";
+
 @interface TBPSettingsNavigationViewController ()
 
 @property (nonatomic, strong) TBPSettingsViewController *vcSettings;

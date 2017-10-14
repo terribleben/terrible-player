@@ -10,6 +10,8 @@
 #import "TBPSettingsViewController.h"
 #import "TBPAuthViewController.h"
 
+FOUNDATION_EXPORT NSNotificationName const kTBPShowSettingsNotification;
+
 @interface TBPSettingsNavigationViewController : TBPNavigationViewController <TBPSettingsDelegate, TBPAuthDelegate>
 
 @end

@@ -18,12 +18,8 @@
 @property (nonatomic, strong) TBPSettingsNavigationViewController *vcSettings;
 @property (nonatomic, strong) TBPNowPlayingBarViewController *vcNowPlaying;
 
-@property (nonatomic, assign) UIViewController *selectedViewController;
 @property (nonatomic, strong) UIView *vLoadingOverlay;
 @property (nonatomic, strong) TBPActivityIndicatorView *vLoadingWheel;
-
-- (void) beginLoading;
-- (void) endLoading;
 
 @end
 
@@ -48,16 +44,21 @@
     
     // artists vc
     self.vcArtists = [[TBPArtistsNavigationViewController alloc] init];
-    
-    // settings vc
-    self.vcSettings = [[TBPSettingsNavigationViewController alloc] init];
+    [self.view addSubview:_vcArtists.view];
     
     // placeholder now playing bar
     self.vcNowPlaying = [[TBPNowPlayingBarViewController alloc] init];
     _vcNowPlaying.delegate = self;
     [self.view addSubview:_vcNowPlaying.view];
     
-    self.selectedViewController = _vcArtists;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_showSettings) name:kTBPShowSettingsNotification object:nil];
+    
+    [self.view bringSubviewToFront:_vLoadingOverlay];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void) viewWillLayoutSubviews
@@ -70,8 +71,8 @@
     _vcNowPlaying.view.frame = CGRectMake(0, self.view.frame.size.height - TBP_NOW_PLAYING_BAR_HEIGHT,
                                           self.view.frame.size.width, TBP_NOW_PLAYING_BAR_HEIGHT);
 
-    self.selectedViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width,
-                                                        self.view.frame.size.height - TBP_NOW_PLAYING_BAR_HEIGHT);
+    _vcArtists.view.frame = CGRectMake(0, 0, self.view.frame.size.width,
+                                       self.view.frame.size.height - TBP_NOW_PLAYING_BAR_HEIGHT);
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle
@@ -87,24 +88,6 @@
     // do nothing
 }
 
-- (void) nowPlayingBar:(TBPNowPlayingBarViewController *)vcNowPlaying didSelectMode:(TBPNowPlayingBarViewMode)mode
-{
-    switch (mode) {
-        case kTBPNowPlayingBarViewModeSettings:
-            self.selectedViewController = _vcSettings;
-            break;
-        case kTBPNowPlayingBarViewModeLibrary:
-            if (_selectedViewController != _vcArtists)
-                self.selectedViewController = _vcArtists;
-            
-            [_vcArtists pushNowPlaying];
-            break;
-        default:
-            // do nothing
-            break;
-    }
-}
-
 - (void) libraryDidBeginReload:(TBPLibraryModel *)library
 {
     [self beginLoading];
@@ -117,26 +100,6 @@
 
 
 #pragma mark internal methods
-
-- (void) setSelectedViewController:(UIViewController *)selectedViewController
-{
-    if (_selectedViewController) {
-        [_selectedViewController viewWillDisappear:NO];
-        [_selectedViewController.view removeFromSuperview];
-        [_selectedViewController viewDidDisappear:NO];
-    }
-    
-    _selectedViewController = selectedViewController;
-    
-    if (_selectedViewController) {
-        [_selectedViewController viewWillAppear:NO];
-        [self.view addSubview:_selectedViewController.view];
-        [_selectedViewController viewDidAppear:NO];
-    }
-    
-    [self.view bringSubviewToFront:_vLoadingOverlay];
-    [self.view setNeedsLayout];
-}
 
 - (void) beginLoading
 {
@@ -156,6 +119,16 @@
             _vLoadingOverlay.alpha = 0.0f;
         } completion:nil];
     });
+}
+
+- (void)_showSettings
+{
+    if (!_vcSettings) {
+        self.vcSettings = [[TBPSettingsNavigationViewController alloc] init];
+    }
+    if (!self.presentedViewController) {
+        [self presentViewController:_vcSettings animated:YES completion:nil];
+    }
 }
 
 @end

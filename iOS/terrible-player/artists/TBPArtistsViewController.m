@@ -10,6 +10,7 @@
 #import "TBPLibraryModel.h"
 #import "TBPArtistTableViewCell.h"
 #import "TBPConstants.h"
+#import "TBPSettingsNavigationViewController.h"
 
 @interface TBPArtistsViewController ()
 
@@ -54,6 +55,12 @@
     _vArtists.delegate = self;
     _vArtists.dataSource = self;
     [self.view addSubview:_vArtists];
+    
+    // settings left button
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(_onTapSettingsButton)];
 }
 
 - (UIRectEdge) edgesForExtendedLayout
@@ -137,6 +144,11 @@
             [_vArtists reloadData];
         });
     }
+}
+
+- (void)_onTapSettingsButton
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTBPShowSettingsNotification object:nil];
 }
 
 @end
