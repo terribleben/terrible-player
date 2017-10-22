@@ -29,6 +29,7 @@
 		B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F5219E5ABD4000B780D /* TBPAlbumsNavigationViewController.m */; };
 		B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F5519E5ABF0000B780D /* TBPAlbumsViewController.m */; };
 		B5365F5919E5AE1B000B780D /* TBPLibraryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F5819E5AE1B000B780D /* TBPLibraryItem.m */; };
+		B57A29851F9D17A5005D075E /* TBPAudioTask.m in Sources */ = {isa = PBXBuildFile; fileRef = B57A29841F9D17A5005D075E /* TBPAudioTask.m */; };
 		B5A9806619E76E510072E3FB /* TBPDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A9806519E76E510072E3FB /* TBPDatabase.m */; };
 		B5A9806919E7709D0072E3FB /* TBPDatabaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A9806819E7709D0072E3FB /* TBPDatabaseObject.m */; };
 		B5A9806F19E772BF0072E3FB /* TBPModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5A9806D19E772BF0072E3FB /* TBPModel.xcdatamodeld */; };
@@ -110,6 +111,8 @@
 		B5365F5519E5ABF0000B780D /* TBPAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPAlbumsViewController.m; sourceTree = "<group>"; };
 		B5365F5719E5AE1B000B780D /* TBPLibraryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPLibraryItem.h; sourceTree = "<group>"; };
 		B5365F5819E5AE1B000B780D /* TBPLibraryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPLibraryItem.m; sourceTree = "<group>"; };
+		B57A29831F9D17A5005D075E /* TBPAudioTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPAudioTask.h; sourceTree = "<group>"; };
+		B57A29841F9D17A5005D075E /* TBPAudioTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPAudioTask.m; sourceTree = "<group>"; };
 		B5A9806419E76E510072E3FB /* TBPDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPDatabase.h; sourceTree = "<group>"; };
 		B5A9806519E76E510072E3FB /* TBPDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPDatabase.m; sourceTree = "<group>"; };
 		B5A9806719E7709D0072E3FB /* TBPDatabaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPDatabaseObject.h; sourceTree = "<group>"; };
@@ -310,6 +313,8 @@
 				B502792219E5E34800BAD1F5 /* TBPLibraryItemHeadingView.m */,
 				B5F176D719E70C8A00593D12 /* TBPActivityIndicatorView.h */,
 				B5F176D819E70C8A00593D12 /* TBPActivityIndicatorView.m */,
+				B57A29831F9D17A5005D075E /* TBPAudioTask.h */,
+				B57A29841F9D17A5005D075E /* TBPAudioTask.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -586,6 +591,7 @@
 				B5365F5319E5ABD4000B780D /* TBPAlbumsNavigationViewController.m in Sources */,
 				B5A9807519E77B940072E3FB /* TBPLastFMScrobbleQueue.m in Sources */,
 				B5BDB2A019E64024004184F8 /* TBPLastFMAuthManager.m in Sources */,
+				B57A29851F9D17A5005D075E /* TBPAudioTask.m in Sources */,
 				B5F176D919E70C8A00593D12 /* TBPActivityIndicatorView.m in Sources */,
 				B5365F5619E5ABF0000B780D /* TBPAlbumsViewController.m in Sources */,
 				B5BDB2AF19E6F157004184F8 /* TBPSettingsNavigationViewController.m in Sources */,
