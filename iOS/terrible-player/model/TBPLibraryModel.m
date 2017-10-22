@@ -82,11 +82,14 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
         [TBPLastFMScrobbleQueue sharedInstance];
         
         // init device media player
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         self.musicPlayer = [MPMusicPlayerController systemMusicPlayer];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onIsPreparedToPlayChanged:)
                                                      name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification
                                                    object:nil];
+#pragma clang diagnostic pop
     }
     return self;
 }

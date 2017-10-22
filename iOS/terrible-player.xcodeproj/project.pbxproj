@@ -18,7 +18,6 @@
 		B53572A219EC4D6A006E87A7 /* TBPCachedNowPlayingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B53572A119EC4D6A006E87A7 /* TBPCachedNowPlayingContext.m */; };
 		B5365F0F19E59580000B780D /* TBPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F0E19E59580000B780D /* TBPAppDelegate.m */; };
 		B5365F1719E59580000B780D /* TBPImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5365F1619E59580000B780D /* TBPImages.xcassets */; };
-		B5365F2619E59580000B780D /* terrible_playerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F2519E59580000B780D /* terrible_playerTests.m */; };
 		B5365F3319E5976A000B780D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F3119E5976A000B780D /* main.m */; };
 		B5365F3519E598F2000B780D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5365F3419E598F2000B780D /* MediaPlayer.framework */; };
 		B5365F3E19E5A351000B780D /* TBPLibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5365F3D19E5A351000B780D /* TBPLibraryModel.m */; };
@@ -51,16 +50,6 @@
 		D8DCDCD4F585B752AE3E81A7 /* libPods-terrible-player.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 205C0893AEC67688EAAB8831 /* libPods-terrible-player.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		B5365F2019E59580000B780D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5365EFE19E5957F000B780D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B5365F0519E59580000B780D;
-			remoteInfo = "terrible-player";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		205C0893AEC67688EAAB8831 /* libPods-terrible-player.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-terrible-player.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87E99F75F893D17AFA466641 /* Pods-terrible-player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-terrible-player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-terrible-player/Pods-terrible-player.debug.xcconfig"; sourceTree = "<group>"; };
@@ -89,9 +78,6 @@
 		B5365F0E19E59580000B780D /* TBPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPAppDelegate.m; sourceTree = "<group>"; };
 		B5365F1619E59580000B780D /* TBPImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBPImages.xcassets; sourceTree = "<group>"; };
 		B5365F1919E59580000B780D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBPLaunchScreen.xib; sourceTree = "<group>"; };
-		B5365F1F19E59580000B780D /* terrible-playerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "terrible-playerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5365F2419E59580000B780D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B5365F2519E59580000B780D /* terrible_playerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = terrible_playerTests.m; sourceTree = "<group>"; };
 		B5365F3019E5976A000B780D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5365F3119E5976A000B780D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B5365F3419E598F2000B780D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -158,13 +144,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B5365F1C19E59580000B780D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -211,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				B5365F0819E59580000B780D /* terrible-player */,
-				B5365F2219E59580000B780D /* terrible-playerTests */,
 				B5365F0719E59580000B780D /* Products */,
 				4A9C44A8EBB3608777988B30 /* Pods */,
 				144E6D8653C3073BD7163D65 /* Frameworks */,
@@ -222,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				B5365F0619E59580000B780D /* terrible-player.app */,
-				B5365F1F19E59580000B780D /* terrible-playerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,23 +226,6 @@
 				B5365F2F19E5976A000B780D /* supporting */,
 			);
 			path = "terrible-player";
-			sourceTree = "<group>";
-		};
-		B5365F2219E59580000B780D /* terrible-playerTests */ = {
-			isa = PBXGroup;
-			children = (
-				B5365F2519E59580000B780D /* terrible_playerTests.m */,
-				B5365F2319E59580000B780D /* Supporting Files */,
-			);
-			path = "terrible-playerTests";
-			sourceTree = "<group>";
-		};
-		B5365F2319E59580000B780D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B5365F2419E59580000B780D /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		B5365F2F19E5976A000B780D /* supporting */ = {
@@ -432,24 +392,6 @@
 			productReference = B5365F0619E59580000B780D /* terrible-player.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B5365F1E19E59580000B780D /* terrible-playerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B5365F2C19E59580000B780D /* Build configuration list for PBXNativeTarget "terrible-playerTests" */;
-			buildPhases = (
-				B5365F1B19E59580000B780D /* Sources */,
-				B5365F1C19E59580000B780D /* Frameworks */,
-				B5365F1D19E59580000B780D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B5365F2119E59580000B780D /* PBXTargetDependency */,
-			);
-			name = "terrible-playerTests";
-			productName = "terrible-playerTests";
-			productReference = B5365F1F19E59580000B780D /* terrible-playerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -469,10 +411,6 @@
 							};
 						};
 					};
-					B5365F1E19E59580000B780D = {
-						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = B5365F0519E59580000B780D;
-					};
 				};
 			};
 			buildConfigurationList = B5365F0119E5957F000B780D /* Build configuration list for PBXProject "terrible-player" */;
@@ -489,7 +427,6 @@
 			projectRoot = "";
 			targets = (
 				B5365F0519E59580000B780D /* terrible-player */,
-				B5365F1E19E59580000B780D /* terrible-playerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -503,13 +440,6 @@
 				B5BDB29419E638CB004184F8 /* config.plist in Resources */,
 				B5DDD5A91F92B92E003B944A /* silence.wav in Resources */,
 				B5365F1719E59580000B780D /* TBPImages.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B5365F1D19E59580000B780D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,23 +538,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B5365F1B19E59580000B780D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B5365F2619E59580000B780D /* terrible_playerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B5365F2119E59580000B780D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B5365F0519E59580000B780D /* terrible-player */;
-			targetProxy = B5365F2019E59580000B780D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B5365F1819E59580000B780D /* TBPLaunchScreen.xib */ = {
@@ -765,42 +679,6 @@
 			};
 			name = Release;
 		};
-		B5365F2D19E59580000B780D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "terrible-playerTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.terribleben.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/terrible-player.app/terrible-player";
-			};
-			name = Debug;
-		};
-		B5365F2E19E59580000B780D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "terrible-playerTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.terribleben.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/terrible-player.app/terrible-player";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -818,15 +696,6 @@
 			buildConfigurations = (
 				B5365F2A19E59580000B780D /* Debug */,
 				B5365F2B19E59580000B780D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B5365F2C19E59580000B780D /* Build configuration list for PBXNativeTarget "terrible-playerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B5365F2D19E59580000B780D /* Debug */,
-				B5365F2E19E59580000B780D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

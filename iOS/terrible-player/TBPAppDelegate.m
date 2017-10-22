@@ -21,12 +21,9 @@
 @property (nonatomic, strong) TBPRootViewController *vcRoot;
 @property (nonatomic, strong) TBPAudioTask *audioTask;
 
-- (void) setUIAppearance;
-
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -50,7 +47,7 @@
     self.window.rootViewController = _vcRoot;
     
     // configure global UI appearance
-    [self setUIAppearance];
+    [self _setUIAppearance];
     
     [self.window makeKeyAndVisible];
     self.audioTask = [[TBPAudioTask alloc] init];
@@ -58,12 +55,12 @@
     return YES;
 }
 
-- (void) applicationDidBecomeActive:(UIApplication *)application
+- (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[TBPLibraryModel sharedInstance] readMediaLibrary];
 }
 
-- (void) setUIAppearance
+- (void)_setUIAppearance
 {
     [[UIButton appearance] setTintColor:UIColorFromRGB(TBP_COLOR_ACTION)];
 }

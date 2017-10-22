@@ -11,8 +11,9 @@
 #import "TBPSettingsNavigationViewController.h"
 #import "TBPConstants.h"
 #import "TBPActivityIndicatorView.h"
+#import "TBPNowPlayingBarViewController.h"
 
-@interface TBPRootViewController ()
+@interface TBPRootViewController () <TBPNowPlayingBarDelegate>
 
 @property (nonatomic, strong) TBPArtistsNavigationViewController *vcArtists;
 @property (nonatomic, strong) TBPSettingsNavigationViewController *vcSettings;
@@ -61,7 +62,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) viewWillLayoutSubviews
+- (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
     
@@ -75,7 +76,7 @@
                                        self.view.frame.size.height - TBP_NOW_PLAYING_BAR_HEIGHT);
 }
 
-- (UIStatusBarStyle) preferredStatusBarStyle
+- (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
 }
@@ -88,20 +89,20 @@
     // do nothing
 }
 
-- (void) libraryDidBeginReload:(TBPLibraryModel *)library
+- (void)libraryDidBeginReload:(TBPLibraryModel *)library
 {
-    [self beginLoading];
+    [self _beginLoading];
 }
 
-- (void) libraryDidEndReload:(TBPLibraryModel *)library
+- (void)libraryDidEndReload:(TBPLibraryModel *)library
 {
-    [self endLoading];
+    [self _endLoading];
 }
 
 
 #pragma mark internal methods
 
-- (void) beginLoading
+- (void)_beginLoading
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_vLoadingWheel startAnimating];
@@ -111,7 +112,7 @@
     });
 }
 
-- (void) endLoading
+- (void)_endLoading
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_vLoadingWheel stopAnimating];

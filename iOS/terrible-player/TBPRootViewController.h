@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TBPNowPlayingBarViewController.h"
 #import "TBPLibraryModel.h"
 
-@interface TBPRootViewController : UIViewController <TBPNowPlayingBarDelegate, TBPLibraryDelegate>
+@interface TBPRootViewController : UIViewController <TBPLibraryDelegate>
 
 @end
