@@ -53,7 +53,7 @@
     // 33 RPM = (60/33) SPR
     [UIView animateWithDuration:(60.0f / (33.0f * 3.0f)) delay:0.0f options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionCurveLinear)
                      animations:^{
-                         _vPlatter.transform = CGAffineTransformMakeRotation(M_PI * (2.0f / 3.0f));
+                         self->_vPlatter.transform = CGAffineTransformMakeRotation(M_PI * (2.0f / 3.0f));
                      } completion:nil];
 }
 
@@ -61,7 +61,7 @@
 {
     [UIView animateWithDuration:(60.0f / (33.0f * 3.0f)) delay:0.0f options:(UIViewAnimationOptionBeginFromCurrentState)
                      animations:^{
-                         _vPlatter.transform = CGAffineTransformMakeRotation(M_PI * (2.0f / 3.0f));
+                         self->_vPlatter.transform = CGAffineTransformMakeRotation(M_PI * (2.0f / 3.0f));
                      } completion:nil];
 }
 

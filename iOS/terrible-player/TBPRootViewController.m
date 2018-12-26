@@ -82,7 +82,7 @@
 }
 
 
-#pragma mark delegate methods
+#pragma mark - delegate methods
 
 - (void)nowPlayingBarDidSelectPlayPause:(TBPNowPlayingBarViewController *)vcNowPlaying
 {
@@ -100,14 +100,14 @@
 }
 
 
-#pragma mark internal methods
+#pragma mark - internal methods
 
 - (void)_beginLoading
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_vLoadingWheel startAnimating];
+        [self->_vLoadingWheel startAnimating];
         [UIView animateWithDuration:0.25f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            _vLoadingOverlay.alpha = 1.0f;
+            self->_vLoadingOverlay.alpha = 1.0f;
         } completion:nil];
     });
 }
@@ -115,9 +115,9 @@
 - (void)_endLoading
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_vLoadingWheel stopAnimating];
+        [self->_vLoadingWheel stopAnimating];
         [UIView animateWithDuration:0.25f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            _vLoadingOverlay.alpha = 0.0f;
+            self->_vLoadingOverlay.alpha = 0.0f;
         } completion:nil];
     });
 }

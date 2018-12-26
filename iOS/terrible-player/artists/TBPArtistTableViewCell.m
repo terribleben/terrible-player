@@ -64,14 +64,14 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if (artist) {
-            _lblTitle.text = artist.title;
+            self->_lblTitle.text = artist.title;
             if (artist.artwork) {
-                _vArtwork.image = [artist.artwork imageWithSize:_vArtwork.frame.size];
+                self->_vArtwork.image = [artist.artwork imageWithSize:self->_vArtwork.frame.size];
             } else
-                _vArtwork.image = [UIImage imageNamed:@"platter"];
+                self->_vArtwork.image = [UIImage imageNamed:@"platter"];
         } else {
-            _lblTitle.text = nil;
-            _vArtwork.image = nil;
+            self->_lblTitle.text = nil;
+            self->_vArtwork.image = nil;
         }
     });
 }

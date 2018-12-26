@@ -136,8 +136,8 @@
         }
         // save the persistent context
         [_managedObjectStore.persistentStoreManagedObjectContext performBlockAndWait:^{
-            if ([_managedObjectStore.persistentStoreManagedObjectContext hasChanges]) {
-                [_managedObjectStore.persistentStoreManagedObjectContext save:&err];
+            if ([self->_managedObjectStore.persistentStoreManagedObjectContext hasChanges]) {
+                [self->_managedObjectStore.persistentStoreManagedObjectContext save:&err];
                 if (err)
                     NSLog(@"TBPDatabase: Error saving persistent context: %@", err);
             }

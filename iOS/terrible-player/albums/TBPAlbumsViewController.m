@@ -150,10 +150,9 @@
     }
     
     if (self.isViewLoaded) {
-        [self.view setNeedsLayout];
-        
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_vAlbums reloadData];
+            [self.view setNeedsLayout];
+            [self->_vAlbums reloadData];
         });
     }
 }

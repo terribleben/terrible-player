@@ -62,14 +62,14 @@ NSString * const kTBPAlbumsCollectionViewCellIdentifier = @"TBPAlbumsCollectionV
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if (album) {
-            _lblTitle.text = album.title;
+            self->_lblTitle.text = album.title;
             if (album.artwork) {
-                _vAlbumArt.image = [album.artwork imageWithSize:_vAlbumArt.frame.size];
+                self->_vAlbumArt.image = [album.artwork imageWithSize:self->_vAlbumArt.frame.size];
             } else
-                _vAlbumArt.image = [UIImage imageNamed:@"platter"];
+                self->_vAlbumArt.image = [UIImage imageNamed:@"platter"];
         } else {
-            _lblTitle.text = nil;
-            _vAlbumArt.image = nil;
+            self->_lblTitle.text = nil;
+            self->_vAlbumArt.image = nil;
         }
     });
 }

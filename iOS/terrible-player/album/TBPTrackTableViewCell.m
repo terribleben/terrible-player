@@ -57,9 +57,9 @@ NSString * const kTBPTrackTableViewCellIdentifier = @"TBPTrackTableViewCellIdent
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if (track) {
-            _lblTitle.text = track.title;
+            self->_lblTitle.text = track.title;
         } else {
-            _lblTitle.text = nil;
+            self->_lblTitle.text = nil;
         }
     });
 }

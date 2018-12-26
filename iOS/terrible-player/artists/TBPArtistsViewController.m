@@ -24,7 +24,7 @@
 @implementation TBPArtistsViewController
 
 
-#pragma mark vc lifecycle
+#pragma mark - lifecycle
 
 - (id) init
 {
@@ -86,7 +86,7 @@
 }
 
 
-#pragma mark delegate methods
+#pragma mark - delegate methods
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -132,7 +132,7 @@
 }
 
 
-#pragma mark internal methods
+#pragma mark - internal methods
 
 - (void) onModelChange:(NSNotification *)notification
 {
@@ -141,7 +141,7 @@
     if ((changeReason & kTBPLibraryModelChangeLibraryContents) != 0) {
         self.artists = [TBPLibraryModel sharedInstance].artists;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_vArtists reloadData];
+            [self->_vArtists reloadData];
         });
     }
 }

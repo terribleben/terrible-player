@@ -71,23 +71,23 @@
     _item = item;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (_item) {
-            if (_item.releaseDate && item.releaseDate.integerValue != 0) {
-                _lblDate.text = [NSString stringWithFormat:@"%ld", (long)item.releaseDate.integerValue];
+        if (self->_item) {
+            if (self->_item.releaseDate && item.releaseDate.integerValue != 0) {
+                self->_lblDate.text = [NSString stringWithFormat:@"%ld", (long)item.releaseDate.integerValue];
             } else
-                _lblDate.text = nil;
+                self->_lblDate.text = nil;
             
-            NSUInteger tracks = _item.count.unsignedIntegerValue;
-            _lblCount.text = (tracks == 1)
+            NSUInteger tracks = self->_item.count.unsignedIntegerValue;
+            self->_lblCount.text = (tracks == 1)
                 ? [NSString stringWithFormat:@"%lu track", (unsigned long)tracks]
                 : [NSString stringWithFormat:@"%lu tracks", (unsigned long)tracks];
-            _lblDuration.text = (_item.duration) ? [NSString stringFromTimeInterval:_item.duration.floatValue] : nil;
-            _vArtwork.image = (item.artwork) ? [item.artwork imageWithSize:_vArtwork.frame.size] : [UIImage imageNamed:@"platter"];
+            self->_lblDuration.text = (self->_item.duration) ? [NSString stringFromTimeInterval:self->_item.duration.floatValue] : nil;
+            self->_vArtwork.image = (item.artwork) ? [item.artwork imageWithSize:self->_vArtwork.frame.size] : [UIImage imageNamed:@"platter"];
         } else {
-            _lblDate.text = nil;
-            _lblDuration.text = nil;
-            _lblCount.text = nil;
-            _vArtwork.image = nil;
+            self->_lblDate.text = nil;
+            self->_lblDuration.text = nil;
+            self->_lblCount.text = nil;
+            self->_vArtwork.image = nil;
         }
         
         [self setNeedsLayout];

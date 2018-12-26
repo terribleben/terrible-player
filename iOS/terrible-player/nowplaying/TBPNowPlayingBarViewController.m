@@ -113,15 +113,15 @@
     
     // update UI
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (_nowPlayingItem) {
-            _lblTitle.text = _nowPlayingItem.title;
-            _vCurrentTimeProgress.hidden = NO;
-            _vPlayPause.hidden = NO;
-            _vPlayPause.isPlaying = isPlaying;
+        if (self->_nowPlayingItem) {
+            self->_lblTitle.text = self->_nowPlayingItem.title;
+            self->_vCurrentTimeProgress.hidden = NO;
+            self->_vPlayPause.hidden = NO;
+            self->_vPlayPause.isPlaying = isPlaying;
         } else {
-            _lblTitle.text = nil;
-            _vPlayPause.hidden = YES;
-            _vCurrentTimeProgress.hidden = YES;
+            self->_lblTitle.text = nil;
+            self->_vPlayPause.hidden = YES;
+            self->_vCurrentTimeProgress.hidden = YES;
         }
         
         [self.view setNeedsDisplay];
@@ -148,9 +148,9 @@
     CGFloat currentPlaybackTime = [TBPLibraryModel sharedInstance].nowPlayingProgress;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        _vCurrentTimeProgress.frame = CGRectMake(_vCurrentTimeProgress.frame.origin.x, _vCurrentTimeProgress.frame.origin.y,
-                                                 _vCurrentTimeBackground.frame.size.width * currentPlaybackTime, _vCurrentTimeProgress.frame.size.height);
-        [_vCurrentTimeBackground setNeedsDisplay];
+        self->_vCurrentTimeProgress.frame = CGRectMake(self->_vCurrentTimeProgress.frame.origin.x, self->_vCurrentTimeProgress.frame.origin.y,
+                                                       self->_vCurrentTimeBackground.frame.size.width * currentPlaybackTime, self->_vCurrentTimeProgress.frame.size.height);
+        [self->_vCurrentTimeBackground setNeedsDisplay];
     });
 }
 

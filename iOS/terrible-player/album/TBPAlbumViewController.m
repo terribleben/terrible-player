@@ -165,7 +165,7 @@
     if (self.isViewLoaded) {
         _vAlbum.item = _album;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_vTracks reloadData];
+            [self->_vTracks reloadData];
         });
     }
 }

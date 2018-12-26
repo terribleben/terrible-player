@@ -100,7 +100,7 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
 }
 
 
-#pragma mark external methods
+#pragma mark - external methods
 
 - (TBPLibraryItem *)nowPlayingItem
 {
@@ -189,15 +189,15 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
     if (_musicPlayer.playbackState == MPMusicPlaybackStatePlaying) {
         dispatch_async(dispatch_get_main_queue(), ^{
             // workaround from stack overflow
-            [_musicPlayer play];
-            [_musicPlayer pause];
+            [self->_musicPlayer play];
+            [self->_musicPlayer pause];
         });
     } else {
         if (_musicPlayer.nowPlayingItem != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 // workaround from stack overflow
-                [_musicPlayer pause];
-                [_musicPlayer play];
+                [self->_musicPlayer pause];
+                [self->_musicPlayer play];
             });
         }
     }
@@ -375,8 +375,8 @@ NSString * const kTBPLibraryDateRecomputedDefaultsKey = @"TBPLibraryDateRecomput
             [[NSNotificationCenter defaultCenter] postNotificationName:kTBPLibraryModelDidChangeNotification
                                                                 object:@(kTBPLibraryModelChangeLibraryContents)];
             
-            if (_delegate) {
-                [_delegate libraryDidEndReload:self];
+            if (self->_delegate) {
+                [self->_delegate libraryDidEndReload:self];
             }
             
             self.isLoading = @(NO);

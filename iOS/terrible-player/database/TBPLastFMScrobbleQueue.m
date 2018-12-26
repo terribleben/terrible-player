@@ -105,24 +105,34 @@
 
             __block NSArray *batch = [queued subarrayWithRange:NSMakeRange(batchIndex, batchSize)];
             __block NSMutableSet *submitted = [NSMutableSet set];
+
+            __weak typeof(self) weakSelf = self;
             
             // block to execute when we're done scrobbling for any reason
             void (^onFinishedScrobbling)(void) = ^{
+                __strong typeof(weakSelf) strongSelf = weakSelf;
+                if (!strongSelf) return;
+
                 // clear submitted scrobbles from queue
                 for (TBPQueuedScrobble *toDelete in submitted) {
                     [[TBPDatabase sharedInstance].managedObjectStore.mainQueueManagedObjectContext deleteObject:toDelete];
                 }
                 [[TBPDatabase sharedInstance] save];
-                self.isScrobbling = @(NO);
+                strongSelf.isScrobbling = @(NO);
             };
             
+            __weak void (^weakBatchFailed)(RKObjectRequestOperation *, NSError *);
             void (^batchFailed)(RKObjectRequestOperation *, NSError *) = ^(RKObjectRequestOperation *operation, NSError *error) {
                 // abort this whole endeavor
                 NSLog(@"TBPLastFMScrobbleQueue failed to submit batch, aborting: %@", error);
                 onFinishedScrobbling();
             };
             
+            __weak void (^weakBatchSucceeded)(NSDictionary *);
             void (^batchSucceeded)(NSDictionary *) = ^(NSDictionary *response) {
+                __strong typeof(weakSelf) strongSelf = weakSelf;
+                if (!strongSelf) return;
+
                 // add submitted scrobbles to submitted set
                 for (TBPQueuedScrobble *submittedScrobble in batch) {
                     [submitted addObject:submittedScrobble];
@@ -137,9 +147,11 @@
                     onFinishedScrobbling();
                 } else {
                     // submit next batch
-                    if (self.isReadyToScrobble) {
+                    if (strongSelf.isReadyToScrobble) {
                         batch = [queued subarrayWithRange:NSMakeRange(batchIndex, batchSize)];
-                        [[TBPLastFMTrackManager sharedInstance] scrobbleEnqueuedScrobbles:batch success:batchSucceeded failure:batchFailed];
+                        [[TBPLastFMTrackManager sharedInstance] scrobbleEnqueuedScrobbles:batch
+                                                                                  success:weakBatchSucceeded
+                                                                                  failure:weakBatchFailed];
                     } else {
                         // or get interrupted
                         NSLog(@"TBPLastFMScrobbleQueue interrupted clearing queue");
@@ -147,6 +159,8 @@
                     }
                 }
             };
+            weakBatchSucceeded = batchSucceeded;
+            weakBatchFailed = batchFailed;
             
             // send initial batch
             NSLog(@"TBPLastFMScrobbleQueue attempting to clear queue (%lu)...", (unsigned long)queued.count);

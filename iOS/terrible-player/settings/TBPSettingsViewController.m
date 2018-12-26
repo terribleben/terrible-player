@@ -140,22 +140,21 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([TBPLastFMSession sharedInstance].isLoggedIn) {
-            _lblSessionHeading.text = [TBPLastFMSession sharedInstance].name;
-            _lblSessionDetail.text = @"SIGNED IN WITH LAST.FM";
-            _btnSignIn.hidden = YES;
-            _btnSignOut.hidden = NO;
-            _vScrobbleContainer.hidden = NO;
-            if ([TBPLastFMSession sharedInstance].isScrobblingEnabled != _vScrobblesEnabled.isOn)
-                [_vScrobblesEnabled setOn:[TBPLastFMSession sharedInstance].isScrobblingEnabled];
+            self->_lblSessionHeading.text = [TBPLastFMSession sharedInstance].name;
+            self->_lblSessionDetail.text = @"SIGNED IN WITH LAST.FM";
+            self->_btnSignIn.hidden = YES;
+            self->_btnSignOut.hidden = NO;
+            self->_vScrobbleContainer.hidden = NO;
+            if ([TBPLastFMSession sharedInstance].isScrobblingEnabled != self->_vScrobblesEnabled.isOn)
+                [self->_vScrobblesEnabled setOn:[TBPLastFMSession sharedInstance].isScrobblingEnabled];
         } else {
-            _lblSessionHeading.text = @"Welcome to Cartridge";
-            _lblSessionDetail.text = @"SIGN IN WITH LAST.FM TO SCROBBLE";
-            _btnSignIn.hidden = NO;
-            _btnSignOut.hidden = YES;
-            _vScrobbleContainer.hidden = YES;
+            self->_lblSessionHeading.text = @"Welcome to Cartridge";
+            self->_lblSessionDetail.text = @"SIGN IN WITH LAST.FM TO SCROBBLE";
+            self->_btnSignIn.hidden = NO;
+            self->_btnSignOut.hidden = YES;
+            self->_vScrobbleContainer.hidden = YES;
         }
-        
-        [_vSessionContainer setNeedsDisplay];
+        [self->_vSessionContainer setNeedsDisplay];
     });
 }
 

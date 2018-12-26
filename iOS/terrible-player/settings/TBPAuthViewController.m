@@ -155,8 +155,8 @@
             [[TBPLastFMAuthManager sharedInstance] authenticateWithUsername:_vUsername.text password:_vPassword.text success:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self endLoading];
-                    if (_delegate) {
-                        [_delegate authViewControllerDidSignIn:self];
+                    if (self->_delegate) {
+                        [self->_delegate authViewControllerDidSignIn:self];
                     }
                 });
             } failure:^(RKObjectRequestOperation *operation, NSError *error) {
