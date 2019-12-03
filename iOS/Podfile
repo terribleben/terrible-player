@@ -1,6 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '9.0'
+inhibit_all_warnings!
 
 target 'terrible-player' do
   pod 'AFNetworking', "~> 1.2"   # can't use 2.x with restkit, will upgrade when available.
