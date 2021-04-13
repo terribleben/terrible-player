@@ -52,6 +52,8 @@ NSString * const kTBPArtistsTableViewCellIdentifier = @"TBPArtistsTableViewCellI
     CGFloat sqrSide = MIN(64.0f, self.frame.size.height * 0.85f);
     CGFloat margin = MAX(4.0f, MIN(12.0f, self.frame.size.height * 0.075f));
     _vArtwork.frame = CGRectMake(margin, margin, sqrSide, sqrSide);
+    _vArtwork.layer.cornerRadius = 4;
+    _vArtwork.clipsToBounds = YES;
     
     CGFloat titleX = _vArtwork.frame.origin.x + _vArtwork.frame.size.width + (margin * 4.0f);
     _lblTitle.frame = CGRectMake(titleX, margin,

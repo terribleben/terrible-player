@@ -75,7 +75,7 @@
 
 - (void) animateFrame:(CADisplayLink *)link
 {
-    CGFloat dt = link.duration * (CGFloat)link.frameInterval;
+    CGFloat dt = link.targetTimestamp - link.timestamp;
     
     // if playing, accelerate the turntable up to 33 RPM
     if (_isPlaying && platterVelocity < TBP_TURNTABLE_RPS) {
