@@ -120,7 +120,7 @@
 {
     [super viewWillLayoutSubviews];
     
-    _vSessionContainer.frame = CGRectMake(0, 0, self.view.frame.size.width, 64.0f);
+    _vSessionContainer.frame = CGRectMake(0, 48.0f, self.view.frame.size.width, 64.0f);
     _btnSignIn.center = CGPointMake(_vSessionContainer.frame.size.width - 28.0f, _vSessionContainer.frame.size.height * 0.5f);
     _btnSignOut.center = _btnSignIn.center;
     _lblSessionHeading.frame = CGRectMake(12.0f, 8.0f, _btnSignIn.frame.origin.x - 24.0f, 32.0f);
